@@ -24,7 +24,7 @@ This part of the tutorial focuses on how the [integration](https://www.3scale.ne
 3scale’s API Management Platform also supports the unique requirements of delivering APIs on the Amazon Web Services (AWS) infrastructure stack -- fexibly, at scale and with great RoI. API providers on AWS don’t have to switch solutions to get Amazon API gateway features like distributed denial-of-service (DDoS) attack protection, caching and logging. Plus, adding 3scale provides rich, sophisticated API management business operations for fine-grained API control and visibility, as well as features for API adoption and promotion. Check out the details about this [integrated solution](https://www.3scale.net/amazon-gateway-integration/).
 
 ## Goals of this tutorial
-You've seen the importance of API management when you are developing and exposing APIs. In this tutorial we will show how to add an API management layer to your existing API. This existing API has been deployed using the Amazon API Gateway and Lambda.
+You've seen the importance of API management when you are developing and exposing APIs. In this tutorial we will show how to add an API management layer to your existing API. 
 
 For this tutorial you will use:
 
@@ -35,14 +35,30 @@ For this tutorial you will use:
 * Serverless framework: for making configuration and deployment to Lambda a lot easier
 * 3scale API management platform for API contracts on tiered application plans, monetization, and developer portals with interactive API documentation
 
-Here is a diagram describing the integration.
+Below are two overview diagrams that describe the various components involved and their interactions. The first diagram shows what happens when a certain API endpoint is called for the first time togehter with a certain API key.
 
 ![3scale Custom Authorizer FirstCall](https://raw.githubusercontent.com/ManfredBo/talks/master/awsLoftLondon/img/AAG-Custom-Authorizer-FirstCall.PNG)
 
+Here is the flow for the first call:
+1. Amazon API Gateway checks the 3scale custom authorizer if this call is authorized.
+2. The 3scale custom authorizer checks if the authorization info is stored in the cache.
+3. Since it is the first call, there is no info stored in the cache. So, the 3scale custom authorizer queries the 3scale API Management platform, which returns whether this call is authorized or not.
+4. The 3scale custom authorizer updates the cache accordingly.
+5. The 3scale custom authorizer returns the authorization response to the Amazon API Gateway.
+6. If the call was positively authorized, the Amazon API Gateway directly queries the API backend, which in our case is a Lambda function. 
+
+The second diagram below shows what happens at every subsequent request to the same  API endpoint with the same API key.
+
 ![3scale Custom Authorizer SubsequentCalls](https://raw.githubusercontent.com/ManfredBo/talks/master/awsLoftLondon/img/AAG-Custom-Authorizer-SubsequentCalls.PNG)
 
-And another one more specific to 3scale plugin showcase connection to elastic search, emphasize VPC.
-`TODO: What goes here ??`
+Here is the flow for every subsequent call:
+1. Amazon API Gateway checks the 3scale custom authorizer if this call is authorized.
+2. The 3scale custom authorizer checks if the authorization info is stored in the cache. Since other calls have previously been executed, the cache has the authorization info stored. 
+3. The 3scale custom authorizer returns the authorization response to the Amazon API Gateway.
+4. If the call was positively authorized, the Amazon API Gateway directly queries the API backend, which in our case is a Lambda function. 
+5. The 3scale custom authorizer calls the 3scale Async Reporting Function.
+6. The 3scale Async Reporting Function reports the traffic back to the 3scale API Management platform, which is used for API analytics. 
+
 
 ##Prerequisites for this tutorial
 * 3scale account -- sign up at [3scale.net](https://www.3scale.net/) `TODO: add specific signup URL landing page`
