@@ -40,6 +40,7 @@ Below are two overview diagrams that describe the various components involved an
 ![3scale Custom Authorizer FirstCall](https://raw.githubusercontent.com/ManfredBo/talks/master/awsLoftLondon/img/AAG-Custom-Authorizer-FirstCall.PNG)
 
 Here is the flow for the first call:
+
 1. Amazon API Gateway checks the 3scale custom authorizer if this call is authorized.
 2. The 3scale custom authorizer checks if the authorization info is stored in the cache.
 3. Since it is the first call, there is no info stored in the cache. So, the 3scale custom authorizer queries the 3scale API Management platform, which returns whether this call is authorized or not.
@@ -51,7 +52,8 @@ The second diagram below shows what happens at every subsequent request to the s
 
 ![3scale Custom Authorizer SubsequentCalls](https://raw.githubusercontent.com/ManfredBo/talks/master/awsLoftLondon/img/AAG-Custom-Authorizer-SubsequentCalls.PNG)
 
-Here is the flow for every subsequent call:
+Here is the flow for every subsequent call: 
+
 1. Amazon API Gateway checks the 3scale custom authorizer if this call is authorized.
 2. The 3scale custom authorizer checks if the authorization info is stored in the cache. Since other calls have previously been executed, the cache has the authorization info stored. 
 3. The 3scale custom authorizer returns the authorization response to the Amazon API Gateway.
