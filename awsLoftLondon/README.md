@@ -14,13 +14,14 @@ Blablablabla
 General graph
 
 ## Solution
-We've seen the importance of API management solution when you are developping APIs. We will now add an API management layer to our existing API. This existing API has been deployed using the AWS API Gateway.
+We've seen the importance of API management solution developping APIs. We will now add an API management layer to our existing API. This existing API has been deployed using the AWS API Gateway.
 
 For this integration we will use:
 
 * API Gateway (core of the API)
 * AWS Lamda (for the logic of the "proxy")
 * Elasticache (to cache api keys)
+* AWS SNS (to call Lambda functions async)
 * VPC (to connect AWS Lambda and Elasticache)
 * Serverless framework (to deploy easily to Lambda)
 
@@ -58,4 +59,54 @@ Once the cluster is ready, go on the node created, and get the Endpoint URL. We 
 We will now work on the Lambda side of the integration. This is where the logic of the custom authorizer will be defined. 
 This Lambda function will call 3scale to authorize access to the API.
 
-We will be using Serverless framework to deploy Lambda functions easily.
+We will be using Serverless framework to deploy Lambda functions easily. If you are not familiar with it, check their [site](http://serverless.com).
+It's basically a tool that helps you manage Lambda functions easily.
+
+Clone [this repo](https://github.com/picsoung/awsThreeScale_Authorizer) locally 
+
+```
+git clone https://github.com/picsoung/awsThreeScale_Authorizer
+cd awsThreeScale_Authorizer
+```
+
+In `awsThreeScale_Authorizer` folder you will see two different folders, they represent the two Lambda function we are going to use.
+`authorizer` is the function that will be called by the API Gateway to authorize incoming API calls.
+`authrepAsync` will be called by `authorizer` function to sync cache with 3scale servers.
+
+Before deploying this to AWS we need to do few more steps.
+
+At the root `awsThreeScale_Authorizer` and on each function folders run `npm install` command. This will install all the NPM plugins needed.
+
+The logic of each Lambda is happening on `handler.js` file but we should have to touch it. If you look at the code in this file you may see that we are using environemment variables.
+Let's setup them.
+
+In `authorizer` and `authrepAsync` folders:
+
+Open `s-function_example.js` file and rename it `s-function.js`
+Then under `environment` property change the placeholder values for THREESCALE and ELASTICACHE
+
+```
+"environment": {
+  "SERVERLESS_PROJECT": "${project}",
+  "SERVERLESS_STAGE": "${stage}",
+  "SERVERLESS_REGION": "${region}",
+  "THREESCALE_PROVIDER_KEY":"YOUR_3SCALE_PROVIDER_KEY",
+  "THREESCALE_SERVICE_ID":"YOUR_3SCALE_SERVICE_ID",
+  "ELASTICACHE_ENDPOINT":"YOUR_ELASTICACHE_ENDPOINT",
+  "ELASTICACHE_PORT":6379
+},
+```
+
+You can find your 3scale provider key, under `Accounts` in your 3scale account. 
+
+[Screenshot]
+
+Service ID could be found under `APIs`
+[screenshot]
+
+To find the Elastic Enpoingt, go on your AWS console and click on the cluster you have created before. You should see the endpoint URL.
+
+[screenshot]
+
+In the `s-function.json` file for `authorizer function` you may see a `SNS_TOPIC_ARN` property. Leave it like it it for now, we will come back to it later. 
+
