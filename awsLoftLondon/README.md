@@ -53,11 +53,12 @@ And another one more specific to 3scale plugin showcase connection to elastic se
 
 
 ##Intro to the Amazon API Gateway custom authorizer principles
-`TODO`
+With the Amazon API Gateway custom authorizer, you can control access to your APIs using bearer token authentication strategies, such as OAuth or SAML. To do so, you provide and configure a custom authorizer (basically your own Lambda function) for the Amazon API Gateway, which is then used to authorize the client requests for the configured APIs. You can find all the details how to do this in a dedicated Amazon API Gateway [tutorial](http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html).
 
+In the next section, we describe the our custom authorizer that we wrote to authorize API calls against the 3scale API Management platform.
 
 ##Create and deploy the 3scale-specific custom authorizer
-`TODO`
+`TODO: Nico`
 
 
 ## (optional) Create an API and deployed it do AWS API gateway
