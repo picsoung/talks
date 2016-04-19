@@ -36,7 +36,10 @@ For this tutorial you will use:
 * 3scale API management platform for API contracts on tiered application plans, monetization, and developer portals with interactive API documentation
 
 Here is a diagram describing the integration.
-`TODO: use our standard diagram and describe api call flow`
+
+![3scale Custom Authorizer FirstCall](https://raw.githubusercontent.com/ManfredBo/talks/master/awsLoftLondon/img/AAG-Custom-Authorizer-FirstCall.PNG)
+
+![3scale Custom Authorizer SubsequentCalls](https://raw.githubusercontent.com/ManfredBo/talks/master/awsLoftLondon/img/AAG-Custom-Authorizer-SubsequentCalls.PNG)
 
 And another one more specific to 3scale plugin showcase connection to elastic search, emphasize VPC.
 `TODO: What goes here ??`
