@@ -104,7 +104,7 @@ Then under `environment` property change the placeholder values for THREESCALE a
 
 You can find your 3scale provider key, under `Accounts` in your 3scale account.
 
-[Screenshot]
+[Screenshot] 
 
 Service ID could be found under `APIs`
 [screenshot]
