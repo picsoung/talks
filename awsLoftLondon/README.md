@@ -35,6 +35,18 @@ showcase connection to elastic search, emphasize VPC
 ##Create and deploy the 3scale-specific custom authorizer
 `TODO`
 
+## (optional) Create an API and deployed it do AWS API gateway
+If you don't have an API deployed on API gateway you can create one very easily using Serverless.
+
+First create a project `sls create project`
+then create a function `sls function create greetings`
+this will create a `greetings` folder.
+To see the result of an API call you can run locally `sls function run`.
+
+Finally you can deploy this endpoint using `sls dash deploy` command.
+We will use this API during the rest of our tutorial.
+ 
+
 ##Setting up the Amazon Virtual Private Cloud (VPC)
 To reduce latency and have a system that will handle the load of thousands requests, we will use elasticache. There we will store API keys that were authorized to make request to the API. This will help to reduce the calls to the main 3scale platform.
 
@@ -114,3 +126,119 @@ To find the Elastic Enpoingt, go on your AWS console and click on the cluster yo
 [screenshot]
 
 In the `s-function.json` file for `authorizer function` you may see a `SNS_TOPIC_ARN` property. Leave it like it it for now, we will come back to it later.
+
+In the `s-function.json` you should have seen a `vpc` section too. In both files replace it with the securitygroup and the subnets we have created before.
+The VPC section should look like this now:
+
+```
+"vpc": {
+    "securityGroupIds": ["ID_OF_SECURITY_GROUP"],
+    "subnetIds": ["ID_OF_SUBNET","ID_OF_ANOTHER_SUBNET"]
+  }
+```
+This part of the configuration assigns a VPC to the Lambda function, so it can communicate with Elasticcache.
+
+We are now done with the settings of our Lambda functions. We can now deploy them using the `sls dash deploy` command.
+you can select both functions and then select deploy
+
+[screenshot]
+
+
+## Add custom authorizer to API Gateway
+We are now going to add the custom authorizer functions we just deployed to our existing API on the API Gateway.
+
+To do so: go to the API Gateway console and select your API. You should see a section named `Custom Authorizers` on the left menu. Click on it.
+
+Click on `Create` button to create your custom authorizer.
+Name it `threescale`, choose the region where your Lambda has been deployed, and look for the authorizer function you have deployed earlier.
+
+Under `Identify token source` modify it to `method.request.header.apikey`. It means that we are expecting developers to make a call to our API with a header `apikey`, and we will use this key to authenticate the request.
+Finally change TTL to 0. The authorizer is already handling caching.
+
+We now have a custom authorizer. We now have to apply it to our API endpoints.
+
+Go on the `Resources` part of your API.
+Select a method, and click on the `method request` box.
+There you should change `Authorization` to the custom authorizer you have created before.
+Once you are done, save, and re-deploy your API.
+
+You would have to reproduce these steps on each endpoint of your API to make sure all your API is secured. But for now we can limit it to a simple endpoint.
+
+## Test integration
+
+You are almost done!
+We now need to test that everything worked as planned.
+
+You need to go to your 3scale account to find a valid API key.
+Once you are in your 3scale dashboard go under `Developers` section and click on the default account.
+There you should see all the details about this developer account and the details of his applications.
+Click on the name of one of his applications.
+
+[Screenshot]
+
+On the next screen you see details of this application like on which plan it is, the traffic over the 30 days.
+We can look at those features later, now we are only interested by the `User Key`, copy it.
+
+We will now make a call to your API on the endpoint where we setup the custom authorizer using the API key we got from 3scale to authenticate ourselves.
+
+Open a Terminal command an run the following command
+
+curl -X http://YOUR_API_GATEWAY_URL/YOURENDPOINT \
+	-H 'apikey: 3SCALE_API_KEY'
+	
+If all worked as planned you should see the result of your API call.
+Now let's try with a non valid Key, replace the key with any random string.
+See? It does not work.
+
+Your API is now protected and only accessible to people with an API key.
+
+## Finishing up integration using SNS
+The Authorizer function will be called every time a request comes on the API Gateway. We don't want to have to call 3scale every time to check if key is authorized or not.
+That's where Elasticache will become handy. 
+The first time we see an API key we will ask 3scale to authorize it. We then store the result in cache so we can serve it next time the key is making another call.
+We will then use the `authRepAsync` function to sync cache with the 3scale platform.
+
+This `authRepAsync` function will be called by the main authorizer function using SNS protocol.
+SNS is a notifications protocol available AWS. Lambda functions could subscribe to a specific topic. And every time a message is sent on this topic the Lambda function will be triggered.
+
+### Create a SNS topic#
+In your AWS console, go under SNS service.
+Create a new topic name it `threescaleAsync`.
+Once created click on this new topic.
+
+There click create subscription button.
+Select `AWS Lambda` as protocol.
+Find the `authRepAsync` function in the endpoint menu.
+And keep `default` as a version.
+
+Now, we have `authRepAsync` Lambda that has subscribed to this topic. Copy the ARN of this topic.
+
+
+### Attach policy to Lambda function
+To be able to send SNS message to a topic a Lambda needs to have the correct policy.
+You could achieve that adding the following policy
+
+```
+{
+	"Effect": "Allow",
+	"Action": [
+		"sns:Publish"
+	],
+	"Resource": [
+		"YOUR_SNS_TOPIC_ARN"
+	]              
+}
+```
+at the root of your project under in the `s-ressources-cf.json` file. 
+
+### Send SNS message to this topic
+In your Serverless code it's time to update the `s-function.json` file for `authorizer` function.
+There replace on the line `  "SNS_TOPIC_ARN":"YOUR_SNS_TOPIC"`
+replace `YOUR_SNS_TOPIC` by the ARN of the SNS topic you just created.
+
+Check in the `handler.js` file how we are sending the message.
+
+You can now redeploy your function. Caching should work.
+To see if it works you can look at the logs of the `authRepAsync` function.
+
+
