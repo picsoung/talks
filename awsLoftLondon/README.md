@@ -7,26 +7,47 @@ The workshop is held at the AWS Pop-up Loft London on April 25th, 9:00AM - 1:00P
 
 This part of the tutorial focuses on how the [integration](https://www.3scale.net/amazon-gateway-integration/) between 3scale, Amazon API Gateway and Lambda can be achieved practically.
 
-For this integration we will use:
+## Table of Contents
 
-* API Gateway (core of the API)
-* AWS Lamda (for the logic of the "proxy")
-* Elasticache (to cache api keys)
-* AWS SNS (to call Lambda functions async)
-* VPC (to connect AWS Lambda and Elasticache)
-* Serverless framework (to deploy easily to Lambda)
+* Intro to [3scale](https://www.3scale.net/) API Management
+* Goals of this tutorial
+* Prerequisites for this tutorial
+* Setting up the Amazon Virtual Private Cloud (VPC)
+* Setting up Elasticache
+* Creating the Lambda code
+* Intro to the Amazon API Gateway [custom authorizer](http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorization-overview) principles
+* Create and deploy the 3scale-specific custom authorizer
 
-Here is a graph describing the integration.
+## Intro to 3scale API Management
+3scale makes it easy to open, secure, manage, distribute, control, and monetize your APIs. Built with performance, customer control and excellent time-to-value in mind, no other solution gives API providers so much power, ease, flexibility and scalability in such a cost effective way. Check it out at https://www.3scale.net
 
-And another one more specific to 3scale plugin
-showcase connection to elastic search, emphasize VPC
+3scale’s API Management Platform also supports the unique requirements of delivering APIs on the Amazon Web Services (AWS) infrastructure stack -- fexibly, at scale and with great RoI. API providers on AWS don’t have to switch solutions to get Amazon API gateway features like distributed denial-of-service (DDoS) attack protection, caching and logging. Plus, adding 3scale provides rich, sophisticated API management business operations for fine-grained API control and visibility, as well as features for API adoption and promotion. Check out the details about this [integrated solution](https://www.3scale.net/amazon-gateway-integration/).
+
+## Goals of this tutorial
+You've seen the importance of API management when you are developing and exposing APIs. In this tutorial we will show how to add an API management layer to your existing API. This existing API has been deployed using the Amazon API Gateway and Lambda.
+
+For this tutorial you will use:
+
+* Amazon API Gateway: for basic API traffic management
+* AWS Lambda: for implementing the logic behind your API
+* Elasticache: for caching API keys and improving performance
+* VPC: for connecting AWS Lambda with Elasticache
+* Serverless framework: for making configuration and deployment to Lambda a lot easier
+* 3scale API management platform for API contracts on tiered application plans, monetization, and developer portals with interactive API documentation
+
+Here is a diagram describing the integration.
+`TODO: use our standard diagram and describe api call flow`
+
+And another one more specific to 3scale plugin showcase connection to elastic search, emphasize VPC.
+`TODO: What goes here ??`
 
 ##Prerequisites for this tutorial
-* 3scale account – sign up at [3scale.net](https://www.3scale.net/) `TODO: add specific signup URL landing page`
-* AWS account – sign up at http://aws.amazon.com
+* 3scale account -- sign up at [3scale.net](https://www.3scale.net/) `TODO: add specific signup URL landing page`
+* AWS account -- sign up at http://aws.amazon.com
 * AWS command line interface (CLI) installed locally -- ([Instructions](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html))
 * Node.js environment installed locally -- ([Instructions](https://docs.npmjs.com/getting-started/installing-node))
 * Serverless framework installed locally -- ([Instructions](https://github.com/serverless/serverless))
+
 
 ##Intro to the Amazon API Gateway custom authorizer principles
 `TODO`
@@ -34,6 +55,7 @@ showcase connection to elastic search, emphasize VPC
 
 ##Create and deploy the 3scale-specific custom authorizer
 `TODO`
+
 
 ## (optional) Create an API and deployed it do AWS API gateway
 If you don't have an API deployed on API gateway you can create one very easily using Serverless.
@@ -45,10 +67,10 @@ To see the result of an API call you can run locally `sls function run`.
 
 Finally you can deploy this endpoint using `sls dash deploy` command.
 We will use this API during the rest of our tutorial.
- 
+
 
 ##Setting up the Amazon Virtual Private Cloud (VPC)
-To reduce latency and have a system that will handle the load of thousands requests, we will use elasticache. There we will store API keys that were authorized to make request to the API. This will help to reduce the calls to the main 3scale platform.
+To reduce latency and have an API stack that is capable of handling the load of thousands of requests, we will use [Amazon Elasticache](https://aws.amazon.com/elasticache/). There we will store API keys that were authorized to make request to the API. This will help reducing the number of calls to the main 3scale platform and consequently improve the overall API stack performance.
 
 Elasticache is only available through VPC. To be able to call Elasticache into Lambda, the Lambda function has to be on the same VPC.
 
@@ -121,7 +143,7 @@ You can find your 3scale provider key, under `Accounts` in your 3scale account.
 Service ID could be found under `APIs`
 [screenshot]
 
-To find the Elastic Enpoingt, go on your AWS console and click on the cluster you have created before. You should see the endpoint URL.
+To find the Elastic Enpoint, go on your AWS console and click on the cluster you have created before. You should see the endpoint URL.
 
 [screenshot]
 
@@ -185,7 +207,7 @@ Open a Terminal command an run the following command
 
 curl -X http://YOUR_API_GATEWAY_URL/YOURENDPOINT \
 	-H 'apikey: 3SCALE_API_KEY'
-	
+
 If all worked as planned you should see the result of your API call.
 Now let's try with a non valid Key, replace the key with any random string.
 See? It does not work.
@@ -194,7 +216,7 @@ Your API is now protected and only accessible to people with an API key.
 
 ## Finishing up integration using SNS
 The Authorizer function will be called every time a request comes on the API Gateway. We don't want to have to call 3scale every time to check if key is authorized or not.
-That's where Elasticache will become handy. 
+That's where Elasticache will become handy.
 The first time we see an API key we will ask 3scale to authorize it. We then store the result in cache so we can serve it next time the key is making another call.
 We will then use the `authRepAsync` function to sync cache with the 3scale platform.
 
@@ -229,7 +251,7 @@ You could achieve that adding the following policy
 	]              
 }
 ```
-at the root of your project under in the `s-ressources-cf.json` file. 
+at the root of your project under in the `s-ressources-cf.json` file.
 
 ### Send SNS message to this topic
 In your Serverless code it's time to update the `s-function.json` file for `authorizer` function.
@@ -240,5 +262,3 @@ Check in the `handler.js` file how we are sending the message.
 
 You can now redeploy your function. Caching should work.
 To see if it works you can look at the logs of the `authRepAsync` function.
-
-
