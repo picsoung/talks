@@ -27,8 +27,8 @@ This part of the tutorial focuses on how the [integration](https://www.3scale.ne
 
 
 <a name="goals"></a>
-## Goals of this tutorial 
-You've seen the importance of API management when you are developing and exposing APIs. In this tutorial we will show how to add an API management layer to your existing API. 
+## Goals of this tutorial
+You've seen the importance of API management when you are developing and exposing APIs. In this tutorial we will show how to add an API management layer to your existing API.
 
 For this tutorial you will use:
 
@@ -51,25 +51,25 @@ Here is the flow for the first call:
 3. Since it is the first call, there is no info stored in the cache. So, the 3scale custom authorizer queries the 3scale API Management platform, which returns whether this call is authorized or not.
 4. The 3scale custom authorizer updates the cache accordingly.
 5. The 3scale custom authorizer returns the authorization response to the Amazon API Gateway.
-6. If the call was positively authorized, the Amazon API Gateway directly queries the API backend, which in our case is a Lambda function. 
+6. If the call was positively authorized, the Amazon API Gateway directly queries the API backend, which in our case is a Lambda function.
 
 The second diagram below shows what happens at every subsequent request to the same  API endpoint with the same API key.
 
 <a name="subsequentcalls"></a>
 ![3scale Custom Authorizer SubsequentCalls](https://raw.githubusercontent.com/ManfredBo/talks/master/awsLoftLondon/img/AAG-Custom-Authorizer-SubsequentCalls.PNG)
 
-Here is the flow for every subsequent call: 
+Here is the flow for every subsequent call:
 
 1. Amazon API Gateway checks the 3scale custom authorizer if this call is authorized.
-2. The 3scale custom authorizer checks if the authorization info is stored in the cache. Since other calls have previously been executed, the cache has the authorization info stored. 
+2. The 3scale custom authorizer checks if the authorization info is stored in the cache. Since other calls have previously been executed, the cache has the authorization info stored.
 3. The 3scale custom authorizer returns the authorization response to the Amazon API Gateway.
-4. If the call was positively authorized, the Amazon API Gateway directly queries the API backend, which in our case is a Lambda function. 
+4. If the call was positively authorized, the Amazon API Gateway directly queries the API backend, which in our case is a Lambda function.
 5. The 3scale custom authorizer calls the 3scale Async Reporting Function.
-6. The 3scale Async Reporting Function reports the traffic back to the 3scale API Management platform, which is used for API analytics. 
+6. The 3scale Async Reporting Function reports the traffic back to the 3scale API Management platform, which is used for API analytics.
 
 <a name="prerequisites"></a>
 ## Prerequisites for this tutorial
-* 3scale account -- sign up at [3scale.net](https://www.3scale.net/aws-loft/ ) 
+* 3scale account -- sign up at [3scale.net](https://www.3scale.net/aws-loft/ )
 * AWS account -- sign up at [aws.amazon.com](http://aws.amazon.com)
 * AWS command line interface (CLI) installed locally -- ([Instructions](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html))
 * Node.js environment installed locally -- ([Instructions](https://docs.npmjs.com/getting-started/installing-node))
@@ -81,18 +81,20 @@ With the Amazon API Gateway custom authorizer, you can control access to your AP
 
 In the next section, we describe the our custom authorizer that we wrote to authorize API calls against the 3scale API Management platform.
 
-
-
 ## (Optional) Create an API and deployed it to Amazon API gateway
-If you don't yet have an API deployed on Amazon API gateway you can create one very easily using the [Serverless](https://github.com/serverless/serverless) framework. `sls` is the Serverless CLI which you should have installed on your system as part of the prerequisites of this tutorial. 
+If you don't yet have an API deployed on Amazon API gateway you can create one very easily using the [Serverless](https://github.com/serverless/serverless) framework. `sls` is the Serverless CLI which you should have installed on your system as part of the prerequisites of this tutorial.
 
 Follow the following steps:
 
 1. Create a project: `sls create project`
 2. Create a function: `sls function create greetings` (This will create a `greetings` folder.)
+![serverless - create function](./img/sls - function create.png)
 3. Check if it's working and the result of an API call by locally running:  `sls function run`.
-4. Finally deploy this endpoint using: `sls dash deploy` 
+4. Finally deploy this endpoint using: `sls dash deploy`
 
+![serverless dash deploy](./img/sls - dash deploy.png)
+
+If it succeeded it should give you the URL of the API created.
 We will use this API during the rest of our tutorial.
 
 <a name="vpc"></a>
@@ -103,28 +105,61 @@ Elasticache is only available through the [Amazon Virtual Private Cloud](https:/
 
 Our 3scale custom authorizer function will make calls to the 3scale API management platform, which is outside of the VPC. We will now configure the VPC to make sure it can connect to the internet, outside of VPC.
 
-If don't have a VPC, let's create one by following these steps:
+If don't have a VPC, create one first and then follow these steps:
 
 1. Go to ... `TODO: nico add where to go` You can use the default one.
 2. Create a NAT gateway and an Internet gateway.
 3. Create a new route table.
 4. Once the route table is created, edit the routes. Point `0.0.0.0/0` to the NAT gateway you created earlier.
-5. Attach this rule to a subnet in your VPC. For this, select an existing subnet. 
+![aws vpc route creation](./img/aws-vpc route table.png)
+5. Attach this rule to a subnet in your VPC. For this, select an existing subnet.
+![aws vpc attach route table](./img/aws - subnet route table.png)
 6. Select the route table you just created on the route tables tab.
 
-And that's it for the VPC part. 
+And that's it for the VPC part.
 You know have a VPC, that's know connected to the Internet. We will see later how to put Elasticache and Lambda on this VPC.
 
 `TODO: nico add screenshot showing where in the console a user has to configure this.`
 
 <a name="elasticache"></a>
 ##Setting up Elasticache
-[Elasticache](https://aws.amazon.com/elasticache/) is a service offered by AWS to cache stuff simply and access it quickly. It supports both Memcached and Redis. In our example we will use Redis.
+
+[Elasticache](https://aws.amazon.com/elasticache/) is a service offered by AWS to cache data simply and access it quickly. It supports both Memcached and Redis. In our example we will use Redis.
 
 Follow these steps:
 
 1. Go on Elasticache section in your AWS console.
-2. Create a Redis cluster under the VPC you defined before. You don't specially need replication for this tutorial.
+2. Create a Redis cluster under the VPC you defined before.
+3. Uncheck replication box
+4. Change Node type to `cache.t2.micro`  (eligible for free tier).
+
+![aws elasticache config](./img/aws_elasticache_config.png)
+
+5. On the next step, select your VPC and launch the cluster.
+
+![aws elasticache VPC config](./img/aws_elasticache_config2.png)
+
+There is no more setup to do on the Elasticache cluster.
+Once the cluster is ready, go on the node created, and get the Endpoint URL. We will need it later on in the tutorial.
+
+##Creating the Lambda code
+We will now work on the Lambda side of the integration. This is where the logic of the custom authorizer will be defined.
+This Lambda function will call 3scale to authorize access to the API.
+
+We will be using Serverless framework to deploy Lambda functions easily. If you are not familiar with it, check their [site](http://serverless.com).
+It's basically a tool that helps you manage Lambda functions easily.
+
+Clone [this repo](https://github.com/picsoung/awsThreeScale_Authorizer) locally
+
+```
+git clone https://github.com/picsoung/awsThreeScale_Authorizer
+cd awsThreeScale_Authorizer
+```
+
+In `awsThreeScale_Authorizer` folder you will see two different folders, they represent the two Lambda function we are going to use.
+`authorizer` is the function that will be called by the API Gateway to authorize incoming API calls.
+`authrepAsync` will be called by `authorizer` function to sync cache with 3scale servers.
+
 
 `TODO: nico add screenshot showing the elasticache section on the AWS console`
 
@@ -135,7 +170,7 @@ Once the cluster is ready, go on the node created, and get the Endpoint URL. We 
 `TODO: nico add screenshot showing where to get this endpoint url from`
 
 <a name="lambda"></a>
-##Creating Lambda code for the custom authorizer 
+##Creating Lambda code for the custom authorizer
 We will now work on the code for the Lambda function that represents the custom authorizer. This Lambda function will call the 3scale API Management platform to check if a call to the API is authorized.
 
 We are using the Serverless framework, which is a great way to deploy Lambda functions easily. If you are not familiar with it, check their [site](http://serverless.com). It's basically a tool that helps you manage Lambda functions easily.
@@ -144,25 +179,25 @@ Follow these steps to get the Lambda function that represents the 3scale custom 
 
 1. Clone [this repo](https://github.com/picsoung/awsThreeScale_Authorizer) locally using the following commands:
 	```
-	git clone 
+	git clone
 	https://github.com/picsoung/awsThreeScale_Authorizer
 	cd awsThreeScale_Authorizer
 	```
-	
+
 2. In the `awsThreeScale_Authorizer` folder you will see two different folders, which represent the two Lambda function we are going to use:
 * `authorizer` is the Lambda function that is called by the Amazon API Gateway to authorize incoming API calls (see the [first diagram above](#firstcall)).
 * `authrepAsync` is called by the `authorizer` function to sync with the 3scale API Management platform for API traffic reporting and analytics (see the [second diagram above](#subsequentcalls)).
 
-Before deploying this to AWS we need to complete a few more tasks. 
+Before deploying this to AWS we need to complete a few more tasks.
 
-First, at the root of `awsThreeScale_Authorizer` and on each function folder run the `npm install` command. This will install all the NPM plugins needed. 
+First, at the root of `awsThreeScale_Authorizer` and on each function folder run the `npm install` command. This will install all the NPM plugins needed.
 
 The logic of each Lambda function is kept in the `handler.js` file but we don't have to touch it. If you look at the code in this file you will see that we are using environment variables. So, let's set them up:
 
 1. Go to the `authorizer` and `authrepAsync` folders.
 2. Open the `s-function_example.js` file and rename it to `s-function.js`
 
-	```	
+	```
 	"environment": {
 		"SERVERLESS_PROJECT": "${project}",
 		"SERVERLESS_STAGE": "${stage}",
@@ -181,7 +216,7 @@ For the `YOUR_ELASTICACHE_ENDPOINT`, go on your AWS console and click on the clu
 `TODO: nico add screenshot showing where in AWS console to find the elasticache endpoint url`
 3. In the `s-function.json` file for `authorizer function` you will see a `SNS_TOPIC_ARN` property. Leave it like it is for now, we will come back to it later.
 4. In the `s-function.json` you have a `vpc` section, too. In both files replace it with the securitygroup and the subnets we have created before. The VPC section should look like this now:
-	
+
 	```
 	"vpc": {
 	    "securityGroupIds": ["ID_OF_SECURITY_GROUP"],
@@ -190,10 +225,10 @@ For the `YOUR_ELASTICACHE_ENDPOINT`, go on your AWS console and click on the clu
 	```
 This part of the configuration assigns a VPC to the Lambda function, so it can communicate with Elasticcache.
 
-We are now done with the settings of our Lambda functions that represent the 3scale custom authorizer. 
+We are now done with the settings of our Lambda functions that represent the 3scale custom authorizer.
 
-Now finally, let's deploy these two Lambda functions using Serverless again: 
-`sls dash deploy` 
+Now finally, let's deploy these two Lambda functions using Serverless again:
+`sls dash deploy`
 
 Next, select both functions and then select deploy.
 
