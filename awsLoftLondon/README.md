@@ -267,22 +267,20 @@ Now let's test if everything worked fine:
 1. Go to your 3scale account on the 3scale portal.
 2. Take a valid API key. Anyone would do. Once you are logged in to your 3scale account go to the `Developers` section.
 3. Click on the default account. 
-4. You will see all the details about this developer account and the details of his applications.
-Click on the name of one of his applications.
-
+4. You will see all the details about this developer account and the details of the applications associated with this account.
+5. Click on the name of one of these applications.
 `TODO: nico add screenshot showing these configurations`
+6. On the next screen you see details about this application like what plan it is associated with, or the traffic over the last 30 days. We can look at those features later, now we are only interested in the `User Key`. Copy it.
 
-On the next screen you see details of this application like on which plan it is, the traffic over the 30 days.
-We can look at those features later, now we are only interested by the `User Key`, copy it.
+Finally, to test the whole API flow end-to-end including authorization via custom authorizer and 3scale API Management platform, we make a call to your API endpoint and include the API key as a header. 
 
-We will now make a call to your API on the endpoint where we setup the custom authorizer using the API key we got from 3scale to authenticate ourselves.
+To do that, open a terminal and run the following command (alternatively you could also use a client like [Postman](https://www.getpostman.com/)):
 
-Open a Terminal command an run the following command
+`curl -X http://YOUR_API_GATEWAY_URL/YOURENDPOINT \
+	-H 'apikey: 3SCALE_API_KEY'`
 
-curl -X http://YOUR_API_GATEWAY_URL/YOURENDPOINT \
-	-H 'apikey: 3SCALE_API_KEY'
+If we did it all correctly, then you will see the result of your API call returned. 
 
-If all worked as planned you should see the result of your API call.
 Now let's try with a non valid Key, replace the key with any random string.
 See? It does not work.
 
