@@ -281,36 +281,39 @@ To do that, open a terminal and run the following command (alternatively you cou
 
 If we did it all correctly, then you will see the result of your API call returned. 
 
-Now let's try with a non valid Key, replace the key with any random string.
-See? It does not work.
+Now let's try with a non valid Key. Simply replace the API key with any random string. Hit the endpoint again. See? It does not work. The call is not authorized and an error response is returned. 
 
-Your API is now protected and only accessible to people with an API key.
+Your API is now protected and only accessible to people with a valid API key.
 
-## Finishing up integration using SNS
-The Authorizer function will be called every time a request comes on the API Gateway. We don't want to have to call 3scale every time to check if key is authorized or not.
-That's where Elasticache will become handy.
-The first time we see an API key we will ask 3scale to authorize it. We then store the result in cache so we can serve it next time the key is making another call.
-We will then use the `authRepAsync` function to sync cache with the 3scale platform.
+## Finishing up the integration using Amazon Simple Notification Service
+The 3scale custom authorizer function will be called every time a request comes in to the Amazon API Gateway. It is inefficient to call the 3scale API Management platform every time to check if a certain API key is authorized or not.
 
-This `authRepAsync` function will be called by the main authorizer function using SNS protocol.
-SNS is a notifications protocol available AWS. Lambda functions could subscribe to a specific topic. And every time a message is sent on this topic the Lambda function will be triggered.
+That's where Elasticache comes in handy.
 
-### Create a SNS topic#
-In your AWS console, go under SNS service.
-Create a new topic name it `threescaleAsync`.
-Once created click on this new topic.
+We implemented the logic of our custom authorizer such that the first time we see an API key we will ask 3scale to authorize it. We then store the result in cache so we can serve it next time the same API key is making another call.
 
-There click create subscription button.
-Select `AWS Lambda` as protocol.
-Find the `authRepAsync` function in the endpoint menu.
-And keep `default` as a version.
+In the case of all the subsequent calls we use the `authRepAsync` Lambda function to sync the cache with the 3scale API Management platform.
 
-Now, we have `authRepAsync` Lambda that has subscribed to this topic. Copy the ARN of this topic.
+This `authRepAsync` function is called by the main `authorizer` function using the [Amazon Simple Notification Service](https://aws.amazon.com/sns/) (SNS). SNS is a notifications protocol available on AWS. A Lambda function can subscribe to a specific topic. Every time a message related to this topic is sent the Lambda function is triggered.
 
+Here is what you need to do to set this up:
 
-### Attach policy to Lambda function
-To be able to send SNS message to a topic a Lambda needs to have the correct policy.
-You could achieve that adding the following policy
+##### Step 1: Create a SNS topic
+
+1. In your AWS console, go to the SNS service.
+2. Create a new topic and name it `threescaleAsync`.
+3. Once created, click on this new topic.
+4. Click on the `Create subscription` button.
+5. Select `AWS Lambda` as protocol.
+6. Find the `authRepAsync` function in the endpoint menu.
+7. Keep `default` as a version.
+
+Now, we have our `authRepAsync` Lambda function subscribed to the topic `threescaleAsync`. Finally, copy the ARN of this topic.
+
+`TODO: nico add screenshot showing how to get this ARN`
+
+##### Step 2:  Attach policy to Lambda function
+To be able to send SNS message to a topic, a Lambda function needs to have the correct policy. You achieve this by adding the policy to the `s-ressources-cf.json` file at the root of your project:
 
 ```
 {
@@ -323,9 +326,13 @@ You could achieve that adding the following policy
 	]              
 }
 ```
-at the root of your project under in the `s-ressources-cf.json` file.
 
-### Send SNS message to this topic
+
+##### Step 3:  Send SNS message to this topic
+
+`TODO: nico I am totally lost here. Can you please revise? I would not know in what file I would have to do what `
+
+
 In your Serverless code it's time to update the `s-function.json` file for `authorizer` function.
 There replace on the line `  "SNS_TOPIC_ARN":"YOUR_SNS_TOPIC"`
 replace `YOUR_SNS_TOPIC` by the ARN of the SNS topic you just created.
