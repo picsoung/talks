@@ -128,15 +128,12 @@ You know have a VPC, that's know connected to the Internet. We will see later ho
 
 Follow these steps:
 
-1. Go on Elasticache section in your AWS console.
+1. Go to the Elasticache section in your AWS console.
 2. Create a Redis cluster under the VPC you defined before.
-3. Uncheck replication box
+3. Uncheck the replication box.
 4. Change Node type to `cache.t2.micro`  (eligible for free tier).
-
 ![aws elasticache config](./img/aws_elasticache_config.png)
-
 5. On the next step, select your VPC and launch the cluster.
-
 ![aws elasticache VPC config](./img/aws_elasticache_config2.png)
 
 There is no more setup to do on the Elasticache cluster.
@@ -228,6 +225,7 @@ This part of the configuration assigns a VPC to the Lambda function, so it can c
 We are now done with the settings of our Lambda functions that represent the 3scale custom authorizer.
 
 Now finally, let's deploy these two Lambda functions using Serverless again:
+
 `sls dash deploy`
 
 Next, select both functions and then select deploy.
@@ -236,36 +234,43 @@ Next, select both functions and then select deploy.
 
 <a name="authorizer"></a>
 ## Add custom authorizer to API Gateway
-We are now going to add the custom authorizer functions we just deployed to our existing API on the API Gateway.
+We are now going to add the custom authorizer functions we just deployed to our existing API on the Amazon API Gateway.
 
-To do so: go to the API Gateway console and select your API. You should see a section named `Custom Authorizers` on the left menu. Click on it.
+To do so follow these steps: 
 
-Click on `Create` button to create your custom authorizer.
-Name it `threescale`, choose the region where your Lambda has been deployed, and look for the authorizer function you have deployed earlier.
+1. Go to the Amazon API Gateway console and select your API. 
+2. You should see a section named `Custom Authorizers` in the menu on the left hand side. Click on it.
+3. Click on the `Create` button to create your custom authorizer.
+4. Name it `threescale`.
+`TODO: nico add screenshot showing these configurations`
+5. Choose the region where your Lambda has been deployed
+6. Look for and choose the authorizer function you have deployed earlier.
+7. Under `Identify token source` modify it to `method.request.header.apikey`. It means that we are expecting developers to make a call to our API with a header `apikey`, and we will use this key to authenticate the request.
+8. Finally change TTL to 0. 
 
-Under `Identify token source` modify it to `method.request.header.apikey`. It means that we are expecting developers to make a call to our API with a header `apikey`, and we will use this key to authenticate the request.
-Finally change TTL to 0. The authorizer is already handling caching.
+We now have a custom authorizer, which is already handling caching. Finally, we have to apply it to our API endpoints:
 
-We now have a custom authorizer. We now have to apply it to our API endpoints.
+1. Go to the `Resources` part of your API.
+2. Select a method, and click on the `method request` box.
+3. Change `Authorization` to the custom authorizer you have created before.
+4. Finally, save and re-deploy your API.
+`TODO: nico add screenshot showing these configurations`
 
-Go on the `Resources` part of your API.
-Select a method, and click on the `method request` box.
-There you should change `Authorization` to the custom authorizer you have created before.
-Once you are done, save, and re-deploy your API.
+You will have to reproduce these steps for each endpoint of your API to make sure all your API is secured. But for now we can limit it to a simple endpoint.
 
-You would have to reproduce these steps on each endpoint of your API to make sure all your API is secured. But for now we can limit it to a simple endpoint.
-
-## Test integration
+## Testing the whole flow end-to-end
 
 You are almost done!
-We now need to test that everything worked as planned.
 
-You need to go to your 3scale account to find a valid API key.
-Once you are in your 3scale dashboard go under `Developers` section and click on the default account.
-There you should see all the details about this developer account and the details of his applications.
+Now let's test if everything worked fine:
+
+1. Go to your 3scale account on the 3scale portal.
+2. Take a valid API key. Anyone would do. Once you are logged in to your 3scale account go to the `Developers` section.
+3. Click on the default account. 
+4. You will see all the details about this developer account and the details of his applications.
 Click on the name of one of his applications.
 
-[Screenshot]
+`TODO: nico add screenshot showing these configurations`
 
 On the next screen you see details of this application like on which plan it is, the traffic over the 30 days.
 We can look at those features later, now we are only interested by the `User Key`, copy it.
