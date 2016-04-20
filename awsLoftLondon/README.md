@@ -95,22 +95,25 @@ We will use this API during the rest of our tutorial.
 
 <a name="vpc"></a>
 ##Setting up the Amazon Virtual Private Cloud (VPC)
-To reduce latency and have an API stack that is capable of handling the load of thousands of requests, we will use [Amazon Elasticache](https://aws.amazon.com/elasticache/). There we will store API keys that were authorized to make request to the API. This will help reducing the number of calls to the main 3scale platform and consequently improve the overall API stack performance.
+To reduce latency and have an API stack that is capable of handling the load of thousands of requests, we will use [Amazon Elasticache](https://aws.amazon.com/elasticache/). There we will store API keys that were authorized to make request to the API (see the descriptions and diagrams [above](#goals)). This will help reducing the number of calls to the main 3scale platform and consequently improve the overall API stack performance.
 
-Elasticache is only available through VPC. To be able to call Elasticache into Lambda, the Lambda function has to be on the same VPC.
+Elasticache is only available through the [Amazon Virtual Private Cloud](https://aws.amazon.com/vpc/) (VPC). To be able to use Elasticache with Lambda, the Lambda function has to be on the same VPC.
 
-Our Lambda will make calls to 3scale service, which is outside of the VPC. We will now configure the VPC to make sure it can connect to the internet, outside of VPC.
+Our 3scale custom authorizer function will make calls to the 3scale API management platform, which is outside of the VPC. We will now configure the VPC to make sure it can connect to the internet, outside of VPC.
 
-If don't have a VPC, let's create one. You can also use the default one.
+If don't have a VPC, let's create one by following these steps:
 
-You should create a NAT gateway and an Internet gateway.
-Then create a new route tables.
-Once the route table is created let's edit the routes.
-You should make `0.0.0.0/0` point to the NAT gateway you created.
+1. Go to ... `TODO: nico add` You can use the default one.
+2. Create a NAT gateway and an Internet gateway.
+3. Create a new route table.
+4. Once the route table is created, edit the routes. Point `0.0.0.0/0` to the NAT gateway you created earlier.
+5. Attach this rule to a subnet in your VPC. For this, select an existing subnet. 
+6. Select the route table you just created on the route tables tab.
 
-We will now attach this rule to a subnet in your VPC. Select an existing subnet. On the route tables tab, select the route table you just created.
+And that's it for the VPC part. 
+You know have a VPC, that's know connected to the Internet. We will see later how to put Elasticache and Lambda on this VPC.
 
-And that's it for the VPC part. You know have a VPC, that's know connected to the Internet. We will see later how to put Elasticache and Lambda on this VPC.
+`TODO: nico add screenshot`
 
 <a name="elasticache"></a>
 ##Setting up Elasticache
