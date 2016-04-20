@@ -9,7 +9,7 @@ This part of the tutorial focuses on how the [integration](https://www.3scale.ne
 
 ## Table of Contents
 
-* Intro to [3scale](https://www.3scale.net/) API Management [goals](#goals)
+* Intro to [3scale](https://www.3scale.net/) API Management [Link to goals](#goals)
 * Goals of this tutorial
 * Prerequisites for this tutorial
 * Setting up the Amazon Virtual Private Cloud (VPC)
@@ -25,7 +25,7 @@ This part of the tutorial focuses on how the [integration](https://www.3scale.ne
 
 
 
-## <a name="goals">Goals</a> of this tutorial
+## Goals of this tutorial <a name="goals"></a>
 You've seen the importance of API management when you are developing and exposing APIs. In this tutorial we will show how to add an API management layer to your existing API. 
 
 For this tutorial you will use:
