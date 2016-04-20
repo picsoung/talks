@@ -75,21 +75,28 @@ With the Amazon API Gateway custom authorizer, you can control access to your AP
 
 In the next section, we describe the our custom authorizer that we wrote to authorize API calls against the 3scale API Management platform.
 
-##Create and deploy the 3scale-specific custom authorizer
-`TODO: Nico`
-
-
 ## (optional) Create an API and deployed it do AWS API gateway
-If you don't have an API deployed on API gateway you can create one very easily using Serverless.
+If you don't have already an API deployed on AWS API gateway you can create one very easily using [Serverless](http://serverless.com) framework.
 
+If you have not installed Serverless follow the instructions [here](https://github.com/serverless/serverless).
+
+Open a Terminal.
 First create a project `sls create project`
-then create a function `sls function create greetings`
+Then create a function `sls function create greetings`
+
+![serverless - create function](./img/sls - function create.png)
+
 this will create a `greetings` folder.
-To see the result of an API call you can run locally `sls function run`.
+The folder contains a `handler.js` file that contains the logic of the function.
+You can test the endpoitn locally running `sls function run`.
 
 Finally you can deploy this endpoint using `sls dash deploy` command.
-We will use this API during the rest of our tutorial.
 
+![serverless dash deploy](./img/sls - dash deploy.png)
+
+If it succeeded it should give you the URL of the API created.
+
+We will use this API during the rest of our tutorial.
 
 ##Setting up the Amazon Virtual Private Cloud (VPC)
 To reduce latency and have an API stack that is capable of handling the load of thousands of requests, we will use [Amazon Elasticache](https://aws.amazon.com/elasticache/). There we will store API keys that were authorized to make request to the API. This will help reducing the number of calls to the main 3scale platform and consequently improve the overall API stack performance.
@@ -100,19 +107,33 @@ Our Lambda will make calls to 3scale service, which is outside of the VPC. We wi
 
 If don't have a VPC, let's create one. You can also use the default one.
 
-You should create a NAT gateway and an Internet gateway.
-Then create a new route tables.
+You should create both a NAT gateway and an Internet gateway.
+Then create a new route table.
 Once the route table is created let's edit the routes.
-You should make `0.0.0.0/0` point to the NAT gateway you created.
+Add a route with destination `0.0.0.0/0` that targets to the NAT gateway you created.
 
-We will now attach this rule to a subnet in your VPC. Select an existing subnet. On the route tables tab, select the route table you just created.
+![aws vpc route creation](./img/aws-vpc route table.png)
+
+We will now attach this route table to a subnet in your VPC. Select an existing subnet.
+On the route tables tab, click edit and select the route table you just created.
+
+![aws vpc attach route table](./img/aws - subnet route table.png)
 
 And that's it for the VPC part. You know have a VPC, that's know connected to the Internet. We will see later how to put Elasticache and Lambda on this VPC.
 
 ##Setting up Elasticache
-Elasticache is a service offered by AWS to simply cache stuff and access it quickly. It supports both Memcached and Redis. In our example we will use Redis.
+Elasticache is a service offered by AWS to simply caching data and access it quickly. It supports both Memcached and Redis. In our example we will use Redis.
 
-Go on Elasticache section in your AWS console and create a Redis cluster under the VPC you defined before. You don't specially need replication for this tutorial.
+Go on Elasticache section in your AWS console and create a Redis cluster under the VPC you defined before.
+
+You don't need replication for this tutorial. Change Node type to `cache.t2.micro` which is eligible for free tier.
+
+![aws elasticache config](./img/aws_elasticache_config.png)
+
+On the next step, select your VPC and launch the cluster.
+
+![aws elasticache VPC config](./img/aws_elasticache_config2.png)
+
 There is no more setup to do on the Elasticache cluster.
 Once the cluster is ready, go on the node created, and get the Endpoint URL. We will need it later on in the tutorial.
 
