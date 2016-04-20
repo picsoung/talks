@@ -153,58 +153,51 @@ Follow these steps to get the Lambda function that represents the 3scale custom 
 * `authorizer` is the Lambda function that is called by the Amazon API Gateway to authorize incoming API calls (see the [first diagram above](#firstcall)).
 * `authrepAsync` is called by the `authorizer` function to sync with the 3scale API Management platform for API traffic reporting and analytics (see the [second diagram above](#subsequentcalls)).
 
-Before deploying this to AWS we need to do few more steps.
+Before deploying this to AWS we need to complete a few more tasks. 
 
-At the root `awsThreeScale_Authorizer` and on each function folders run `npm install` command. This will install all the NPM plugins needed.
+First, at the root of `awsThreeScale_Authorizer` and on each function folder run the `npm install` command. This will install all the NPM plugins needed. 
 
-The logic of each Lambda is happening on `handler.js` file but we should have to touch it. If you look at the code in this file you may see that we are using environemment variables.
-Let's setup them.
+The logic of each Lambda function is kept in the `handler.js` file but we don't have to touch it. If you look at the code in this file you will see that we are using environment variables. So, let's set them up:
 
-In `authorizer` and `authrepAsync` folders:
+1. Go to the `authorizer` and `authrepAsync` folders.
+2. Open the `s-function_example.js` file and rename it to `s-function.js`
 
-Open `s-function_example.js` file and rename it `s-function.js`
-Then under `environment` property change the placeholder values for THREESCALE and ELASTICACHE
-
-```
-"environment": {
-  "SERVERLESS_PROJECT": "${project}",
-  "SERVERLESS_STAGE": "${stage}",
-  "SERVERLESS_REGION": "${region}",
-  "THREESCALE_PROVIDER_KEY":"YOUR_3SCALE_PROVIDER_KEY",
-  "THREESCALE_SERVICE_ID":"YOUR_3SCALE_SERVICE_ID",
-  "ELASTICACHE_ENDPOINT":"YOUR_ELASTICACHE_ENDPOINT",
-  "ELASTICACHE_PORT":6379
-},
-```
-
-You can find your 3scale provider key, under `Accounts` in your 3scale account.
-
-[Screenshot]
-
-Service ID could be found under `APIs`
-[screenshot]
-
-To find the Elastic Enpoint, go on your AWS console and click on the cluster you have created before. You should see the endpoint URL.
-
-[screenshot]
-
-In the `s-function.json` file for `authorizer function` you may see a `SNS_TOPIC_ARN` property. Leave it like it it for now, we will come back to it later.
-
-In the `s-function.json` you should have seen a `vpc` section too. In both files replace it with the securitygroup and the subnets we have created before.
-The VPC section should look like this now:
-
-```
-"vpc": {
-    "securityGroupIds": ["ID_OF_SECURITY_GROUP"],
-    "subnetIds": ["ID_OF_SUBNET","ID_OF_ANOTHER_SUBNET"]
-  }
-```
+	```	
+	"environment": {
+		"SERVERLESS_PROJECT": "${project}",
+		"SERVERLESS_STAGE": "${stage}",
+		"SERVERLESS_REGION": "${region}",
+		"THREESCALE_PROVIDER_KEY":"YOUR_3SCALE_PROVIDER_KEY",
+		"THREESCALE_SERVICE_ID":"YOUR_3SCALE_SERVICE_ID",
+		"ELASTICACHE_ENDPOINT":"YOUR_ELASTICACHE_ENDPOINT",
+		"ELASTICACHE_PORT":6379
+	},
+	```
+You can find `YOUR_3SCALE_PROVIDER_KEY` under `Accounts` tab in your 3scale account on the 3scale portal.
+`TODO: nico add screenshot showing where to find the 3scale provider key`
+You can find `YOUR_3SCALE_SERVICE_ID` under the `APIs` tab.
+`TODO: nico add screenshot showing where to find the 3scale service ID`
+For the `YOUR_ELASTICACHE_ENDPOINT`, go on your AWS console and click on the cluster you have created before. There you will see the endpoint URL.
+`TODO: nico add screenshot showing where in AWS console to find the elasticache endpoint url`
+3. In the `s-function.json` file for `authorizer function` you will see a `SNS_TOPIC_ARN` property. Leave it like it is for now, we will come back to it later.
+4. In the `s-function.json` you have a `vpc` section, too. In both files replace it with the securitygroup and the subnets we have created before. The VPC section should look like this now:
+	
+	```
+	"vpc": {
+	    "securityGroupIds": ["ID_OF_SECURITY_GROUP"],
+	    "subnetIds": ["ID_OF_SUBNET","ID_OF_ANOTHER_SUBNET"]
+	    }
+	```
 This part of the configuration assigns a VPC to the Lambda function, so it can communicate with Elasticcache.
 
-We are now done with the settings of our Lambda functions. We can now deploy them using the `sls dash deploy` command.
-you can select both functions and then select deploy
+We are now done with the settings of our Lambda functions that represent the 3scale custom authorizer. 
 
-[screenshot]
+Now finally, let's deploy these two Lambda functions using Serverless again: 
+`sls dash deploy` 
+
+Next, select both functions and then select deploy.
+
+`TODO: nico add screenshot showing how to deploy the 2 lambda functions using serverless `
 
 <a name="authorizer"></a>
 ## Add custom authorizer to API Gateway
