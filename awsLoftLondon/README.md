@@ -128,7 +128,7 @@ Follow these steps:
 
 `TODO: nico add screenshot showing the elasticache section on the AWS console`
 
-There is no more setup to required on the Elasticache cluster.
+There is no more setup required on the Elasticache cluster.
 
 Once the cluster is ready, go on the node created, and get the Endpoint URL. We will need it later on in the tutorial.
 
