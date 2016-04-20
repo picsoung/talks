@@ -9,14 +9,14 @@ This part of the tutorial focuses on how the [integration](https://www.3scale.ne
 
 ## Table of Contents
 
-* Intro to [3scale](https://www.3scale.net/) API Management [Jump to section](#intro)
-* Goals of this tutorial
-* Prerequisites for this tutorial
-* Setting up the Amazon Virtual Private Cloud (VPC)
-* Setting up Elasticache
-* Creating the Lambda code
-* Intro to the Amazon API Gateway [custom authorizer](http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorization-overview) principles
-* Create and deploy the 3scale-specific custom authorizer
+* Intro to [3scale](https://www.3scale.net/) API Management ([Jump to section](#intro))
+* Goals of this tutorial ([Jump to section](#goals))
+* Prerequisites for this tutorial ([Jump to section](#prerequisites))
+* Setting up the Amazon Virtual Private Cloud (VPC) ([Jump to section](#vpc))
+* Setting up Elasticache ([Jump to section](#elasticache))
+* Creating the Lambda code ([Jump to section](#lambda))
+* Intro to the Amazon API Gateway [custom authorizer](http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorization-overview) principles ([Jump to section](#authorizer))
+* Create and deploy the 3scale-specific custom authorizer ([Jump to section](#deploy))
 
 <a name="intro"></a>
 ## Intro to 3scale API Management
@@ -64,7 +64,7 @@ Here is the flow for every subsequent call:
 5. The 3scale custom authorizer calls the 3scale Async Reporting Function.
 6. The 3scale Async Reporting Function reports the traffic back to the 3scale API Management platform, which is used for API analytics. 
 
-
+<a name="prerequisites"></a>
 ## Prerequisites for this tutorial
 * 3scale account -- sign up at [3scale.net](https://www.3scale.net/) `TODO: add specific signup URL landing page`
 * AWS account -- sign up at http://aws.amazon.com
@@ -72,14 +72,12 @@ Here is the flow for every subsequent call:
 * Node.js environment installed locally -- ([Instructions](https://docs.npmjs.com/getting-started/installing-node))
 * Serverless framework installed locally -- ([Instructions](https://github.com/serverless/serverless))
 
-
+<a name="principles"></a>
 ## Intro to the Amazon API Gateway custom authorizer principles
 With the Amazon API Gateway custom authorizer, you can control access to your APIs using bearer token authentication strategies, such as OAuth or SAML. To do so, you provide and configure a custom authorizer (basically your own Lambda function) for the Amazon API Gateway, which is then used to authorize the client requests for the configured APIs. You can find all the details how to do this in a dedicated Amazon API Gateway [tutorial](http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html).
 
 In the next section, we describe the our custom authorizer that we wrote to authorize API calls against the 3scale API Management platform.
 
-##Create and deploy the 3scale-specific custom authorizer
-`TODO: Nico`
 
 
 ## (optional) Create an API and deployed it do AWS API gateway
@@ -93,7 +91,7 @@ To see the result of an API call you can run locally `sls function run`.
 Finally you can deploy this endpoint using `sls dash deploy` command.
 We will use this API during the rest of our tutorial.
 
-
+<a name="vpc"></a>
 ##Setting up the Amazon Virtual Private Cloud (VPC)
 To reduce latency and have an API stack that is capable of handling the load of thousands of requests, we will use [Amazon Elasticache](https://aws.amazon.com/elasticache/). There we will store API keys that were authorized to make request to the API. This will help reducing the number of calls to the main 3scale platform and consequently improve the overall API stack performance.
 
@@ -112,6 +110,7 @@ We will now attach this rule to a subnet in your VPC. Select an existing subnet.
 
 And that's it for the VPC part. You know have a VPC, that's know connected to the Internet. We will see later how to put Elasticache and Lambda on this VPC.
 
+<a name="elasticache"></a>
 ##Setting up Elasticache
 Elasticache is a service offered by AWS to simply cache stuff and access it quickly. It supports both Memcached and Redis. In our example we will use Redis.
 
@@ -119,6 +118,7 @@ Go on Elasticache section in your AWS console and create a Redis cluster under t
 There is no more setup to do on the Elasticache cluster.
 Once the cluster is ready, go on the node created, and get the Endpoint URL. We will need it later on in the tutorial.
 
+<a name="lambda"></a>
 ##Creating the Lambda code
 We will now work on the Lambda side of the integration. This is where the logic of the custom authorizer will be defined.
 This Lambda function will call 3scale to authorize access to the API.
@@ -190,7 +190,7 @@ you can select both functions and then select deploy
 
 [screenshot]
 
-
+<a name="authorizer"></a>
 ## Add custom authorizer to API Gateway
 We are now going to add the custom authorizer functions we just deployed to our existing API on the API Gateway.
 
