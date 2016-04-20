@@ -107,7 +107,7 @@ Our 3scale custom authorizer function will make calls to the 3scale API manageme
 
 If don't have a VPC, create one first and then follow these steps:
 
-1. Go to ... `TODO: nico add where to go` You can use the default one.
+1. Go to your AWS console under VPC service.
 2. Create a new subnet
 3. Create a NAT gateway and attach it to the previously created subnet
 4. Create a new route table.
@@ -231,23 +231,23 @@ To do so follow these steps:
 2. You should see a section named `Custom Authorizers` in the menu on the left hand side. Click on it.
 3. Click on the `Create` button to create your custom authorizer.
 4. Name it `threescale`.
-`TODO: nico add screenshot showing these configurations`
+![](./img/aws_new_authorizer.png)
 5. Choose the region where your Lambda has been deployed
 6. Look for and choose the authorizer function you have deployed earlier. (`sls-threeScale-Authorizer-authorizer`)
 7. Under `Identify token source` modify it to `method.request.header.apikey`. It means that we are expecting developers to make a call to our API with a header `apikey`, and we will use this key to authenticate the request.
 8. Finally change TTL to 0.
 
-We now have a custom authorizer, which is already handling caching. Finally, we have to apply it to our API endpoints:
+![](./img/aws_authorizer_config.png)
+
+We now have a custom authorizer, which is already handling caching. 
+
+Finally, we have to apply it to our API endpoints:
 
 1. Go to the `Resources` part of your API.
 2. Select a method, and click on the `method request` box.
 3. Change `Authorization` to the custom authorizer you have created before.
 4. Finally, save and re-deploy your API.
 ![](./img/aws_authorization_settings.png)
-
-You will have to reproduce these steps for each endpoint of your API to make sure all your API is secured. But for now we can limit it to a simple endpoint.
-
-
 
 You would have to reproduce these steps on each endpoint of your API to make sure all your API is secured. But for now we can limit it to a single endpoint.
 
@@ -307,7 +307,7 @@ Here is what you need to do to set this up:
 
 Now, we have our `authRepAsync` Lambda function subscribed to the topic `threescaleAsync`. Finally, copy the ARN of this topic.
 
-`TODO: nico add screenshot showing how to get this ARN`
+![](./img/aws_sns_ARN.png)
 
 ##### Step 2:  Attach policy to Lambda function
 To be able to send SNS message to a topic, a Lambda function needs to have the correct policy. You achieve this by adding the policy to the `s-ressources-cf.json` file at the root of your Serverless project:
@@ -342,4 +342,4 @@ sls dash deploy
 ```
 
 Caching should now work.
-To see if it works you can look at the logs of the `authRepAsync` Lamba function.
+To see if it works you can look at the logs of the `authRepAsync` Lambda function.
