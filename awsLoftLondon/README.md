@@ -25,8 +25,7 @@ This part of the tutorial focuses on how the [integration](https://www.3scale.ne
 
 
 
-## Goals of this tutorial
-<a name="goals"></a>
+## <a name="goals">Goals</a> of this tutorial
 You've seen the importance of API management when you are developing and exposing APIs. In this tutorial we will show how to add an API management layer to your existing API. 
 
 For this tutorial you will use:
