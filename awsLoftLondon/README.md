@@ -9,7 +9,7 @@ This part of the tutorial focuses on how the [integration](https://www.3scale.ne
 
 ## Table of Contents
 
-* Intro to [3scale](https://www.3scale.net/) API Management [Link to goals](#goals)
+* Intro to [3scale](https://www.3scale.net/) API Management [Jump to section](#intro)
 * Goals of this tutorial
 * Prerequisites for this tutorial
 * Setting up the Amazon Virtual Private Cloud (VPC)
@@ -18,6 +18,7 @@ This part of the tutorial focuses on how the [integration](https://www.3scale.ne
 * Intro to the Amazon API Gateway [custom authorizer](http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorization-overview) principles
 * Create and deploy the 3scale-specific custom authorizer
 
+<a name="intro"></a>
 ## Intro to 3scale API Management
 3scale makes it easy to open, secure, manage, distribute, control, and monetize your APIs. Built with performance, customer control and excellent time-to-value in mind, no other solution gives API providers so much power, ease, flexibility and scalability in such a cost effective way. Check it out at https://www.3scale.net
 
