@@ -41,6 +41,7 @@ For this tutorial you will use:
 
 Below are two overview diagrams that describe the various components involved and their interactions. The first diagram shows what happens when a certain API endpoint is called for the first time togehter with a certain API key.
 
+<a name="firstcall"></a>
 ![3scale Custom Authorizer FirstCall](https://raw.githubusercontent.com/ManfredBo/talks/master/awsLoftLondon/img/AAG-Custom-Authorizer-FirstCall.PNG)
 
 Here is the flow for the first call:
@@ -54,6 +55,7 @@ Here is the flow for the first call:
 
 The second diagram below shows what happens at every subsequent request to the same  API endpoint with the same API key.
 
+<a name="subsequentcalls"></a>
 ![3scale Custom Authorizer SubsequentCalls](https://raw.githubusercontent.com/ManfredBo/talks/master/awsLoftLondon/img/AAG-Custom-Authorizer-SubsequentCalls.PNG)
 
 Here is the flow for every subsequent call: 
@@ -103,7 +105,7 @@ Our 3scale custom authorizer function will make calls to the 3scale API manageme
 
 If don't have a VPC, let's create one by following these steps:
 
-1. Go to ... `TODO: nico add` You can use the default one.
+1. Go to ... `TODO: nico add where to go` You can use the default one.
 2. Create a NAT gateway and an Internet gateway.
 3. Create a new route table.
 4. Once the route table is created, edit the routes. Point `0.0.0.0/0` to the NAT gateway you created earlier.
@@ -113,34 +115,43 @@ If don't have a VPC, let's create one by following these steps:
 And that's it for the VPC part. 
 You know have a VPC, that's know connected to the Internet. We will see later how to put Elasticache and Lambda on this VPC.
 
-`TODO: nico add screenshot`
+`TODO: nico add screenshot showing where in the console a user has to configure this.`
 
 <a name="elasticache"></a>
 ##Setting up Elasticache
-Elasticache is a service offered by AWS to simply cache stuff and access it quickly. It supports both Memcached and Redis. In our example we will use Redis.
+[Elasticache](https://aws.amazon.com/elasticache/) is a service offered by AWS to cache stuff simply and access it quickly. It supports both Memcached and Redis. In our example we will use Redis.
 
-Go on Elasticache section in your AWS console and create a Redis cluster under the VPC you defined before. You don't specially need replication for this tutorial.
-There is no more setup to do on the Elasticache cluster.
+Follow these steps:
+
+1. Go on Elasticache section in your AWS console.
+2. Create a Redis cluster under the VPC you defined before. You don't specially need replication for this tutorial.
+
+`TODO: nico add screenshot showing the elasticache section on the AWS console`
+
+There is no more setup to required on the Elasticache cluster.
+
 Once the cluster is ready, go on the node created, and get the Endpoint URL. We will need it later on in the tutorial.
 
+`TODO: nico add screenshot showing where to get this endpoint url from`
+
 <a name="lambda"></a>
-##Creating the Lambda code
-We will now work on the Lambda side of the integration. This is where the logic of the custom authorizer will be defined.
-This Lambda function will call 3scale to authorize access to the API.
+##Creating Lambda code for the custom authorizer 
+We will now work on the code for the Lambda function that represents the custom authorizer. This Lambda function will call the 3scale API Management platform to check if a call to the API is authorized.
 
-We will be using Serverless framework to deploy Lambda functions easily. If you are not familiar with it, check their [site](http://serverless.com).
-It's basically a tool that helps you manage Lambda functions easily.
+We are using the Serverless framework, which is a great way to deploy Lambda functions easily. If you are not familiar with it, check their [site](http://serverless.com). It's basically a tool that helps you manage Lambda functions easily.
 
-Clone [this repo](https://github.com/picsoung/awsThreeScale_Authorizer) locally
+Follow these steps to get the Lambda function that represents the 3scale custom authorizer up and running:
 
-```
-git clone https://github.com/picsoung/awsThreeScale_Authorizer
-cd awsThreeScale_Authorizer
-```
-
-In `awsThreeScale_Authorizer` folder you will see two different folders, they represent the two Lambda function we are going to use.
-`authorizer` is the function that will be called by the API Gateway to authorize incoming API calls.
-`authrepAsync` will be called by `authorizer` function to sync cache with 3scale servers.
+1. Clone [this repo](https://github.com/picsoung/awsThreeScale_Authorizer) locally using the following commands:
+	```
+	git clone 
+	https://github.com/picsoung/awsThreeScale_Authorizer
+	cd awsThreeScale_Authorizer
+	```
+	
+2. In the `awsThreeScale_Authorizer` folder you will see two different folders, which represent the two Lambda function we are going to use:
+* `authorizer` is the Lambda function that is called by the Amazon API Gateway to authorize incoming API calls (see the [first diagram above](#firstcall)).
+* `authrepAsync` is called by the `authorizer` function to sync with the 3scale API Management platform for API traffic reporting and analytics (see the [second diagram above](#subsequentcalls)).
 
 Before deploying this to AWS we need to do few more steps.
 
