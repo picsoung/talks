@@ -8,6 +8,7 @@ The workshop is held at the AWS Pop-up Loft London on April 25th, 9:00AM - 1:00P
 This part of the tutorial focuses on how the [integration](https://www.3scale.net/amazon-gateway-integration/) between 3scale, Amazon API Gateway and Lambda can be achieved practically.
 
 ## Table of Contents
+`TODO: Manfred to update at the end`
 
 * Intro to [3scale](https://www.3scale.net/) API Management ([Jump to section](#intro))
 * Goals of this tutorial ([Jump to section](#goals))
@@ -66,8 +67,8 @@ Here is the flow for every subsequent call:
 
 <a name="prerequisites"></a>
 ## Prerequisites for this tutorial
-* 3scale account -- sign up at [3scale.net](https://www.3scale.net/) `TODO: add specific signup URL landing page`
-* AWS account -- sign up at http://aws.amazon.com
+* 3scale account -- sign up at [3scale.net](https://www.3scale.net/aws-loft/ ) 
+* AWS account -- sign up at [aws.amazon.com](http://aws.amazon.com)
 * AWS command line interface (CLI) installed locally -- ([Instructions](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html))
 * Node.js environment installed locally -- ([Instructions](https://docs.npmjs.com/getting-started/installing-node))
 * Serverless framework installed locally -- ([Instructions](https://github.com/serverless/serverless))
@@ -80,15 +81,16 @@ In the next section, we describe the our custom authorizer that we wrote to auth
 
 
 
-## (optional) Create an API and deployed it do AWS API gateway
-If you don't have an API deployed on API gateway you can create one very easily using Serverless.
+## (Optional) Create an API and deployed it to Amazon API gateway
+If you don't yet have an API deployed on Amazon API gateway you can create one very easily using the [Serverless](https://github.com/serverless/serverless) framework. `sls` is the Serverless CLI which you should have installed on your system as part of the prerequisites of this tutorial. 
 
-First create a project `sls create project`
-then create a function `sls function create greetings`
-this will create a `greetings` folder.
-To see the result of an API call you can run locally `sls function run`.
+Follow the following steps:
 
-Finally you can deploy this endpoint using `sls dash deploy` command.
+1. Create a project: `sls create project`
+2. Create a function: `sls function create greetings` (This will create a `greetings` folder.)
+3. Check if it's working and the result of an API call by locally running:  `sls function run`.
+4. Finally deploy this endpoint using: `sls dash deploy` 
+
 We will use this API during the rest of our tutorial.
 
 <a name="vpc"></a>
