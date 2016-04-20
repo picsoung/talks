@@ -24,9 +24,8 @@ This part of the tutorial focuses on how the [integration](https://www.3scale.ne
 3scale’s API Management Platform also supports the unique requirements of delivering APIs on the Amazon Web Services (AWS) infrastructure stack -- fexibly, at scale and with great RoI. API providers on AWS don’t have to switch solutions to get Amazon API gateway features like distributed denial-of-service (DDoS) attack protection, caching and logging. Plus, adding 3scale provides rich, sophisticated API management business operations for fine-grained API control and visibility, as well as features for API adoption and promotion. Check out the details about this [integrated solution](https://www.3scale.net/amazon-gateway-integration/).
 
 
-
-## Goals of this tutorial 
 <a name="goals"></a>
+## Goals of this tutorial 
 You've seen the importance of API management when you are developing and exposing APIs. In this tutorial we will show how to add an API management layer to your existing API. 
 
 For this tutorial you will use:
