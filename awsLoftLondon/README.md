@@ -114,14 +114,13 @@ If don't have a VPC, create one first and then follow these steps:
 5. Once the route table is created, edit the routes.
 Point `0.0.0.0/0` to the NAT gateway you created earlier.
 ![aws vpc route creation](./img/aws-vpc route table.png)
-6. Attach this rule to at least two subnets in your VPC. For this, select an subnets that are not the ones attached to the NAT gateway.
+6. Attach this rule to at least two subnets in your VPC. For this, select an subnets that are not the ones attached to the NAT gateway. 
 ![aws vpc attach route table](./img/aws - subnet route table.png)
 7. Select the route table you just created on the route tables tab.
 
 And that's it for the VPC part.
 You know have a VPC, that's know connected to the Internet. We will see later how to put Elasticache and Lambda on this VPC.
 
-`TODO: nico add screenshot showing where in the console a user has to configure this.`
 
 <a name="elasticache"></a>
 ##Setting up Elasticache
@@ -251,6 +250,70 @@ Finally, we have to apply it to our API endpoints:
 
 You would have to reproduce these steps on each endpoint of your API to make sure all your API is secured. But for now we can limit it to a single endpoint.
 
+## Finishing up the integration using Amazon Simple Notification Service
+The 3scale custom authorizer function will be called every time a request comes in to the Amazon API Gateway. It is inefficient to call the 3scale API Management platform every time to check if a certain API key is authorized or not.
+
+That's where Elasticache comes in handy.
+
+We implemented the logic of our custom authorizer such that the first time we see an API key we will ask 3scale to authorize it. We then store the result in cache so we can serve it next time the same API key is making another call.
+
+In the case of all the subsequent calls we use the `authRepAsync` Lambda function to sync the cache with the 3scale API Management platform.
+
+This `authRepAsync` function is called by the main `authorizer` function using the [Amazon Simple Notification Service](https://aws.amazon.com/sns/) (SNS). SNS is a notifications protocol available on AWS. A Lambda function can subscribe to a specific topic. Every time a message related to this topic is sent the Lambda function is triggered.
+
+Here is what you need to do to set this up:
+
+##### Step 1: Create a SNS topic
+
+
+1. In your AWS console, go to the SNS service.
+2. Create a new topic and name it `threescaleAsync`.
+3. Once created, click on this new topic.
+4. Click on the `Create subscription` button.
+5. Select `AWS Lambda` as protocol.
+6. Find the `authRepAsync` function in the endpoint menu.
+7. Keep `default` as a version.
+![](./img/aws_sns_subscription.png)
+
+Now, we have our `authRepAsync` Lambda function subscribed to the topic `threescaleAsync`. Finally, copy the ARN of this topic.
+
+![](./img/aws_sns_ARN.png)
+
+##### Step 2:  Attach policy to Lambda function
+To be able to send SNS message to a topic, a Lambda function needs to have the correct policy. You achieve this by adding the policy to the `s-ressources-cf.json` file at the root of your Serverless project:
+Add the following to the `Statement` array of `IamPolicyLambda` object.
+
+```
+{
+	"Effect": "Allow",
+	"Action": [
+		"sns:Publish"
+	],
+	"Resource": [
+		"YOUR_SNS_TOPIC_ARN"
+	]              
+}
+```
+
+Replace `YOUR_SNS_TOPIC_ARN` placeholder with the ARN of the topic we previously created.
+
+##### Step 3:  Send SNS message to this topic
+Now finally let's send a message to this topic to check if it all works:
+
+1. In your Serverless code update the `s-function.json` file for the `authorizer` function.
+`TODO: nico: I still dont understand which Serverless code you are referring to `
+2. Find the line `  "SNS_TOPIC_ARN":"YOUR_SNS_TOPIC"`
+and replace `YOUR_SNS_TOPIC` with the ARN of the SNS topic you created in step 1.
+3. Check in the `handler.js` file how we are sending the message.
+`TODO nico: how are we sending this? `
+4. Finally, redeploy your function and resources:
+```
+	sls resources deploy
+	sls dash deploy
+```
+
+Caching triggered via SNS works now. To check the output you can take a look at the logs of the `authRepAsync` Lambda function.
+
 ## Testing the whole flow end-to-end
 
 You are almost done!
@@ -328,18 +391,18 @@ Add the following to the `Statement` array of `IamPolicyLambda` object.
 Replace `YOUR_SNS_TOPIC_ARN` placeholder with the ARN of the topic we previously created.
 
 ##### Step 3:  Send SNS message to this topic
-In your Serverless code it's time to update the `s-function.json` file for `authorizer` function.
-There replace on the line `  "SNS_TOPIC_ARN":"YOUR_SNS_TOPIC"`
-replace `YOUR_SNS_TOPIC` by the ARN of the SNS topic you just created.
+Now finally let's send a message to this topic to check if it all works:
 
-Check in the `handler.js` file how we are sending the message.
-
-You can now redeploy your function and ressouces.
-
+1. In your Serverless code update the `s-function.json` file for the `authorizer` function.
+`TODO: nico: I still dont understand which Serverless code you are referring to `
+2. Find the line `  "SNS_TOPIC_ARN":"YOUR_SNS_TOPIC"`
+and replace `YOUR_SNS_TOPIC` with the ARN of the SNS topic you created in step 1.
+3. Check in the `handler.js` file how we are sending the message.
+`TODO nico: how are we sending this? `
+4. Finally, redeploy your function and resources:
 ```
-sls resources deploy
-sls dash deploy
+	sls resources deploy
+	sls dash deploy
 ```
 
-Caching should now work.
-To see if it works you can look at the logs of the `authRepAsync` Lambda function.
+Caching triggered via SNS works now. To check the output you can take a look at the logs of the `authRepAsync` Lambda function.
