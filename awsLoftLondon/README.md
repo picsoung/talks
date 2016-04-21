@@ -91,7 +91,6 @@ Follow the following steps:
 ![serverless - create function](./img/sls - function create.png)
 3. Check if it's working and the result of an API call by locally running:  `sls function run`.
 4. Finally deploy this endpoint using: `sls dash deploy`
-
 ![serverless dash deploy](./img/sls - dash deploy.png)
 
 If it succeeded it should give you the URL of the API created.
