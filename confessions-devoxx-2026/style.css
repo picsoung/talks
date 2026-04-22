@@ -1,0 +1,830 @@
+/* ============================================================
+   CONFESSIONS OF A VIBECODING ENGINEER — custom theme
+   Brand: nicolasgrenie.com (cream + dark + yellow/gold, curly-brace motif)
+   ============================================================ */
+
+/* ----- Fonts (Google Fonts - swap locally if you ship offline) ----- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Brand palette */
+  --ng-cream: #F5F1E8;          /* light bg */
+  --ng-cream-soft: #FBF8F1;     /* softer variant */
+  --ng-dark: #111111;           /* dark bg (near-black) */
+  --ng-dark-2: #1A1A1A;         /* slightly lifted dark */
+  --ng-ink: #111111;            /* primary text on cream */
+  --ng-paper: #F5F1E8;          /* primary text on dark */
+  --ng-accent: #F5C43B;         /* brand yellow/gold */
+  --ng-accent-warm: #E8B533;    /* deeper yellow */
+  --ng-muted: #6B6B6B;          /* secondary text */
+
+  /* Slidev overrides */
+  --slidev-theme-primary: var(--ng-accent);
+}
+
+/* ----- Base ----- */
+.slidev-layout {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: 'ss01', 'cv11';
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.slidev-layout h1 { font-size: 5rem; }
+.slidev-layout h2 { font-size: 3.5rem; }
+
+.mono, .slidev-layout code, .slidev-layout .mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 500;
+}
+
+/* ----- Light (cream) content slides ----- */
+.ng-light {
+  background: var(--ng-cream);
+  color: var(--ng-ink);
+}
+.ng-light h1, .ng-light h2, .ng-light h3 { color: var(--ng-ink); }
+
+/* ----- Dark section breaks ----- */
+.ng-dark {
+  background: var(--ng-dark);
+  color: var(--ng-paper);
+}
+.ng-dark h1, .ng-dark h2, .ng-dark h3 { color: var(--ng-paper); }
+
+/* ----- Accent color utility ----- */
+.accent { color: var(--ng-accent); }
+.accent-bg { background: var(--ng-accent); color: var(--ng-ink); }
+.muted { color: var(--ng-muted); }
+
+/* ----- Curly-brace motif (matches nicolasgrenie.com) ----- */
+.braces::before { content: '{ '; color: var(--ng-accent); font-weight: 700; }
+.braces::after  { content: ' }'; color: var(--ng-accent); font-weight: 700; }
+
+/* ----- Chrome: venue tag + handle (always present) ----- */
+.chrome-top-left,
+.chrome-bottom-right,
+.chrome-bottom-left {
+  position: absolute;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  opacity: 0.65;
+  z-index: 10;
+}
+.chrome-top-left    { top: 2rem;    left: 2.5rem; }
+.chrome-bottom-right{ bottom: 2rem; right: 2.5rem; }
+.chrome-bottom-left { bottom: 2rem; left: 2.5rem; }
+
+.chrome-logo {
+  display: inline-block;
+  background: var(--ng-accent);
+  color: var(--ng-ink);
+  padding: 0.25rem 0.6rem;
+  border-radius: 0.25rem;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+/* ----- Big statement slides ----- */
+/* Higher-specificity overrides to beat .slidev-layout h1/h2 */
+.slidev-layout .statement,
+.statement {
+  font-size: 7.5rem;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-align: center;
+  max-width: 98%;
+  margin: 0 auto;
+  text-wrap: balance;
+}
+.slidev-layout .statement-sm,
+.statement-sm {
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  text-align: center;
+  max-width: 98%;
+  margin: 0 auto;
+}
+
+.statement-xs {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-align: center;
+  max-width: 98%;
+  margin: 0 auto;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.strike-muted {
+  text-decoration: line-through;
+  opacity: 0.4;
+  text-wrap: balance;
+}
+
+/* ----- Image layouts ----- */
+.full-bleed-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ----- Title slide ----- */
+.title-memoji {
+  position: absolute;
+  top: 1.75rem;
+  right: 2rem;
+  width: 5.5rem;
+  height: 5.5rem;
+  z-index: 15;
+}
+
+.title-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+  height: 100%;
+  padding: 0 2rem;
+}
+
+.title-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title-headline {
+  font-size: 6.5rem;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.title-subhead {
+  display: block;
+  margin-top: 1.25rem;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  opacity: 0.8;
+}
+
+.title-illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.title-illustration img {
+  width: 100%;
+  max-height: 85vh;
+  object-fit: cover;
+  aspect-ratio: 3 / 4;
+  border-radius: 1rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* ----- Hide Slidev goto / overview / editor panels ----- */
+#slidev-goto-dialog .autocomplete-list {
+  display: none;
+}
+
+#slidev-goto-dialog:not(.-top-20) .autocomplete-list {
+  display: block;
+}
+
+/* ----- Claude mark (inline SVG sizing) ----- */
+.claude-mark {
+  width: 1.4rem;
+  height: 1.4rem;
+  flex-shrink: 0;
+}
+
+/* ----- Intro "me" slide ----- */
+.intro-me-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.intro-me-illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.intro-me-illustration img {
+  width: 100%;
+  max-height: 78vh;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 1.25rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+}
+.intro-me-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ----- ImSoMetal iterations slide ----- */
+.iterations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 100rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.iterations-grid figure {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0;
+}
+.iterations-grid img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.5);
+}
+.iterations-grid figcaption {
+  text-align: center;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 1.35rem;
+  opacity: 0.75;
+  letter-spacing: 0.08em;
+}
+
+/* ----- Per-slide QR code (corner pin) ----- */
+.slide-qr {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 15;
+}
+.slide-qr img {
+  width: 9rem;
+  height: 9rem;
+  background: #ffffff;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+.slide-qr-label {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ----- image-right: make the image column match slide bg when using contain ----- */
+.slidev-layout.default.ng-dark + div[style*="background-image"] {
+  background-color: var(--ng-dark);
+}
+.slidev-layout.default.ng-light + div[style*="background-image"] {
+  background-color: var(--ng-cream);
+}
+
+/* ----- Pain points list ----- */
+.pain-points {
+  max-width: 92rem;
+  margin: 2rem auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.pain-points > div {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+.pain-dot {
+  color: var(--ng-accent);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* ----- What teams want (two-column) ----- */
+.team-wants {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 90rem;
+  margin: 2rem auto 0;
+  padding: 0 2rem;
+  text-align: left;
+}
+.team-wants h3 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+}
+.team-wants ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 1.35rem;
+  line-height: 1.4;
+}
+.team-wants ol strong {
+  color: var(--ng-paper);
+  font-weight: 700;
+}
+.team-wants ol li {
+  opacity: 0.88;
+}
+
+/* ----- Figma chaos slide (two illustrations side-by-side) ----- */
+.figma-chaos {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+  align-items: center;
+  max-width: 100rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.figma-chaos img {
+  flex: 1;
+  min-width: 0;
+  max-height: 62vh;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.5);
+  background: #ffffff;
+}
+
+/* SoS meme image sizing */
+.sos-meme {
+  display: block;
+  margin: 2rem auto 0;
+  max-width: 58rem;
+  max-height: 60vh;
+  border-radius: 0.75rem;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* ----- Mockup → design result slide ----- */
+.mockup-flow {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  justify-content: center;
+  margin: 2.5rem auto 0;
+  max-width: 96rem;
+  padding: 0 2rem;
+}
+.mockup-flow figure {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0;
+  min-width: 0;
+}
+.mockup-flow img {
+  width: 100%;
+  max-height: 34rem;
+  object-fit: contain;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+}
+.mockup-flow figcaption {
+  text-align: center;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 1.25rem;
+  opacity: 0.8;
+  letter-spacing: 0.04em;
+}
+.mockup-arrow {
+  font-size: 5rem;
+  color: var(--ng-accent);
+  font-weight: 800;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* ----- Bnbicons stats ----- */
+.stat-number {
+  font-size: 9rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+/* ----- Thank-you workshop CTA ----- */
+.workshop-cta {
+  margin-top: 3rem;
+  border: 2px solid var(--ng-accent);
+  border-radius: 1rem;
+  padding: 1.5rem 2.5rem;
+  background: rgba(245, 196, 59, 0.06);
+  text-align: center;
+  max-width: 52rem;
+}
+.workshop-meta {
+  font-size: 1rem;
+  opacity: 0.85;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.workshop-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.workshop-lovable {
+  height: 2.5rem;
+  width: auto;
+}
+
+/* ----- Design system flow (logos + arrows) ----- */
+.ds-flow {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+.ds-flow-group {
+  display: flex;
+  gap: 1.75rem;
+  align-items: center;
+}
+.ds-flow-group img {
+  height: 4.5rem;
+  width: auto;
+}
+.ds-flow-arrow {
+  font-size: 3.5rem;
+  color: var(--ng-accent);
+  font-weight: 800;
+  line-height: 1;
+}
+.ds-flow-tool-logo {
+  height: 5.5rem;
+  width: auto;
+}
+.ds-flow-output {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--ng-accent);
+}
+
+/* ----- Skills grid (2x2 cards) ----- */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+  max-width: 72rem;
+  margin: 2.5rem auto 0;
+}
+.skill-card {
+  border: 1px solid rgba(245, 196, 59, 0.28);
+  border-radius: 0.75rem;
+  padding: 1.75rem 2rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+.skill-card .skill-emoji {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+.skill-card .skill-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  color: var(--ng-accent);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 0.85rem;
+  letter-spacing: 0.02em;
+}
+.skill-card .skill-desc {
+  opacity: 0.75;
+  font-size: 1.15rem;
+  margin-top: 0.5rem;
+  line-height: 1.4;
+}
+
+/* ----- Registrars / "real winners" slide ----- */
+.registrars {
+  display: flex;
+  gap: 6rem;
+  justify-content: center;
+  align-items: center;
+  margin: 3.5rem 0;
+  flex-wrap: wrap;
+}
+.registrars img {
+  height: 8rem;
+  width: auto;
+  max-width: 22rem;
+}
+
+/* ----- SEO rebuttal slide ----- */
+.seo-proof {
+  margin: 2rem auto;
+  font-size: 1.75rem;
+  font-weight: 600;
+  opacity: 0.9;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+.seo-receipts {
+  display: block;
+  margin: 2rem auto 0;
+  max-width: 62rem;
+  width: 100%;
+  border-radius: 0.75rem;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* ----- Shadow / analysis paralysis slide ----- */
+.choices {
+  margin: 2.5rem auto 0;
+  max-width: 52rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.choice-row {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 2rem;
+  font-weight: 700;
+  padding-left: 1rem;
+}
+.choice-row img {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+}
+.choice-or {
+  opacity: 0.45;
+  font-weight: 400;
+  font-style: italic;
+  padding: 0 0.35rem;
+}
+.shadow-punchline {
+  margin-top: 2.25rem;
+  text-align: center;
+  font-size: 1.5rem;
+  opacity: 0.9;
+}
+
+/* ----- Vibecoding citation card ----- */
+.vibecoding-card {
+  max-width: 58rem;
+  margin: 0 auto;
+  text-align: center;
+}
+.vibecoding-card .kicker {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+.karpathy-tweet {
+  max-width: 100%;
+  max-height: 70vh;
+  margin: 0 auto;
+  border-radius: 1rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+  display: block;
+}
+.vibecoding-attr {
+  margin-top: 1.25rem;
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+/* ----- Keyboard personas slide ----- */
+.keyboard-placeholder {
+  background: #1f1f1f;
+  border: 2px dashed #555;
+  border-radius: 0.75rem;
+  padding: 2rem 1.5rem;
+  color: #888;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  min-height: 11rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.05em;
+}
+.keyboard-card {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  min-height: 11rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+.keyboard-card img {
+  max-height: 9.5rem;
+  max-width: 100%;
+  object-fit: contain;
+}
+.keyboard-label {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+/* ----- Small presenter helpers ----- */
+.kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.3rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ng-accent);
+  margin-bottom: 1.5rem;
+}
+
+/* ----- Strava activity card (slide 13) ----- */
+.strava-slide-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 4rem;
+  max-width: 90rem;
+  margin: 0 auto;
+  align-items: center;
+  padding: 0 3rem;
+}
+
+.strava-copy {
+  text-align: left;
+}
+
+.strava-headline {
+  font-size: 6rem;
+  font-weight: 800;
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+}
+
+.strava-subhead {
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1.25;
+  margin-top: 2rem;
+  opacity: 0.9;
+}
+
+.strava-card {
+  border: 1px solid rgba(245, 196, 59, 0.28);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1.2rem;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  max-width: 36rem;
+  font-family: Inter, sans-serif;
+}
+
+.strava-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.strava-avatar {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  background: rgba(245, 196, 59, 0.15);
+}
+
+.strava-identity {
+  flex: 1;
+}
+
+.strava-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.strava-meta {
+  font-size: 1rem;
+  opacity: 0.75;
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: 0.2rem;
+}
+
+.strava-badge {
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.4rem;
+  background: #FC5200;
+  color: white;
+  letter-spacing: 0.04em;
+}
+
+.strava-card-title {
+  font-size: 1.9rem;
+  font-weight: 800;
+  margin-top: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.strava-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.1rem 0;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.strava-stat-num {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--ng-accent);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.strava-stat-label {
+  font-size: 0.9rem;
+  font-family: 'JetBrains Mono', monospace;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 0.4rem;
+}
+
+.strava-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 3px;
+  margin-top: 1.25rem;
+}
+
+.strava-grid > div {
+  background: var(--ng-accent);
+  border-radius: 2px;
+  opacity: 0.12;
+  aspect-ratio: 1;
+}
+
+.strava-grid > div:nth-child(3n) { opacity: 0.3; }
+.strava-grid > div:nth-child(5n) { opacity: 0.55; }
+.strava-grid > div:nth-child(7n) { opacity: 0.85; }
+.strava-grid > div:nth-child(11n) { opacity: 0.42; }
+.strava-grid > div:nth-child(13n) { opacity: 0.7; }
+
+.strava-card-footer {
+  font-size: 1.05rem;
+  opacity: 0.85;
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: 1rem;
+}
