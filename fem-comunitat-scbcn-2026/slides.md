@@ -3,7 +3,7 @@
 # 7-minute lightning talk · Spanish
 # Design reused from picsoung/talks/confessions-devoxx-2026
 # Cream / ink / gold, bold statements, JetBrains Mono chrome
-# Story arc: antes -> ahora -> paradoja -> IA -> personas -> acción
+# Story arc: antes -> Digest -> paradoja -> formatos -> espacios -> global/local -> HackBarna -> contribuir
 # ============================================================
 theme: default
 aspectRatio: 16/9
@@ -54,12 +54,13 @@ hideVenue: true
 </div>
 
 <!--
-⏱ 0:25 · Apertura
+⏱ 0:20 · Apertura
 Presentarte en una frase: «Llevo más de diez años metido en comunidades tech
 (y últimamente organizo HackBarna y Hack Nights aquí en Barcelona)».
 Pregunta que abre: «¿Os habéis dado cuenta de que ahora hay un meetup para todo?»
 No alargar la biografía; pasar directo al contraste temporal.
 -->
+
 
 ---
 layout: center
@@ -78,52 +79,38 @@ section: ANTES
 </div>
 
 <!--
-⏱ 0:40 · Hace diez años
+⏱ 0:35 · Hace diez años
 Evocar aquella Barcelona: menos eventos, mucha gente coincidiendo,
 una forma más simple de enterarte de qué pasaba. El «un meetup a la semana»
 es una exageración intencionada, no lo presentes como una estadística.
 Deja una sonrisa y avanza: «Y entonces se multiplicó todo».
 -->
 
+
 ---
 layout: center
 class: ng-dark
-section: AHORA
+section: BARCELONA HOY
 ---
 
 <div class="year-tag mono">2026<span class="year-line"></span> BARCELONA</div>
-
-<h1 class="statement statement-left">Hay una comunidad<br/>para <span class="accent">casi todo.</span></h1>
-
-<div class="topic-cloud">
-  <span>AI agents</span><span>Python</span><span>Open source</span>
-  <span>Rust</span><span>Vibecoding</span><span>Producto</span>
-  <span>Startups</span><span>Design systems</span><span>Data</span>
-  <span>Hackathons</span><span>Hardware</span><span>Cloud</span>
+<h1 class="stats-headline">Hay una comunidad<br/>para <span class="accent">casi todo.</span></h1>
+<div class="digest-stats">
+  <div class="digest-stat"><div class="digest-number">126</div><div class="digest-label mono">eventos en octubre</div></div>
+  <div class="digest-stat"><div class="digest-number">35</div><div class="digest-label mono">comunidades registradas</div></div>
+  <div class="digest-stat"><div class="digest-number">477</div><div class="digest-label mono">eventos publicados</div></div>
 </div>
+<div class="source-caption mono">HackBarna Digest · 16 oct 2026 · catálogo, no censo de toda Barcelona</div>
 
 <!--
-⏱ 0:40 · 2026
-No hacer inventario exhaustivo. Señalar 3-4 ejemplos divertidos.
-Más eventos, más nichos, más maneras de entrar en tech. Es algo positivo.
-Pero el volumen tiene una cara B.
--->
-
----
-layout: center
-class: ng-dark slide-punchline
-section: LA BROMA
----
-
-<div class="kicker centered">THERE'S AN APP FOR THAT →</div>
-<h1 class="statement mega">Hay una<br/><span class="accent">comunidad</span><br/>para eso.</h1>
-<div class="mono punchline-foot">Sí, incluso para esa herramienta que salió el martes.</div>
-
-<!--
-⏱ 0:30 · El guiño
-Pausa después de «para eso». Dejar respirar la broma.
-Si la sala responde, pregunta quién organiza o va regularmente a un meetup.
-Hacer de puente hacia la pregunta seria.
+⏱ 0:45 · 2026
+Hay una comunidad para eso. Incluso para la herramienta que salió el martes.
+126 eventos este mes, 35 comunidades y 477 eventos publicados: los números
+del catálogo de digest.hackbarna.com, consultado el 16/10/2026.
+No representan todos los eventos de Barcelona ni asistentes.
+La plataforma combina Luma, Meetup, RSS, iCal y envíos manuales.
+Actualiza esta captura antes de reutilizar el talk.
+Fuente: https://digest.hackbarna.com/en
 -->
 
 ---
@@ -134,38 +121,82 @@ section: LA PARADOJA
 
 <div class="kicker">LA PREGUNTA INCÓMODA</div>
 <h1 class="statement statement-left dark-ink">Más eventos.<br/><span class="gold-on-light">¿Más conexiones?</span></h1>
-
-<div class="two-sides">
-  <div class="side"><div class="side-icon">↗</div><div class="side-label">Más opciones</div><div class="side-desc">más puertas de entrada</div></div>
-  <div class="side"><div class="side-icon">?</div><div class="side-label">Más ruido</div><div class="side-desc">¿por dónde empiezo?</div></div>
-</div>
+<div class="paradox-sub">La IA te ayuda a aprender solo.<br/>Pero encontrar a <strong>tu gente</strong> sigue siendo otra historia.</div>
 
 <!--
-⏱ 0:55 · La tensión
-Es la idea central. Si estás empezando o cambiando de sector,
-la oferta puede agobiar: FOMO, agendas llenas, grupos de WhatsApp,
-tantos eventos que cuesta saber dónde encajas.
-Una sala llena no equivale automáticamente a una comunidad fuerte.
-No se trata de criticar a los organizadores: es una invitación a conectar mejor.
+⏱ 0:40 · Paradoja
+Tenemos más oportunidades que nunca, pero también FOMO y gente perdida.
+La IA responde preguntas técnicas. No sustituye la confianza, las
+presentaciones y la pertenencia. Una sala llena no es automáticamente comunidad.
 -->
 
 ---
 layout: center
 class: ng-dark
-section: IA
+section: LOS FORMATOS
 ---
 
-<div class="kicker centered">Y ENTONCES LLEGÓ LA IA</div>
-<h1 class="statement statement-narrow">Puedes aprender<br/><span class="accent">solo.</span></h1>
-<h2 v-click class="reveal-line">Pero no tienes por qué hacerlo.</h2>
+<div class="kicker">¿Y SI CAMBIAMOS LA RECETA?</div>
+<h1 class="format-title">Un meetup no es solo<br/><span class="accent">charla + pizza + birras.</span></h1>
+<div class="format-tags">
+  <span>Hack nights</span><span>Desayunos</span><span>Workshops</span>
+  <span>Café + construir</span><span>Demos abiertas</span><span>Office hours</span>
+</div>
+<div class="format-question mono">Si hacemos siempre lo mismo, ¿a quién dejamos fuera?</div>
 
 <!--
-⏱ 0:55 · IA + comunidad
-La IA responde dudas en segundos, te ayuda a prototipar, te enseña lo básico.
-Pero no sustituye a alguien que te escucha, te aconseja o te presenta a un equipo.
-El valor de una comunidad no es solo el conocimiento: también son la confianza,
-los amigos y los proyectos que nacen cuando coincidimos.
-El segundo mensaje entra con un clic.
+⏱ 0:55 · Formatos e inclusión
+El meetup nocturno con charla, pizza y birra funciona, pero no para todos:
+quien cuida a un hijo, tiene turno de noche, vuelve lejos, no bebe, llega
+de nuevas o prefiere construir juntos en lugar de escuchar.
+No culpabilizar; invitar a probar otros formatos y horarios.
+-->
+
+---
+layout: center
+class: ng-light
+section: LOS ESPACIOS
+---
+
+<div class="kicker">EL RETO INVISIBLE</div>
+<h1 class="spaces-title">Sin espacios,<br/><span class="gold-on-light">no hay comunidad.</span></h1>
+<div class="spaces-compare">
+  <div class="space-panel"><div class="space-overline mono">ANTES</div><div class="space-big">Oficinas abiertas.</div><p>Muchas empresas nos prestaban salas y espacio para encontrarnos.</p></div>
+  <div class="space-panel"><div class="space-overline mono">¿Y AHORA?</div><div class="space-big">Otras puertas.</div><p>Coworkings · universidades · cafés · bibliotecas · centros cívicos.</p></div>
+</div>
+<div class="spaces-takeaway mono">Prestar una sala también es contribuir.</div>
+
+<!--
+⏱ 0:55 · Espacios
+Observación personal, no estadística: antes muchas empresas prestaban
+sus oficinas; con cambios en la forma de trabajar y espacios que cierran,
+ahora cuesta más encontrar sedes. No depender solo de oficinas tech.
+Explorar coworkings, universidades, cafés, bibliotecas, centros cívicos.
+Para algunas empresas abrir una sala ayuda más que patrocinar cervezas.
+-->
+
+---
+layout: center
+class: ng-dark
+section: GLOBAL / LOCAL
+---
+
+<div class="kicker centered">DEL MUNDO A BARCELONA</div>
+<h1 class="global-title">Formatos globales.<br/><span class="accent">Comunidad local.</span></h1>
+<div class="global-example">
+  <strong>Café Cursor</strong>
+  <span>Café, portátiles, gente construyendo. Y alguien de aquí que lo hace posible.</span>
+</div>
+<div class="source-caption mono">Café Cursor Barcelona · marzo de 2026 · cursor.com/community</div>
+
+<!--
+⏱ 0:40 · Global + local
+Cursor promueve cafés, talleres y hackathons y cuenta con embajadores
+locales. Café Cursor Barcelona se anunció para el 10 de marzo de 2026.
+El formato y algunos recursos vienen de fuera; quien lo hace funcionar
+en Barcelona es la gente de aquí.
+Fuentes: https://cursor.com/community
+https://forum.cursor.com/t/new-event-cafe-cursor-barcelona/152170
 -->
 
 ---
@@ -175,7 +206,7 @@ section: EN LA PRÁCTICA
 ---
 
 <div class="kicker">LO QUE HE VISTO ORGANIZANDO EVENTOS</div>
-<h1 class="case-headline">Lo mejor suele pasar<br/><span class="gold-on-light">entre las charlas.</span></h1>
+<h1 class="case-headline">Lo mejor pasa<br/><span class="gold-on-light">cuando hacemos cosas juntos.</span></h1>
 
 <div class="story-frames">
   <div class="story-card">
@@ -191,12 +222,13 @@ section: EN LA PRÁCTICA
 <div class="case-bottom mono">Una conversación → una idea → alguien con quien construir.</div>
 
 <!--
-⏱ 1:10 · Un ejemplo real
+⏱ 1:00 · Un ejemplo real
 TODO IMPORTANTE: sustituir los dos recuadros por fotos propias en public/images/.
 Contar UNA historia concreta de HackBarna o Hack Nights: alguien llega sin equipo,
 encuentra a otra persona, aprende algo o sigue un proyecto tras el evento.
 Evitar narrar cifras y sponsors: el mensaje son las relaciones.
 -->
+
 
 ---
 layout: center
@@ -208,18 +240,21 @@ section: POR DÓNDE EMPEZAR
 <h1 class="steps-title">No hace falta<br/><span class="gold-on-light">ir a todo.</span></h1>
 
 <div class="action-steps">
-  <div class="action-step"><div class="step-num mono">01</div><div class="step-text">Elige <strong>una</strong> comunidad.</div></div>
-  <div class="action-step"><div class="step-num mono">02</div><div class="step-text">Vuelve una segunda vez.</div></div>
-  <div class="action-step"><div class="step-num mono">03</div><div class="step-text">Ayuda a alguien.</div></div>
+  <div class="action-step"><div class="step-num mono">01</div><div class="step-text">Preséntate y vuelve.</div></div>
+  <div class="action-step"><div class="step-num mono">02</div><div class="step-text">Ayuda a quien llega solo.</div></div>
+  <div class="action-step"><div class="step-num mono">03</div><div class="step-text">Abre una puerta (o propón un formato).</div></div>
 </div>
 
 <!--
-⏱ 1:05 · Consejos concretos
+⏱ 0:50 · Consejos concretos
+No hace falta ser ponente ni organizador. Conectar gente, mentorizar,
+proponer un horario nuevo o prestar una sala también suma.
 Que no sientan que deben ir a cinco meetups a la semana.
 Elige una comunidad según intereses, no según la moda.
 La segunda vez ya reconoces a alguien. Presentarte y hacer preguntas vale.
 Y contribuir puede ser tan simple como responder una duda o presentar a dos personas.
 -->
+
 
 ---
 layout: center
@@ -232,9 +267,10 @@ section: FIN
 <div class="closing-footer mono">Nos vemos en el próximo meetup. &nbsp; <span class="accent">@picsoung</span></div>
 
 <!--
-⏱ 0:40 · Cierre
+⏱ 0:20 · Cierre
 «No hace falta fundar otro grupo. A veces basta con aparecer, volver,
 y echar una mano a la persona que llega por primera vez».
 Pausa. Agradecer. Dejar la última frase en pantalla.
-Total previsto: 7:00 (25+40+40+30+55+55+70+65+40 s).
+Total previsto: 7:00 (20+35+45+40+55+55+40+60+50+20 s).
 -->
+
