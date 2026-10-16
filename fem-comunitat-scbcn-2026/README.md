@@ -30,20 +30,21 @@ If needed, install Playwright Chromium first: `npx playwright install chromium`.
 
 | # | Slide | Target |
 |---|---|---:|
-| 1 | Fem comunitat | 0:25 |
-| 2 | Barcelona 2016 | 0:40 |
-| 3 | Barcelona 2026 | 0:40 |
-| 4 | Hay una comunidad para eso | 0:30 |
-| 5 | ¿Más conexiones? | 0:55 |
-| 6 | IA: aprender solo | 0:55 |
-| 7 | HackBarna & Hack Nights | 1:10 |
-| 8 | No hace falta ir a todo | 1:05 |
-| 9 | La comunidad se construye | 0:40 |
+| 1 | Fem comunitat | 0:20 |
+| 2 | Barcelona 2016 | 0:35 |
+| 3 | Barcelona 2026 · Digest stats | 0:45 |
+| 4 | Más eventos, ¿más conexiones? | 0:40 |
+| 5 | Nuevos formatos y participación | 0:55 |
+| 6 | Los espacios que hacen posibles las comunidades | 0:55 |
+| 7 | Global + local · Café Cursor | 0:40 |
+| 8 | HackBarna & Hack Nights | 1:00 |
+| 9 | Cómo contribuir | 0:50 |
+| 10 | La comunidad se construye | 0:20 |
 
 ## What to complete before presenting
 
-- [ ] Swap the two clearly labeled photo placeholders on slide 7 for real HackBarna/Hack Nights photos. Put the files under `public/images/` and edit `slides.md`.
-- [ ] Add **one true, specific story** from a HackBarna or Hack Nights meetup to slide 7's speaker notes. Skip sponsor lists and vanity metrics.
+- [ ] Swap the two clearly labeled photo placeholders on slide 8 for real HackBarna/Hack Nights photos. Put the files under `public/images/` and edit `slides.md`.
+- [ ] Add **one true, specific story** from a HackBarna or Hack Nights meetup to slide 8's speaker notes. Skip sponsor lists and vanity metrics.
 - [ ] Rehearse with the 7-minute time budget: keep the 2016/2026 setup brisk so the audience reaches the practical advice.
 
 No external image URL, third-party assets or missing-image references are required for the skeleton to render.
