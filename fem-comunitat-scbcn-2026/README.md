@@ -47,3 +47,13 @@ If needed, install Playwright Chromium first: `npx playwright install chromium`.
 - [ ] Rehearse with the 7-minute time budget: keep the 2016/2026 setup brisk so the audience reaches the practical advice.
 
 No external image URL, third-party assets or missing-image references are required for the skeleton to render.
+
+## Update · 16 October 2026
+
+This **10-slide / 7-minute** skeleton now covers alternative formats, inclusive organizing, venue access, international formats supported by local ambassadors, and practical ways to contribute.
+
+Slide 3 displays a dated snapshot from [HackBarna Digest](https://digest.hackbarna.com/en): **126 events in October, 35 tracked communities, 477 events listed**. These are catalogue counts, not Barcelona-wide totals. The figures were read from the public homepage; no documented public JSON API could be confirmed.
+
+Slide 7 references [Café Cursor Barcelona](https://forum.cursor.com/t/new-event-cafe-cursor-barcelona/152170) and [Cursor's global community programme](https://cursor.com/community).
+
+The two photo placeholders in the HackBarna/Hack Nights slide still need real images.
