@@ -196,3 +196,27 @@
 @media (max-width: 800px) {
   .slidev-layout { padding: 3rem 4rem !important; }
 }
+
+/* Digest & community spaces / new formats (Oct 2026) */
+.slidev-layout .stats-headline { font-size: 6.7rem; line-height: 1.06; margin: 0 0 4rem; }
+.slidev-layout .digest-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.4rem; }
+.slidev-layout .digest-stat { padding: 2rem; border: 2px solid rgba(245,196,59,.35); border-radius: 1rem; background: rgba(245,196,59,.06); }
+.slidev-layout .digest-number { font-size: 7.3rem; font-weight: 850; color: var(--ng-accent); letter-spacing: -.05em; line-height: 1; }
+.slidev-layout .digest-label { margin-top: 1rem; font-size: 1.25rem; }
+.slidev-layout .source-caption { margin-top: 2rem; opacity: .59; font-size: 1rem; }
+.slidev-layout .paradox-sub { font-size: 2.8rem; line-height: 1.35; margin-top: 5rem; opacity: .82; }
+.slidev-layout .format-title { font-size: 6.35rem; line-height: 1.06; margin: 0 0 3rem; }
+.slidev-layout .format-tags { display: flex; flex-wrap: wrap; gap: 1rem; }
+.slidev-layout .format-tags span { padding: 1rem 1.4rem; border: 2px solid rgba(245,196,59,.46); background: rgba(245,196,59,.07); border-radius: .7rem; font-size: 1.8rem; font-weight: 700; }
+.slidev-layout .format-question { font-size: 1.6rem; margin-top: 3.5rem; opacity: .75; }
+.slidev-layout .spaces-title { font-size: 7rem; margin: 0 0 3rem; }
+.slidev-layout .spaces-compare { display:grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+.slidev-layout .space-panel { padding: 2rem; border: 2px solid rgba(17,17,17,.15); border-radius: 1rem; }
+.slidev-layout .space-overline { color: #976A05; margin-bottom: 1rem; font-size: 1.2rem; }
+.slidev-layout .space-big { font-size: 2.6rem; font-weight: 800; }
+.slidev-layout .space-panel p { font-size: 1.6rem; opacity: .8; margin: 1.3rem 0 0; }
+.slidev-layout .spaces-takeaway { margin-top: 2rem; color: #8D650D; font-size: 1.6rem; }
+.slidev-layout .global-title { text-align:center; font-size: 7.7rem; line-height: 1.06; margin: 0 0 4rem; }
+.slidev-layout .global-example { display:flex; align-items: baseline; gap:2rem; border-left: .65rem solid var(--ng-accent); background:rgba(245,196,59,.08); padding:1.6rem 2rem; }
+.slidev-layout .global-example strong { color:var(--ng-accent); white-space:nowrap; font-size:3rem; }
+.slidev-layout .global-example span { font-size:1.75rem; line-height:1.38; }
