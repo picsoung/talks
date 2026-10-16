@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Marta Puig",
+    "email": "marta.puig@example.com",
+    "phone": "+34600000101",
+    "occupation": "arquitecta",
+    "description": "Clienta habitual. Le encanta el marisco y las terrazas con vistas. Suele reservar para dos los viernes por la noche."
+  },
+  {
+    "id": 2,
+    "name": "Jordi Ferrer",
+    "email": "jordi.ferrer@example.com",
+    "phone": "+34600000102",
+    "occupation": "desarrollador de software",
+    "description": "Fan del ramen y la cocina asiática. Prefiere sitios baratos y sin reserva. Suele preguntar qué hay abierto tarde."
+  },
+  {
+    "id": 3,
+    "name": "Lucía Andrade",
+    "email": "lucia.andrade@example.com",
+    "phone": "+34600000103",
+    "occupation": "médica",
+    "description": "Vegetariana. Turnos irregulares en el hospital — pregunta mucho por horarios. Le gustan los sitios tranquilos."
+  },
+  {
+    "id": 4,
+    "name": "Pau Vilanova",
+    "email": "pau.vilanova@example.com",
+    "phone": "+34600000104",
+    "occupation": "profesor de instituto",
+    "description": "Organiza cenas de grupo grandes (8-12 personas). Presupuesto medio. Necesita sitios que acepten reserva."
+  },
+  {
+    "id": 5,
+    "name": "Carmen Reyes",
+    "email": "carmen.reyes@example.com",
+    "phone": "+34600000105",
+    "occupation": "directora de marketing",
+    "description": "Cliente VIP. Cenas de empresa y ocasiones especiales — presupuesto alto, le gustan los menús degustación con maridaje."
+  },
+  {
+    "id": 6,
+    "name": "Ahmed Benali",
+    "email": "ahmed.benali@example.com",
+    "phone": "+34600000106",
+    "occupation": "fotógrafo freelance",
+    "description": "Nuevo en Barcelona, quiere descubrir barrios. No come cerdo. Le van los sitios auténticos y con carácter."
+  },
+  {
+    "id": 7,
+    "name": "Núria Soler",
+    "email": "nuria.soler@example.com",
+    "phone": "+34600000107",
+    "occupation": "abogada",
+    "description": "Comidas de trabajo entre semana cerca del Eixample. Valora rapidez y que el sitio no sea ruidoso."
+  },
+  {
+    "id": 8,
+    "name": "Diego Martín",
+    "email": "diego.martin@example.com",
+    "phone": "+34600000108",
+    "occupation": "estudiante de máster",
+    "description": "Presupuesto ajustado. Busca planes baratos y cañas con amigos. Última reserva: Taquería La Chingona."
+  },
+  {
+    "id": 9,
+    "name": "Ingrid Larsen",
+    "email": "ingrid.larsen@example.com",
+    "phone": "+34600000109",
+    "occupation": "consultora expatriada",
+    "description": "Prefiere hablar despacio — español básico. Alérgica a los frutos secos. Le encanta la cocina catalana tradicional."
+  },
+  {
+    "id": 10,
+    "name": "Xavi Roca",
+    "email": "xavi.roca@example.com",
+    "phone": "+34600000110",
+    "occupation": "cocinero",
+    "description": "Del gremio: pregunta por aperturas nuevas y omakases. Solo puede salir los lunes, su día libre — ojo con los cierres."
+  }
+]

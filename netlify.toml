@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build && npm run check"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  PUPPETEER_SKIP_DOWNLOAD = "true"
+
+[context.deploy-preview]
+  command = "npm run build && npm run check"

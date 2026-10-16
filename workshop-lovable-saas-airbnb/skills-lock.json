@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "skills": {
+    "slidev": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "4973bc1baf08fa1303f99ef3abce8ec3aedfb2637e4315de30a2421746b610e3"
+    },
+    "slidev-layouts": {
+      "source": "yoanbernabeu/slidev-skills",
+      "sourceType": "github",
+      "computedHash": "18b4b5e0ccd03e6dd0a0d47d660c9a3bc26ec6e0ed86ec8aba4243af6e290f2d"
+    },
+    "slidev-magic-move": {
+      "source": "yoanbernabeu/slidev-skills",
+      "sourceType": "github",
+      "computedHash": "8c13a542a2b96ad13dabbc98a3adf9eb22a2a39288df33b42698783c27fb9b23"
+    },
+    "slidev-styling": {
+      "source": "yoanbernabeu/slidev-skills",
+      "sourceType": "github",
+      "computedHash": "398269f9565bd7632e85cb4b6b1b3b1ca596b8cc484f809e287afc6091fa5818"
+    },
+    "slidev-transitions": {
+      "source": "yoanbernabeu/slidev-skills",
+      "sourceType": "github",
+      "computedHash": "727099024479a7aeb5a903630344279d9db9c74c794b2de9bd53a768dfea56cd"
+    }
+  }
+}

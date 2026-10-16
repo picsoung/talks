@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Talks & workshops — Nicolas Grenié</title>
+<meta name="description" content="Talks and workshops by Nicolas Grenié on AI, software development, voice agents, and tech communities.">
+<style>
+:root{color-scheme:light;--paper:#f5f2e9;--ink:#20201e;--muted:#64645d;--gold:#f1cc46}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif}a{color:inherit}header,main,footer{max-width:1180px;margin:auto;padding:28px 36px}header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #20201e25}header a{text-decoration:none;font-size:15px} .brand{font-weight:700}.braces{color:#987600;font-family:monospace;margin-right:10px}.intro{padding:70px 0 46px;max-width:850px}.eyebrow,.meta,.event,footer,.search-label{font-family:monospace;font-size:12px;letter-spacing:.035em}.eyebrow{text-transform:uppercase;color:var(--muted)}h1{font-size:clamp(48px,8vw,94px);line-height:1.02;letter-spacing:-.065em;margin:22px 0 24px}h1 span{background:var(--gold);padding:0 10px}.intro p{font-size:19px;line-height:1.6;color:var(--muted);max-width:600px}.toolbar{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:25px}.search-label{display:flex;align-items:center;gap:12px}input{background:transparent;border:1px solid #20201e55;padding:12px 14px;font:inherit;border-radius:0;width:250px}input:focus-visible,a:focus-visible{outline:3px solid #987600;outline-offset:5px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.talk{display:flex;flex-direction:column;padding:0;border:1px solid #20201e35;text-decoration:none;transition:background .15s,transform .15s;min-height:0}.talk-preview{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#20201e;margin:0;flex:none;border-bottom:1px solid #20201e35}.talk:hover{background:#ece7d8;transform:translateY(-3px)}.meta{display:flex;justify-content:space-between;color:var(--muted)}h2{font-size:30px;line-height:1.15;letter-spacing:-.035em;margin:0;padding:0}.talk-details{padding:20px 24px}.talk .talk-meta{margin:12px 0 0;font-size:14px;line-height:1.55;display:flex;flex-direction:column;gap:3px}.talk p{color:var(--muted);line-height:1.6;margin:0 0 25px}.event{margin-top:auto;padding-top:18px;border-top:1px solid #20201e25;display:flex;justify-content:space-between;gap:16px;align-items:center}.event>span:last-child{font-family:Arial;font-size:25px}footer{margin-top:55px;border-top:1px solid #20201e25;display:flex;justify-content:space-between;color:var(--muted)}[hidden]{display:none!important}@media(max-width:650px){header,main,footer{padding:24px}.intro{padding:42px 0 28px}.grid{grid-template-columns:1fr}.toolbar{align-items:flex-start;flex-direction:column}.search-label,input{width:100%}.talk{padding:0;min-height:0}.talk-details{padding:18px 20px}h2{font-size:27px}footer{gap:20px;flex-wrap:wrap}}@media(prefers-reduced-motion:reduce){.talk{transition:none}.talk:hover{transform:none}}
+</style>
+</head>
+<body>
+<header><a class="brand" href="/"><span class="braces">{ }</span>Nicolas Grenié</a><a href="https://nicolasgrenie.com">About me ↗</a></header>
+<main>
+<section class="intro"><div class="eyebrow">On stage & hands on</div><h1>Ideas worth<br><span>sharing.</span></h1><p>Talks and workshops on building with AI, finding your community, and learning by doing.</p></section>
+<div class="toolbar"><span class="eyebrow" id="count" aria-live="polite">{{COUNT}} talks & workshops</span><label class="search-label" for="search">Find a talk <input id="search" type="search" placeholder="Topic, event, language…"></label></div>
+<section class="grid" aria-label="Available talks"><!-- TALKS --></section>
+<p id="empty" hidden>No talks match your search. Try another topic, event, or language.</p>
+</main>
+<footer><span>Nicolas Grenié · @picsoung</span><span>Slides, stories & things learned along the way.</span></footer>
+<script>
+const search = document.querySelector('#search');
+const talks = [...document.querySelectorAll('.talk')];
+search.addEventListener('input', () => {
+  const query = search.value.trim().toLowerCase();
+  let count = 0;
+  for (const talk of talks) { talk.hidden = !talk.dataset.search.includes(query); if (!talk.hidden) count++; }
+  document.querySelector('#count').textContent = `${count} ${count === 1 ? 'talk / workshop' : 'talks & workshops'}`;
+  document.querySelector('#empty').hidden = count !== 0;
+});
+</script>
+</body></html>
