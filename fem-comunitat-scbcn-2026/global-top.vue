@@ -17,12 +17,12 @@ const hideVenue = computed(() => frontmatter.value.hideVenue === true)
 <style scoped>
 .global-venue {
   position: absolute;
-  top: 1.5rem;
-  left: 2.25rem;
+  top: 1.25rem;
+  left: 1.75rem;
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: 0.95rem;
-  letter-spacing: 0.07em;
-  opacity: 0.65;
+  letter-spacing: 0.08em;
+  opacity: 0.55;
   color: var(--ng-muted);
   z-index: 20;
   pointer-events: none;

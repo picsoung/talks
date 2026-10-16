@@ -1,19 +1,30 @@
 <template>
-  <div class="global-mark mono">{ n }</div>
+  <img src="/memoji.png" class="global-memoji" alt="Nicolas memoji" />
   <div class="global-handle mono">@picsoung</div>
 </template>
 
 <style scoped>
-.global-mark,
-.global-handle {
+.global-memoji {
   position: absolute;
-  bottom: 1.5rem;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 1rem;
-  letter-spacing: 0.08em;
+  bottom: 1rem;
+  left: 1.25rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  opacity: 0.9;
   z-index: 20;
   pointer-events: none;
 }
-.global-mark { left: 2.2rem; color: var(--ng-accent); font-weight: 700; }
-.global-handle { right: 2.2rem; color: var(--ng-accent); }
+
+.global-handle {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.75rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  opacity: 0.9;
+  color: var(--ng-accent);
+  z-index: 20;
+  pointer-events: none;
+}
 </style>
