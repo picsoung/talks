@@ -1,0 +1,690 @@
+/* ============================================================
+   SLNG — Slidev deck theme
+   Matches the official SLNG corporate deck.
+   Palette: white / grey-01 / black · yellow #FBE566 · "//" motif
+   Shape: rounded squares (never full pills). Type: Saans + Geist Mono.
+   ============================================================ */
+
+/* ----- Fonts -----
+   Geist Mono + Inter come from Google Fonts (Inter is the Saans fallback).
+   Saans (Displaay) ships as local .woff2 in public/fonts/ — three weights:
+   Regular (400), SemiBold (600), Heavy (800). */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Geist+Mono:wght@400;600;700&display=swap');
+
+@font-face {
+  font-family: 'Saans';
+  src: url('/fonts/Saans-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Saans';
+  src: url('/fonts/Saans-SemiBold.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Saans';
+  src: url('/fonts/Saans-Heavy.woff2') format('woff2');
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* SLNG primary palette */
+  --slng-yellow: #FBE566;   /* accent, logo, badges, chips (rounded squares) */
+  --slng-black:  #15120D;   /* typography, dark sections */
+  --slng-white:  #FBFAF7;   /* light-slide background, text on dark */
+  --slng-grey-01:#F3F2ED;   /* cards / containers / surfaces */
+  --slng-grey-02:#CAC9C4;   /* borders, dividers */
+  --slng-grey-03:#8A8983;   /* muted text, labels, metadata */
+
+  /* Support palette — product/status chips ONLY (never brand/marketing) */
+  --slng-blue:   #43A1E1;
+  --slng-orange: #EF8547;
+  --slng-green:  #61D663;
+  --slng-pink:   #E272DC;
+  --slng-purple: #8173EB;
+
+  /* Semantic aliases */
+  --slng-bg-light: var(--slng-white);    /* light slides = white */
+  --slng-bg-dark:  var(--slng-black);
+  --slng-surface:  var(--slng-grey-01);  /* cards on light slides */
+  --slng-ink:      var(--slng-black);    /* text on light */
+  --slng-paper:    var(--slng-white);    /* text on dark */
+  --slng-accent:   var(--slng-yellow);
+  --slng-muted:    var(--slng-grey-03);
+
+  --slng-radius:   12px;                 /* rounded-square radius */
+
+  /* Slidev overrides */
+  --slidev-theme-primary: var(--slng-yellow);
+}
+
+/* ----- Base ----- */
+.slidev-layout {
+  font-family: 'Saans', 'Inter', system-ui, -apple-system, sans-serif;
+  padding: 4.75rem 3rem 3.25rem;   /* extra top space so titles clear the top-left label */
+}
+
+/* Content slides vertically center their content within the padded area, so a
+   short slide-head + body sits centered instead of hugging the top. `safe center`
+   falls back to top-alignment when content is taller than the slide (no clipping).
+   Only the built-in `default` layout — cover/section/statement/closing/center draw
+   their own chrome and are untouched. */
+.slidev-layout.default {
+  display: flex;
+  flex-direction: column;
+  justify-content: safe center;
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 {
+  font-family: 'Saans', 'Inter', system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.slidev-layout h1 { font-size: 3.4rem; }
+.slidev-layout h2 { font-size: 2.6rem; }
+
+.mono, .slidev-layout code, .slidev-layout .mono {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-weight: 400;
+}
+
+/* Markdown wraps slot text in <p>; make it inherit the title/statement metrics
+   (otherwise the default small p line-height makes big multi-line titles overlap). */
+.slidev-layout .cover-title p,
+.slidev-layout .section-title p,
+.slidev-layout .closing-title p,
+.slidev-layout .slide-title p,
+.slidev-layout .title-headline p,
+.slidev-layout .statement p,
+.slidev-layout .statement-sm p,
+.slidev-layout .statement-xs p,
+.slidev-layout .overlay-statement p {
+  margin: 0;
+  line-height: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+}
+
+/* ----- Light (white) content slides ----- */
+.slng-light {
+  background: var(--slng-bg-light);
+  color: var(--slng-ink);
+}
+.slng-light h1, .slng-light h2, .slng-light h3 { color: var(--slng-ink); }
+
+/* ----- Dark section breaks ----- */
+.slng-dark {
+  background: var(--slng-bg-dark);
+  color: var(--slng-paper);
+}
+.slng-dark h1, .slng-dark h2, .slng-dark h3 { color: var(--slng-paper); }
+
+/* ----- Accent utilities ----- */
+.accent { color: var(--slng-accent); }
+.accent-bg { background: var(--slng-yellow); color: var(--slng-black); }
+.muted { color: var(--slng-muted); }
+
+/* On LIGHT slides, accent emphasis is a bright-yellow HIGHLIGHT behind black text —
+   bright brand yellow is unreadable as text on cream, but reads ~14:1 as a highlight.
+   Dark slides keep bright-yellow accent text (the default above). */
+.slng-light .accent {
+  color: var(--slng-black);
+  background: var(--slng-yellow);
+  padding: 0.02em 0.24em;
+  border-radius: 5px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.slng-light .kicker--accent {
+  display: inline-block;
+  color: var(--slng-black);
+  background: var(--slng-yellow);
+  padding: 0.1em 0.5em;
+  border-radius: 6px;
+}
+/* Inside the dark prompt-card the background is already dark → keep yellow TEXT. */
+.slng-light .prompt-card .accent {
+  color: var(--slng-yellow);
+  background: none;
+  padding: 0;
+}
+/* Decorative motifs read as dark ink on light (no highlight). */
+.slng-light .phonetic,
+.slng-light .slash::before { color: var(--slng-ink); background: none; }
+
+/* ----- "//" slash motif (SLNG infra marker) ----- */
+.slash::before { content: '// '; color: var(--slng-accent); font-weight: 800; }
+
+/* ----- Phonetic motif ("/'kantents/") ----- */
+.phonetic {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  color: var(--slng-accent);
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+  margin-top: 0.35rem;
+}
+
+/* ----- Left-aligned title system (top-left block) ----- */
+.slide-head { margin-bottom: 2.25rem; }
+.kicker {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  color: var(--slng-muted);
+  margin-bottom: 0.9rem;
+}
+.kicker--accent {
+  color: var(--slng-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+.slide-title {
+  font-family: 'Saans', 'Inter', sans-serif;
+  font-size: 3.4rem;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+/* ----- Chrome helpers (globals draw the real chrome) ----- */
+.chrome-top-left,
+.chrome-bottom-right,
+.chrome-bottom-left {
+  position: absolute;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  opacity: 0.65;
+  z-index: 10;
+}
+.chrome-top-left    { top: 2rem;    left: 2.5rem; }
+.chrome-bottom-right{ bottom: 2rem; right: 2.5rem; }
+.chrome-bottom-left { bottom: 2rem; left: 2.5rem; }
+
+/* Yellow capsule = SLNG// logo pill (rounded square) */
+.chrome-logo {
+  display: inline-block;
+  background: var(--slng-yellow);
+  color: var(--slng-black);
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--slng-radius);
+  font-weight: 800;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  letter-spacing: 0.02em;
+}
+
+/* ----- Price pill (rounded square) ----- */
+.price-pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--slng-yellow);
+  color: var(--slng-black);
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-weight: 600;
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--slng-radius);
+}
+
+/* ----- Glass pills (compliance / feature — rounded square, faint border) ----- */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2rem;
+}
+.pill {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  background: rgba(138, 137, 131, 0.10);
+  border: 1px solid rgba(138, 137, 131, 0.35);
+}
+
+/* ----- Provider logo grid (uniform chips: logo or text wordmark) ----- */
+.logo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+.logo-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 8.5rem;
+  height: 5.25rem;
+  padding: 0.75rem 0.9rem;
+  background: #fff;
+  border: 1px solid var(--slng-grey-02);
+  border-radius: var(--slng-radius);
+}
+.logo-chip img {
+  max-height: 2rem;
+  max-width: 100%;
+  object-fit: contain;
+}
+.logo-chip .logo-name {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--slng-muted);
+  text-align: center;
+}
+/* Text-only chip (no logo available): show the name larger, centered. */
+.logo-chip.is-text .logo-name {
+  font-size: 1.15rem;
+  color: var(--slng-black);
+}
+
+/* ----- Status tags (support palette — product/status only) ----- */
+.tag {
+  display: inline-block;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 0.9rem;
+  padding: 0.28rem 0.7rem;
+  border-radius: 8px;
+  background: rgba(138, 137, 131, 0.14);
+  color: var(--slng-black);
+}
+.tag--blue   { background: rgba(67, 161, 225, 0.18); }
+.tag--orange { background: rgba(239, 133, 71, 0.20); }
+.tag--green  { background: rgba(97, 214, 99, 0.22); }
+.tag--pink   { background: rgba(226, 114, 220, 0.20); }
+.tag--purple { background: rgba(129, 115, 235, 0.20); }
+
+/* ----- Card / surface (grey-01 fill, borderless like the deck) ----- */
+.card {
+  background: var(--slng-surface);
+  color: var(--slng-black);
+  border-radius: var(--slng-radius);
+  padding: 1.75rem 2rem;
+}
+
+/* ----- Big statement slides (centered hero) ----- */
+.slidev-layout .statement,
+.statement {
+  font-size: 7rem;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-align: center;
+  max-width: 98%;
+  margin: 0 auto;
+  text-wrap: balance;
+}
+.slidev-layout .statement-sm,
+.statement-sm {
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  text-align: center;
+  max-width: 98%;
+  margin: 0 auto;
+  text-wrap: balance;
+}
+.slidev-layout .statement-xs,
+.statement-xs {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-align: center;
+  max-width: 98%;
+  margin: 0 auto;
+  text-wrap: balance;
+}
+
+/* ----- Full-bleed image + overlay statement ----- */
+.full-bleed-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.overlay-statement {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #fff;
+  font-size: 6rem;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-align: center;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.45);
+  text-wrap: balance;
+}
+.full-bleed-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.45));
+}
+
+/* ----- Title slide ----- */
+.title-logo {
+  position: absolute;
+  top: 1.9rem;
+  left: 2.5rem;
+  height: 3rem;
+  width: auto;
+  z-index: 15;
+}
+.title-headline {
+  font-size: 5.5rem;
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+.title-subhead {
+  display: block;
+  margin-top: 1.25rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  opacity: 0.8;
+}
+
+/* ----- Feature cards (numbered grid) ----- */
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.feature-card {
+  background: var(--slng-surface);
+  border-radius: var(--slng-radius);
+  padding: 1.6rem 1.75rem;
+}
+.slng-dark .feature-card { background: rgba(255, 255, 255, 0.05); }
+.num-badge {
+  display: inline-block;
+  background: var(--slng-yellow);
+  color: var(--slng-black);
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  margin-bottom: 1.1rem;
+}
+.feature-card .feature-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+.feature-card .feature-desc {
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: var(--slng-muted);
+}
+
+/* ----- Definition rows (term | description, dashed dividers) ----- */
+.def-rows { display: flex; flex-direction: column; }
+.def-row {
+  display: grid;
+  grid-template-columns: 1fr 1.7fr;
+  gap: 2rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px dashed var(--slng-grey-02);
+}
+.def-row .def-term {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.def-row .def-desc {
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: var(--slng-muted);
+}
+
+/* ----- Timeline (vertical dashed line + square markers) ----- */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-left: 1px dashed var(--slng-grey-02);
+  padding-left: 1.75rem;
+  margin-left: 0.5rem;
+}
+.timeline-item { position: relative; }
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: calc(-1.75rem - 0.55rem - 1px);
+  top: 0.15rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 5px;
+  background: var(--slng-yellow);
+}
+.timeline-year {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.timeline-body {
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: var(--slng-muted);
+  max-width: 34rem;
+}
+
+/* ----- Stats block (large stacked numbers) ----- */
+.stats-block { display: flex; flex-direction: column; gap: 0.2rem; }
+.stats-block .stat {
+  font-size: 3.6rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.stat-number {
+  font-size: 9rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+/* ----- Two-column list ----- */
+.team-wants {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+.team-wants h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.01em;
+}
+.team-wants ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+.team-wants ol strong { color: inherit; font-weight: 600; }
+.team-wants ol li { color: var(--slng-muted); }
+
+/* ----- Bullet / points list (rounded-square markers) ----- */
+.pain-points {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+.pain-points > div {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.pain-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.28rem;
+  background: var(--slng-accent);
+  flex-shrink: 0;
+}
+
+/* ----- Per-slide QR code (corner pin) ----- */
+.slide-qr {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 15;
+}
+.slide-qr img {
+  width: 9rem;
+  height: 9rem;
+  background: #ffffff;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+.slide-qr-label {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ----- image-right: match the image column to the slide bg ----- */
+.slidev-layout.default.slng-dark + div[style*="background-image"] {
+  background-color: var(--slng-bg-dark);
+}
+.slidev-layout.default.slng-light + div[style*="background-image"] {
+  background-color: var(--slng-bg-light);
+}
+
+/* ----- Hide Slidev goto / overview / editor panels ----- */
+#slidev-goto-dialog .autocomplete-list { display: none; }
+#slidev-goto-dialog:not(.-top-20) .autocomplete-list { display: block; }
+
+/* ============================================================
+   WORKSHOP — voice-agent demo support
+   Pattern per step: concept slide → PROMPT/CONFIG card → live demo.
+   ============================================================ */
+
+/* Copyable prompt / config card (projected while the room edits) */
+.prompt-card {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 1.15rem;
+  line-height: 1.55;
+  background: var(--slng-black);
+  color: var(--slng-white);
+  border-left: 6px solid var(--slng-yellow);
+  border-radius: var(--slng-radius);
+  padding: 1.5rem 1.9rem;
+  max-width: 88rem;
+  margin: 0 auto;
+  white-space: pre-wrap;
+  overflow: auto;
+  max-height: 62vh;
+  text-align: left;
+}
+.slng-dark .prompt-card {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--slng-white);
+}
+.prompt-card .accent { color: var(--slng-yellow); }
+.prompt-card .c-muted { opacity: 0.45; }
+.prompt-card .c-add { color: var(--slng-green); }
+
+/* Demo cue line (under a prompt, before going live) */
+.demo-cue {
+  margin: 1.6rem auto 0;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.demo-cue .accent { font-weight: 800; }
+
+/* Voice pipeline flow (oído → cerebro → boca) */
+.pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 1.25rem;
+  max-width: 92rem;
+  margin: 1.5rem auto 0;
+}
+.pipe-stage {
+  flex: 1;
+  background: var(--slng-surface);
+  border-radius: var(--slng-radius);
+  padding: 1.75rem 1.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.slng-dark .pipe-stage { background: rgba(255, 255, 255, 0.05); }
+.pipe-icon { font-size: 3.25rem; line-height: 1; margin-bottom: 0.25rem; }
+.pipe-label {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slng-muted);
+}
+.pipe-name { font-size: 2rem; font-weight: 600; line-height: 1.1; }
+.pipe-desc { font-size: 1.05rem; line-height: 1.45; color: var(--slng-muted); }
+.pipe-arrow {
+  display: flex;
+  align-items: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--slng-yellow);
+  flex-shrink: 0;
+}
+
+/* Checkpoint card — "qué deberías tener ahora" */
+.checkpoint {
+  max-width: 80rem;
+  margin: 2rem auto 0;
+  border: 2px solid var(--slng-yellow);
+  border-radius: var(--slng-radius);
+  padding: 1.4rem 2.2rem;
+  background: rgba(251, 229, 102, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: left;
+}
+.checkpoint > div { display: flex; align-items: baseline; gap: 0.9rem; }
+.checkpoint .ck-dot { color: var(--slng-yellow); font-weight: 800; flex-shrink: 0; }
+
+/* ----- Inline text utilities ----- */
+.nowrap { white-space: nowrap; }
+.strike-muted {
+  text-decoration: line-through;
+  opacity: 0.4;
+  text-wrap: balance;
+}

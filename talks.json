@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "from-workflow-to-skills",
+    "directory": "from-workflow-to-skills",
+    "title": "From workflows to skills",
+    "event": "SLNG × The Tech Nation",
+    "language": "English",
+    "kind": "Talk",
+    "description": "A practical method for making your expertise reusable by agents.",
+    "date": ""
+  },
+  {
+    "slug": "fem-comunitat",
+    "directory": "fem-comunitat-scbcn-2026",
+    "title": "Fem comunitat: hay una comunidad para eso",
+    "event": "Software Crafters Barcelona",
+    "language": "Español",
+    "kind": "Talk",
+    "description": "Las comunidades tech de Barcelona y cómo cambian con la IA.",
+    "date": "17 October 2026"
+  },
+  {
+    "slug": "confessions-devoxx-2026",
+    "directory": "confessions-devoxx-2026",
+    "title": "Le développeur face à l’IA",
+    "event": "Devoxx · Paris",
+    "language": "Français",
+    "kind": "Talk",
+    "description": "Du prototypage rapide à la fin des intermédiaires : le rôle du développeur face à l’IA.",
+    "date": "2026"
+  },
+  {
+    "slug": "confessions-genai-valencia",
+    "directory": "confessions-slidev-genai2026-valencia",
+    "title": "Confessions of a Vibecoding Engineer",
+    "event": "GenAI Summit · Valencia",
+    "language": "English",
+    "kind": "Keynote",
+    "description": "Vibecoding as muscle-building, and what happens when you bring that muscle back into your team.",
+    "date": "April 2026"
+  },
+  {
+    "slug": "voice-agents-workshop",
+    "directory": "upskilling-slng-workshop",
+    "title": "Agentes de voz con IA",
+    "event": "Upskilling Week · Barcelona",
+    "language": "Español",
+    "kind": "Workshop",
+    "description": "Construye y despliega tu propio agente de voz con slng.ai en tres horas.",
+    "date": "2026"
+  },
+  {
+    "slug": "lovable-saas-workshop",
+    "directory": "workshop-lovable-saas-airbnb",
+    "title": "De idea a SaaS en 5 horas con Lovable",
+    "event": "MWC Upskilling Week · Barcelona",
+    "language": "Español",
+    "kind": "Workshop",
+    "description": "De una idea a un SaaS desplegado en producción con Lovable.",
+    "date": "2026"
+  }
+]
