@@ -1,0 +1,457 @@
+/* FEM COMUNITAT · nicolasgrenie.com design system
+   Theme matched to confessions-slidev-devoxx2026/style.css
+   16:9 at 1920px canvas; dark/cream alternation, gold emphasis, giant type.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --ng-cream: #F5F1E8;
+  --ng-paper: #F5F1E8;
+  --ng-dark: #111111;
+  --ng-ink: #111111;
+  --ng-accent: #F5C43B;
+  --ng-muted: #6B6B6B;
+  --slidev-theme-primary: var(--ng-accent);
+}
+
+.slidev-layout {
+  position: relative;
+  padding: 6rem 6.7rem !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: 'ss01', 'cv11';
+}
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 800;
+  line-height: 1.045;
+  letter-spacing: -0.04em;
+}
+.slidev-layout.ng-dark { background: var(--ng-dark); color: var(--ng-paper); }
+.slidev-layout.ng-dark h1, .slidev-layout.ng-dark h2 { color: var(--ng-paper); }
+.slidev-layout.ng-light { background: var(--ng-cream); color: var(--ng-ink); }
+.slidev-layout.ng-light h1, .slidev-layout.ng-light h2 { color: var(--ng-ink); }
+.slidev-layout .accent { color: var(--ng-accent); }
+.slidev-layout .gold-on-light { color: #BD8200; }
+.slidev-layout .dark-ink { color: var(--ng-ink); }
+.slidev-layout .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+.slidev-layout .kicker {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  color: var(--ng-accent);
+  font-size: 1.3rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 650;
+  margin-bottom: 2.8rem;
+}
+.slidev-layout.ng-light .kicker { color: #976A05; }
+.slidev-layout .kicker.centered { text-align: center; }
+.slidev-layout .statement {
+  margin: 0;
+  font-size: 7.8rem;
+  letter-spacing: -0.058em;
+  font-weight: 800;
+  line-height: 1.07;
+  text-wrap: balance;
+}
+.slidev-layout .statement-left { text-align: left; }
+.slidev-layout .statement.mega { font-size: 9.3rem; text-align: center; line-height: 1.05; }
+.slidev-layout .statement-narrow { text-align: center; font-size: 8.8rem; }
+
+/* Cover: follows earlier cream/dark/gold deck's two-column large title */
+.slidev-layout .cover-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+  height: 100%;
+}
+.slidev-layout .cover-copy { z-index: 2; }
+.slidev-layout .cover-title {
+  font-size: 11rem;
+  letter-spacing: -0.067em;
+  line-height: 0.98;
+  margin: 0;
+}
+.slidev-layout .cover-subtitle {
+  font-size: 2.7rem;
+  margin-top: 2.6rem;
+  font-weight: 600;
+}
+.slidev-layout .cover-signature {
+  font-size: 1.28rem;
+  margin-top: 5rem;
+  opacity: 0.83;
+}
+.slidev-layout .hero-network { position: relative; width: 100%; aspect-ratio: 1; }
+.slidev-layout .network-ring { position: absolute; border: 2px solid rgba(245,196,59,0.28); border-radius: 50%; }
+.slidev-layout .ring-one { inset: 8%; }
+.slidev-layout .ring-two { inset: 26%; border-color: rgba(245,196,59,0.16); }
+.slidev-layout .network-center {
+  position: absolute; inset: 34%; border-radius: 1.3rem;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ng-dark); background: var(--ng-accent);
+  font: 800 6rem 'JetBrains Mono', monospace; letter-spacing: -0.12em;
+  box-shadow: 0 0 70px rgba(245,196,59,0.18);
+}
+.slidev-layout .network-node {
+  position: absolute; z-index: 2; width: 8%; height: 8%;
+  border-radius: 50%; background: var(--ng-accent);
+  border: 7px solid var(--ng-dark);
+}
+.slidev-layout .node-a { left: 8%; top: 48%; }
+.slidev-layout .node-b { left: 22%; top: 14%; }
+.slidev-layout .node-c { left: 60%; top: 7%; }
+.slidev-layout .node-d { right: 7%; top: 48%; }
+.slidev-layout .node-e { left: 37%; bottom: 6%; }
+.slidev-layout .node-f { right: 14%; bottom: 18%; }
+.slidev-layout .network-line { position: absolute; height: 3px; background: rgba(245,196,59,0.36); transform-origin: left; }
+.slidev-layout .line-a { width: 50%; left: 12%; top: 52%; transform: rotate(-42deg); }
+.slidev-layout .line-b { width: 37%; left: 26%; top: 18%; transform: rotate(35deg); }
+.slidev-layout .line-c { width: 39%; left: 52%; top: 50%; transform: rotate(2deg); }
+.slidev-layout .line-d { width: 36%; left: 41%; bottom: 12%; transform: rotate(-32deg); }
+
+/* Time contrast */
+.slidev-layout .year-tag {
+  font-size: 1.5rem;
+  letter-spacing: 0.12em;
+  color: var(--ng-muted);
+  display: flex; align-items: center; gap: 1.2rem;
+  margin-bottom: 3rem;
+}
+.slidev-layout .year-line { display: inline-block; width: 5rem; height: 2px; background: currentColor; opacity: 0.4; }
+.slidev-layout .old-community { display: flex; align-items: center; gap: 2rem; margin-top: 6rem; }
+.slidev-layout .person-dot {
+  display: flex; align-items: center; justify-content: center;
+  width: 6.5rem; height: 6.5rem; border-radius: 50%;
+  color: #111; background: #DEC66B; font: 700 2.2rem Inter, sans-serif;
+  box-shadow: 0 0 0 0.65rem rgba(245,196,59,0.17);
+}
+.slidev-layout .person-dot:nth-child(even) { background: #BFCCD4; }
+.slidev-layout .person-dot:nth-child(3n) { background: #F0CEBD; }
+.slidev-layout .people-caption { font-size: 1.2rem; margin-left: 2rem; max-width: 25rem; opacity: 0.6; line-height: 1.5; }
+.slidev-layout .topic-cloud { margin-top: 5rem; display: flex; gap: 1.1rem 1.2rem; flex-wrap: wrap; max-width: 92rem; }
+.slidev-layout .topic-cloud span {
+  padding: 0.85rem 1.4rem; border: 2px solid rgba(245,196,59,0.43);
+  background: rgba(245,196,59,0.06); border-radius: 0.55rem;
+  font-size: 1.75rem; font-weight: 700;
+}
+.slidev-layout .topic-cloud span:nth-child(4n+1) { color: var(--ng-accent); }
+.slidev-layout .topic-cloud span:nth-child(5n+2) { transform: rotate(-2deg); }
+.slidev-layout .topic-cloud span:nth-child(7n+3) { transform: rotate(2deg); }
+
+/* Punchline */
+.slidev-layout .punchline-foot { font-size: 1.38rem; opacity: 0.64; margin-top: 3.8rem; text-align: center; }
+
+/* Paradox */
+.slidev-layout .two-sides {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.4rem; margin-top: 6rem;
+}
+.slidev-layout .side {
+  display: grid; grid-template-columns: 6.5rem 1fr;
+  column-gap: 1.5rem; align-items: center;
+  padding: 2rem; border: 2px solid rgba(17,17,17,0.16);
+  border-radius: 0.8rem;
+}
+.slidev-layout .side-icon { grid-row: span 2; font-size: 5rem; font-weight: 700; line-height: 1; color: #BD8200; }
+.slidev-layout .side-label { font-size: 2.2rem; font-weight: 800; }
+.slidev-layout .side-desc { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; opacity: 0.55; margin-top: 0.25rem; }
+.slidev-layout .reveal-line {
+  font-size: 3.6rem; text-align: center;
+  margin: 3rem 0 0; color: var(--ng-accent) !important;
+  font-weight: 700;
+}
+
+/* Events: deliberate image placeholders, not broken asset references */
+.slidev-layout .case-headline { font-size: 6rem; line-height: 1.09; margin: 0 0 3rem; }
+.slidev-layout .story-frames { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.slidev-layout .story-card { display: flex; flex-direction: column; gap: 0.75rem; }
+.slidev-layout .story-image-placeholder {
+  height: 17rem;
+  border: 3px dashed rgba(17,17,17,0.25); border-radius: 0.8rem;
+  background: rgba(17,17,17,0.04); color: rgba(17,17,17,0.52);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 0.6rem; text-align: center; font-size: 1.35rem; font-weight: 700;
+}
+.slidev-layout .story-image-placeholder small { font: 500 0.9rem 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
+.slidev-layout .placeholder-mark { font-size: 3rem; font-weight: 300; }
+.slidev-layout .story-label { font: 700 1.2rem 'JetBrains Mono', monospace; }
+.slidev-layout .case-bottom { font-size: 1.4rem; color: #715516; margin-top: 2.7rem; }
+
+/* Actionable close */
+.slidev-layout .steps-title { font-size: 7rem; margin: 0 0 4rem; }
+.slidev-layout .action-steps { display: flex; flex-direction: column; gap: 0.7rem; }
+.slidev-layout .action-step {
+  display: flex; gap: 2rem; align-items: center; border-top: 2px solid rgba(17,17,17,0.12);
+  padding: 1.4rem 1rem;
+}
+.slidev-layout .step-num { min-width: 5rem; color: #AD790B; font-size: 1.7rem; }
+.slidev-layout .step-text { font-size: 2.7rem; font-weight: 600; }
+.slidev-layout .closing-headline { text-align: center; font-size: 8rem; }
+.slidev-layout .closing-footer { margin-top: 5rem; font-size: 1.35rem; text-align: center; opacity: 0.8; }
+
+/* For smaller embedded previews; Slidev scales canvas at presentation time. */
+@media (max-width: 800px) {
+  .slidev-layout { padding: 3rem 4rem !important; }
+}
+
+/* Digest & community spaces / new formats (Oct 2026) */
+.slidev-layout .stats-headline { font-size: 6.7rem; line-height: 1.06; margin: 0 0 4rem; }
+.slidev-layout .digest-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.4rem; }
+.slidev-layout .digest-stat { padding: 2rem; border: 2px solid rgba(245,196,59,.35); border-radius: 1rem; background: rgba(245,196,59,.06); }
+.slidev-layout .digest-number { font-size: 7.3rem; font-weight: 850; color: var(--ng-accent); letter-spacing: -.05em; line-height: 1; }
+.slidev-layout .digest-label { margin-top: 1rem; font-size: 1.25rem; }
+.slidev-layout .source-caption { margin-top: 2rem; opacity: .59; font-size: 1rem; }
+.slidev-layout .paradox-sub { font-size: 2.8rem; line-height: 1.35; margin-top: 5rem; opacity: .82; }
+.slidev-layout .format-title { font-size: 6.35rem; line-height: 1.06; margin: 0 0 3rem; }
+.slidev-layout .format-tags { display: flex; flex-wrap: wrap; gap: 1rem; }
+.slidev-layout .format-tags span { padding: 1rem 1.4rem; border: 2px solid rgba(245,196,59,.46); background: rgba(245,196,59,.07); border-radius: .7rem; font-size: 1.8rem; font-weight: 700; }
+.slidev-layout .format-question { font-size: 1.6rem; margin-top: 3.5rem; opacity: .75; }
+.slidev-layout .spaces-title { font-size: 7rem; margin: 0 0 3rem; }
+.slidev-layout .spaces-compare { display:grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+.slidev-layout .space-panel { padding: 2rem; border: 2px solid rgba(17,17,17,.15); border-radius: 1rem; }
+.slidev-layout .space-overline { color: #976A05; margin-bottom: 1rem; font-size: 1.2rem; }
+.slidev-layout .space-big { font-size: 2.6rem; font-weight: 800; }
+.slidev-layout .space-panel p { font-size: 1.6rem; opacity: .8; margin: 1.3rem 0 0; }
+.slidev-layout .spaces-takeaway { margin-top: 2rem; color: #8D650D; font-size: 1.6rem; }
+.slidev-layout .global-title { text-align:center; font-size: 7.7rem; line-height: 1.06; margin: 0 0 4rem; }
+.slidev-layout .global-example { display:flex; align-items: baseline; gap:2rem; border-left: .65rem solid var(--ng-accent); background:rgba(245,196,59,.08); padding:1.6rem 2rem; }
+.slidev-layout .global-example strong { color:var(--ng-accent); white-space:nowrap; font-size:3rem; }
+.slidev-layout .global-example span { font-size:1.75rem; line-height:1.38; }
+
+/* Slidev 0.49: empty Fuse results can extend the closed navigation menu. */
+#slidev-goto-dialog:has(input:disabled) { visibility: hidden; pointer-events: none; }
+
+/* Isolation, shared roots and fragmented discovery */
+.slidev-layout .isolation-title { font-size: 5.8rem; margin: 0; line-height: 1.08; }
+.slidev-layout .isolation-sub { font-size: 2.4rem; margin-top: 2rem; }
+.slidev-layout .minifigure-community { width: 100%; height: 22rem; object-fit: contain; margin-top: 2rem; }
+.slidev-layout .roots-title { font-size: 7rem; margin: 0; line-height: 1.08; }
+.slidev-layout .roots-memory { font-size: 2.5rem; margin-top: 3rem; line-height: 1.55; }
+.slidev-layout .roots-memory .mono { font-size: 1.3rem; letter-spacing: .1em; }
+.slidev-layout .fragment-title { font-size: 7rem; margin: 0; line-height: 1.08; }
+.slidev-layout .channel-list { font-size: 2.6rem; font-weight: 600; margin-top: 3.5rem; }
+.slidev-layout .catalogue-line { font-size: 1.7rem; margin-top: 4rem; }
+.slidev-layout .catalogue-line strong { color: #976A05; font-size: 2.5rem; }
+.slidev-layout .catalogue-line span { margin: 0 .7rem; opacity: .4; }
+
+.slidev-layout .ecosystem-topics { font-size: 2rem; margin-top: 2.4rem; opacity: .75; }
+.slidev-layout .ecosystem-topics + .channel-list { margin-top: 1.5rem; }
+
+/* Cream counterpart of the original Confessions theme. */
+.slidev-layout.ng-light {
+  background: var(--ng-cream);
+  color: var(--ng-ink);
+}
+.slidev-layout.ng-light h1,
+.slidev-layout.ng-light h2,
+.slidev-layout.ng-light h3 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+.slidev-layout.ng-light .gold-on-light,
+.slidev-layout.ng-light .kicker,
+.slidev-layout.ng-light .step-num,
+.slidev-layout.ng-light .space-overline,
+.slidev-layout.ng-light .spaces-takeaway,
+.slidev-layout.ng-light .catalogue-line strong,
+.slidev-layout.ng-light .case-bottom {
+  color: #976A05;
+}
+.slidev-layout.ng-light .kicker {
+  letter-spacing: 0.15em;
+  margin-bottom: 1.5rem;
+}
+.slidev-layout.ng-light .spaces-compare { gap: 4rem; margin-top: 3.5rem; }
+.slidev-layout.ng-light .space-panel {
+  border: 0;
+  border-radius: 0;
+  padding: 0 0 0 1.5rem;
+  border-left: 0.35rem solid var(--ng-accent);
+}
+.slidev-layout.ng-light .space-big { font-size: 3rem; }
+.slidev-layout.ng-light .space-panel p { font-size: 1.9rem; line-height: 1.4; }
+.slidev-layout.ng-light .spaces-takeaway { margin-top: 3rem; font-size: 1.8rem; }
+.slidev-layout.ng-light .action-step { padding-left: 0; padding-right: 0; }
+.slidev-layout.ng-light .step-num { font-weight: 500; }
+.slidev-layout.ng-light .story-image-placeholder { border-radius: 0; }
+
+/* Unified Confessions dark theme across the whole deck. */
+.slidev-layout { background: var(--ng-dark); color: var(--ng-paper); }
+.slidev-layout .space-panel {
+  border: 0;
+  border-radius: 0;
+  padding: 0 0 0 1.5rem;
+  border-left: .35rem solid var(--ng-accent);
+}
+.slidev-layout .spaces-compare { gap: 4rem; margin-top: 3.5rem; }
+.slidev-layout .space-big { font-size: 3rem; }
+.slidev-layout .space-panel p { font-size: 1.9rem; line-height: 1.4; }
+.slidev-layout .space-overline,
+.slidev-layout .spaces-takeaway,
+.slidev-layout .case-bottom,
+.slidev-layout .step-num,
+.slidev-layout .catalogue-line strong { color: var(--ng-accent); }
+.slidev-layout .action-step { border-color: rgba(245,241,232,.18); }
+.slidev-layout .story-image-placeholder {
+  border-color: rgba(245,241,232,.3);
+  background: rgba(245,241,232,.04);
+  color: rgba(245,241,232,.65);
+}
+
+/* Cover: original community logos connected as a local network. */
+.slidev-layout .cover-grid { grid-template-columns: 1.22fr 1fr; gap: 2rem; }
+.slidev-layout .cover-signature { margin-top: 4rem; font-size: 1.65rem; opacity: 1; }
+.slidev-layout .cover-role { margin-top: .8rem; font-size: 1.3rem; opacity: .7; }
+.slidev-layout .community-network { position: relative; width: 100%; aspect-ratio: 1; }
+.slidev-layout .community-links { position: absolute; inset: 0; width: 100%; height: 100%; }
+.slidev-layout .community-logo { position: absolute; width: 25%; margin: 0; transform: translate(-50%,-50%); text-align: center; }
+.slidev-layout .community-logo img { width: 100%; height: 8rem; object-fit: contain; background: var(--ng-dark); }
+.slidev-layout .community-logo figcaption { font: 500 1rem 'JetBrains Mono', monospace; margin-top: .65rem; white-space: nowrap; color: var(--ng-paper); }
+.slidev-layout .logo-ruby { left: 27.14%; top: 15.71%; }
+.slidev-layout .logo-python { left: 72.86%; top: 18.57%; }
+.slidev-layout .logo-crafters { left: 82.86%; top: 50%; }
+.slidev-layout .logo-hackbarna { left: 70%; top: 84.29%; width: 32%; }
+.slidev-layout .logo-techfems { left: 24.29%; top: 81.43%; }
+.slidev-layout .logo-femcoders { left: 14.29%; top: 48.57%; }
+
+.slidev-layout .community-logo img { background: #F5F1E8; padding: .75rem; box-sizing: border-box; border-radius: .35rem; }
+
+/* Barcelona beneath the local community network. */
+.slidev-layout .barcelona-sketch { position: absolute; inset: -7%; width: 114%; height: 114%; object-fit: contain; opacity: .65; }
+.slidev-layout .community-links { z-index: 1; }
+.slidev-layout .community-logo { z-index: 2; }
+.slidev-layout .cover-social { margin-left: 1rem; }
+
+/* Let the map dissolve into the slide instead of reading as a square panel. */
+.slidev-layout .barcelona-sketch {
+  inset: -12% -15%;
+  width: 130%;
+  max-width: none;
+  height: 124%;
+  object-fit: cover;
+  opacity: .56;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 30%, rgba(0,0,0,.9) 48%, transparent 73%);
+  mask-image: radial-gradient(ellipse at 50% 50%, #000 30%, rgba(0,0,0,.9) 48%, transparent 73%);
+}
+.slidev-layout .community-logo img {
+  border-radius: 50%;
+  height: 9rem;
+  width: 9rem;
+  padding: 1rem;
+  display: block;
+  margin: 0 auto;
+}
+.slidev-layout .logo-hackbarna img,
+.slidev-layout .logo-python img,
+.slidev-layout .logo-ruby img {
+  width: 100%;
+  height: 7.5rem;
+  border-radius: 4rem;
+}
+
+/* Separate the community graph from the geographic street texture. */
+.slidev-layout .barcelona-sketch { filter: grayscale(1); opacity: .32; }
+.slidev-layout .community-links > g:first-child {
+  stroke: #F5C43B;
+  stroke-width: 2.6;
+  opacity: .82;
+  filter: drop-shadow(0 0 1.5px #111111) drop-shadow(0 0 2px #111111);
+}
+.slidev-layout .community-links > g:last-child {
+  fill: #F5C43B;
+  stroke: #111111;
+  stroke-width: 3;
+}
+
+.slidev-layout .isolation-title { font-size: 5.1rem; line-height: 1.08; }
+.slidev-layout .isolation-sub { font-size: 2.15rem; max-width: 90rem; line-height: 1.35; margin-top: 2rem; }
+.slidev-layout .minifigure-community { height: 19rem; margin-top: 1.5rem; }
+
+.slidev-layout .cover-claude { display: flex; align-items: center; gap: .65rem; font-size: 1.15rem; margin-top: 1.8rem; }
+.slidev-layout .cover-claude .claude-caption { opacity: .7; }
+.slidev-layout .cover-claude .accent { font-weight: 700; }
+.slidev-layout .claude-mark { width: 1.4rem; height: 1.4rem; flex-shrink: 0; }
+
+.slidev-layout .roots-grid { display: grid; grid-template-columns: .85fr 1.3fr; gap: 4rem; align-items: center; width: 100%; }
+.slidev-layout .roots-grid .roots-title { font-size: 7rem; line-height: 1.05; margin-bottom: 3rem; }
+.slidev-layout .roots-events { font-size: 3.4rem; line-height: 1.6; font-weight: 600; }
+.slidev-layout .roots-photo { width: 100%; height: auto; object-fit: contain; }
+
+/* Ten-minute narrative: proof, people and resources. */
+.slidev-layout .fragment-title { font-size: 5.7rem; }
+.slidev-layout .proof-stats { display: flex; gap: 5rem; margin-top: 3.5rem; }
+.slidev-layout .proof-stats > div { display: flex; flex-direction: column; }
+.slidev-layout .proof-stats strong { font-size: 6.4rem; line-height: 1; color: var(--ng-accent); letter-spacing: -.04em; }
+.slidev-layout .proof-stats span { font: 500 1.35rem 'JetBrains Mono', monospace; margin-top: 1rem; }
+.slidev-layout .format-tags { gap: 3rem; margin-top: 4rem; }
+.slidev-layout .format-tags span { border: 0; border-radius: 0; background: none; border-top: 3px solid var(--ng-accent); padding: 1.5rem 0; font-size: 2.4rem; }
+.slidev-layout .global-human-title { font-size: 6.4rem; line-height: 1.08; margin: 0; }
+.slidev-layout .global-human-sub { font-size: 2.3rem; margin-top: 3rem; opacity: .8; }
+.slidev-layout .story-human-title { font-size: 6.3rem; line-height: 1.08; margin: 0; }
+.slidev-layout .story-human-bottom { font-size: 2.2rem; margin-top: 4rem; opacity: .8; }
+.slidev-layout .resources-title { font-size: 5.5rem; margin: 0 0 3rem; text-align: center; }
+.slidev-layout .resource-columns { display: grid; grid-template-columns: repeat(3,1fr); gap: 3rem; text-align: center; }
+.slidev-layout .resource-qr, .slidev-layout .resource-invite { width: 15rem; height: 15rem; margin: 0 auto; }
+.slidev-layout .resource-item h2 { font-size: 2.15rem; margin: 1.5rem 0 .7rem; letter-spacing: -.02em; }
+.slidev-layout .resource-item p { font-size: 1.5rem; margin: 0 0 .8rem; opacity: .8; }
+.slidev-layout .resource-item a, .slidev-layout .resource-url { font: 500 1.15rem 'JetBrains Mono', monospace; color: var(--ng-accent); border: 0; }
+.slidev-layout .resource-invite { display: flex; flex-direction: column; justify-content: center; gap: 1rem; border: 2px solid rgba(245,196,59,.5); box-sizing: border-box; }
+.slidev-layout .resource-invite span { font-size: 2.5rem; font-weight: 800; line-height: 1.05; }
+.slidev-layout .resource-invite small { font-size: 1rem; color: var(--ng-accent); }
+.slidev-layout .resource-closing { margin-top: 3rem; text-align: center; font-size: 2rem; font-weight: 600; }
+
+.slidev-layout .resource-logo { height: 3.5rem; width: 15rem; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; background: var(--ng-cream); padding: .45rem .8rem; box-sizing: border-box; }
+.slidev-layout .resource-logo img { width: 100%; height: 100%; object-fit: contain; }
+.slidev-layout .resource-logo-dark { background: transparent; }
+.slidev-layout .resources-title { margin-bottom: 2rem; }
+.slidev-layout .resource-qr { width: 13rem; height: 13rem; }
+.slidev-layout .resource-item h2 { margin-top: 1rem; }
+.slidev-layout .resource-closing { margin-top: 2rem; }
+
+.slidev-layout .resource-logo-white { background: transparent; }
+.slidev-layout .resource-logo-white img { filter: grayscale(1) invert(1) brightness(1.25); }
+
+/* BCNEng's nearly square crest needs more height than the wordmarks. */
+.slidev-layout .resource-logo { height: 6rem; }
+.slidev-layout .resource-logo img { max-height: 3rem; }
+.slidev-layout .resource-logo img[alt="BCN Engineering"] { max-height: none; height: 6rem; width: 6.5rem; }
+.slidev-layout .resources-title { margin-bottom: 1rem; }
+.slidev-layout .resource-closing { margin-top: 1.5rem; }
+
+.slidev-layout .platform-logos { display: flex; align-items: center; gap: 4rem; margin-top: 3.5rem; }
+.slidev-layout .platform-logos img { width: 4.5rem; height: 4.5rem; object-fit: contain; }
+.slidev-layout .platform-logos .platform-slack { width: 10rem; background: white; padding: .4rem .8rem; box-sizing: border-box; border-radius: .35rem; }
+
+.slidev-layout .platform-logos { gap: 3rem; justify-content: space-between; width: 100%; max-width: 90rem; }
+.slidev-layout .platform-logos img { width: 13rem; height: 4.5rem; object-fit: contain; }
+.slidev-layout .platform-logos img[alt="Luma"] { filter: invert(1); }
+.slidev-layout .platform-logos .platform-slack { width: 13rem; }
+
+.slidev-layout .format-title { font-size: 4.8rem; margin-bottom: 2rem; }
+.slidev-layout .format-photo-grid { display: grid; grid-template-columns: 1fr .42fr; gap: 2.5rem; max-width: 90rem; }
+.slidev-layout .format-photo-grid figure { margin: 0; }
+.slidev-layout .format-photo-grid img { height: 23rem; width: 100%; object-fit: contain; object-position: left center; }
+.slidev-layout .format-photo-grid figcaption { font-size: 1.6rem; font-weight: 600; margin-top: .7rem; color: var(--ng-accent); }
+.slidev-layout .format-question { margin-top: 1.7rem; font-size: 1.4rem; }
+
+.slidev-layout .venue-story { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-top: 3rem; }
+.slidev-layout .venue-story p { font-size: 2.2rem; line-height: 1.4; margin-top: 1.5rem; }
+.slidev-layout .venue-logos { display: flex; align-items: center; gap: 2.5rem; margin-top: 1.5rem; }
+.slidev-layout .venue-logos img { width: 12rem; height: 4.5rem; object-fit: contain; filter: brightness(0) invert(1); }
+.slidev-layout .venue-story .space-overline { font-size: 1.25rem; }
+
+/* Invitation to cross circles, contribute and create. */
+.slidev-layout .bridge-title { font-size: 6.6rem; line-height: 1.08; margin: 0; }
+.slidev-layout .community-languages { font-size: 3.5rem; font-weight: 600; margin-top: 4rem; }
+.slidev-layout .community-languages span { color: var(--ng-accent); margin: 0 1rem; }
+.slidev-layout .bridge-sub { font-size: 2.2rem; line-height: 1.4; margin-top: 3rem; opacity: .8; }
+.slidev-layout .bridge-actions { display: flex; flex-wrap: wrap; gap: 3rem; margin-top: 4rem; font-size: 3.1rem; font-weight: 700; }
+.slidev-layout .bridge-actions span { border-top: 3px solid var(--ng-accent); padding-top: 1.5rem; }
+.slidev-layout .niche-dimensions { margin-top: 3rem; font-size: 1.7rem; opacity: .75; }
+.slidev-layout .niche-actions { display: flex; flex-direction: column; gap: 1.2rem; font-size: 2.7rem; font-weight: 600; margin-top: 3rem; }
