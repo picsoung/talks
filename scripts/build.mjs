@@ -38,7 +38,9 @@ if (!homeOnly) for (const talk of talks) {
   // CI always installs the locked dependencies; local builds reuse installed decks.
   if (process.env.CI || !existsSync(resolve(directory, 'node_modules/.bin/slidev'))) run(['ci', '--no-audit', '--no-fund'], directory);
   const destination = resolve(output, talk.slug);
-  run(['run', 'build', '--', '--base', `/${talk.slug}/`, '--out', destination, '--download', 'false'], directory);
+  // The shared site does not bundle PDFs. Slidev's --download is a boolean flag
+  // and can trigger a Playwright export even when followed by the word "false".
+  run(['run', 'build', '--', '--base', `/${talk.slug}/`, '--out', destination], directory);
   if (!existsSync(resolve(destination, 'index.html'))) throw new Error(`No build output for ${talk.slug}`);
   // Raw HTML/Vue public URLs can survive Vite's base rewriting. Scope only
   // existing public files; never rewrite unrelated root links or external URLs.
