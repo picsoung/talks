@@ -9,7 +9,8 @@ colorSchema: light
 aspectRatio: 16/9
 canvasWidth: 1280
 transition: fade
-download: true
+# PDFs are exported separately; enabling this triggers Chromium during Netlify builds.
+download: false
 exportFilename: from-workflows-to-skills
 browserExporter: true
 presenter: true
