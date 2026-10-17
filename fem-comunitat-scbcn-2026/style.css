@@ -455,3 +455,21 @@
 .slidev-layout .bridge-actions span { border-top: 3px solid var(--ng-accent); padding-top: 1.5rem; }
 .slidev-layout .niche-dimensions { margin-top: 3rem; font-size: 1.7rem; opacity: .75; }
 .slidev-layout .niche-actions { display: flex; flex-direction: column; gap: 1.2rem; font-size: 2.7rem; font-weight: 600; margin-top: 3rem; }
+
+/* Opening sponsor slide required by Software Crafters Barcelona 2026.
+   Full-bleed 16:9 artwork from the official speakers template. */
+.slidev-layout.sponsor-slide {
+  padding: 0 !important;
+  background: #f4f4f4;
+  overflow: hidden;
+}
+
+.slidev-layout.sponsor-slide .sponsor-artwork {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: contain;
+}
