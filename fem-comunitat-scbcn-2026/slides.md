@@ -26,6 +26,16 @@ fonts:
   mono: JetBrains Mono
 venue: "Software Crafters BCN · 2026"
 handle: "@picsoung"
+class: sponsor-slide
+hideVenue: true
+---
+
+<!-- Official Software Crafters Barcelona 2026 sponsor slide; source: slide 5 of
+     https://docs.google.com/presentation/d/1eWFMV-sICSRYGjV2wPAv5C6_7xqcA5J_oz7mZEbRWMA/edit -->
+<img class="sponsor-artwork" src="/images/software-crafters-sponsors.png" alt="Software Crafters Barcelona 2026 sponsors: 540, Next Digital, seQura, Manfred, Sirviendo Código, CODESAI, Codely and Basetis" />
+
+---
+layout: default
 class: ng-dark
 hideVenue: true
 ---
