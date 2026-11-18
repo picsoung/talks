@@ -1,23 +1,187 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Talks & workshops — Nicolas Grenié</title>
 <meta name="description" content="Talks and workshops by Nicolas Grenié on AI, software development, voice agents, and tech communities.">
+<link rel="preload" href="/assets/manrope-700.ttf" as="font" type="font/ttf" crossorigin>
 <style>
-:root{color-scheme:light;--paper:#f5f2e9;--ink:#20201e;--muted:#64645d;--gold:#f1cc46}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif}a{color:inherit}header,main,footer{max-width:1180px;margin:auto;padding:28px 36px}header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #20201e25}header a{text-decoration:none;font-size:15px} .brand{font-weight:700}.braces{color:#987600;font-family:monospace;margin-right:10px}.intro{padding:70px 0 46px;max-width:850px}.eyebrow,.meta,.event,footer,.search-label{font-family:monospace;font-size:12px;letter-spacing:.035em}.eyebrow{text-transform:uppercase;color:var(--muted)}h1{font-size:clamp(48px,8vw,94px);line-height:1.02;letter-spacing:-.065em;margin:22px 0 24px}h1 span{background:var(--gold);padding:0 10px}.intro p{font-size:19px;line-height:1.6;color:var(--muted);max-width:600px}.toolbar{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:25px}.search-label{display:flex;align-items:center;gap:12px}input{background:transparent;border:1px solid #20201e55;padding:12px 14px;font:inherit;border-radius:0;width:250px}input:focus-visible,a:focus-visible{outline:3px solid #987600;outline-offset:5px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.talk{display:flex;flex-direction:column;padding:0;border:1px solid #20201e35;text-decoration:none;transition:background .15s,transform .15s;min-height:0}.talk-preview{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#20201e;margin:0;flex:none;border-bottom:1px solid #20201e35}.talk:hover{background:#ece7d8;transform:translateY(-3px)}.meta{display:flex;justify-content:space-between;color:var(--muted)}h2{font-size:30px;line-height:1.15;letter-spacing:-.035em;margin:0;padding:0}.talk-details{padding:20px 24px}.talk .talk-meta{margin:12px 0 0;font-size:14px;line-height:1.55;display:flex;flex-direction:column;gap:3px}.talk p{color:var(--muted);line-height:1.6;margin:0 0 25px}.event{margin-top:auto;padding-top:18px;border-top:1px solid #20201e25;display:flex;justify-content:space-between;gap:16px;align-items:center}.event>span:last-child{font-family:Arial;font-size:25px}footer{margin-top:55px;border-top:1px solid #20201e25;display:flex;justify-content:space-between;color:var(--muted)}[hidden]{display:none!important}@media(max-width:650px){header,main,footer{padding:24px}.intro{padding:42px 0 28px}.grid{grid-template-columns:1fr}.toolbar{align-items:flex-start;flex-direction:column}.search-label,input{width:100%}.talk{padding:0;min-height:0}.talk-details{padding:18px 20px}h2{font-size:27px}footer{gap:20px;flex-wrap:wrap}}@media(prefers-reduced-motion:reduce){.talk{transition:none}.talk:hover{transform:none}}
+@font-face {
+  font-family: Manrope;
+  src: url('/assets/manrope-700.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+/* Shared identity and header styles from the nicolasgrenie.com portfolio. */
+:root {
+  color-scheme: light;
+  --paper: hsl(228 20% 98%);
+  --ink: hsl(230 22% 12%);
+  --muted: hsl(230 10% 39%);
+  --border: hsl(230 16% 86%);
+  --gold: #ffd600;
+  --gold-hover: hsl(47 100% 48%);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  accent-color: var(--ink);
+  caret-color: var(--ink);
+  scrollbar-color: hsl(230 10% 68%) var(--paper);
+}
+::selection { color: var(--ink); background: var(--gold); }
+a { color: inherit; text-underline-offset: .22em; }
+a, button { -webkit-tap-highlight-color: transparent; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:is(a, button, input):focus-visible { outline: 3px solid var(--ink); outline-offset: 5px; border-radius: 5px; }
+:is(h1, h2, .identity-link) { font-family: Manrope, sans-serif; font-weight: 700; }
+:is(h1, h2) { text-wrap: balance; letter-spacing: -.035em; line-height: 1.15; }
+:is(section, main) { scroll-margin-top: 100px; }
+.site-container { width: min(100% - 96px, 1216px); margin-inline: auto; }
+.skip-link { position: fixed; left: 24px; top: -100px; padding: 12px 20px; z-index: 100; background: var(--gold); border-radius: 8px; }
+.skip-link:focus { top: 12px; }
+.portfolio-header { position: sticky; top: 0; z-index: 40; background: var(--paper); border-bottom: 1px solid hsl(230 16% 86% / .65); }
+.portfolio-header a { text-decoration: none; }
+.header-bar { min-height: 88px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.identity-link { display: inline-flex; align-items: center; gap: 12px; font-size: 16px; letter-spacing: -.025em; white-space: nowrap; }
+.identity-link img { width: 36px; height: 36px; object-fit: contain; }
+.desktop-nav { display: flex; align-items: center; gap: 28px; font-size: 14px; font-weight: 500; }
+.desktop-nav a { display: inline-flex; align-items: center; padding-block: 12px; }
+.desktop-nav a:hover, .mobile-navigation a:hover { text-decoration: underline; }
+.portfolio-header a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 2px; }
+.desktop-nav .nav-contact { padding: 10px 15px; background: var(--gold); border-radius: 7px; margin-left: 4px; }
+.desktop-nav .nav-contact:hover { background: var(--gold-hover); text-decoration: none; }
+.mobile-menu-toggle { display: none; border: 0; padding: 0; background: transparent; }
+.mobile-menu-toggle svg { display: block; }
+.mobile-navigation { display: none; padding: 12px 0 24px; border-top: 1px solid var(--border); }
+.mobile-navigation a { display: flex; align-items: center; min-height: 48px; font-weight: 500; }
+main { padding-top: 80px; }
+.intro { max-width: 800px; margin-bottom: 56px; }
+h1 { font-size: clamp(40px, 5vw, 64px); margin: 0 0 24px; }
+.intro p { font-size: 18px; color: var(--muted); max-width: 580px; margin: 0; }
+.toolbar { display: flex; justify-content: space-between; gap: 20px; align-items: center; margin-bottom: 25px; }
+.talk-count, .search-label, footer { font-size: 13px; color: var(--muted); }
+.search-label { display: flex; align-items: center; gap: 12px; }
+input { background: transparent; border: 1px solid hsl(230 16% 66%); padding: 12px 14px; border-radius: 7px; width: 250px; }
+input::placeholder { color: var(--muted); opacity: 1; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.talk { display: flex; flex-direction: column; padding: 0; border: 1px solid var(--border); text-decoration: none; transition: background .15s, transform .15s; min-height: 0; }
+.talk-preview { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: var(--ink); margin: 0; flex: none; border-bottom: 1px solid var(--border); }
+.talk:hover { background: hsl(230 25% 94%); transform: translateY(-3px); }
+h2 { font-size: 30px; margin: 0; padding: 0; }
+.talk-details { padding: 20px 24px; }
+.talk .talk-meta { margin: 12px 0 0; font-size: 14px; line-height: 1.55; display: flex; flex-direction: column; gap: 3px; color: var(--muted); }
+footer { margin-top: 55px; padding-block: 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; gap: 20px; }
+[hidden] { display: none !important; }
+@media (max-width: 1100px) {
+  .desktop-nav { gap: 18px; }
+}
+@media (max-width: 900px) {
+  .site-container { width: calc(100% - 48px); }
+  .desktop-nav { display: none; }
+  .header-bar { min-height: 76px; }
+  .mobile-menu-toggle { display: grid; place-items: center; width: 44px; height: 44px; }
+  .mobile-navigation:not([hidden]) { display: block; }
+}
+@media (max-width: 650px) {
+  .grid { grid-template-columns: 1fr; }
+  .toolbar { align-items: flex-start; flex-direction: column; }
+  .search-label { flex-wrap: wrap; gap: 8px; }
+  .search-label, input { width: 100%; }
+  .talk-details { padding: 18px 20px; }
+  h2 { font-size: 27px; }
+  footer { flex-wrap: wrap; }
+}
+@media (max-width: 600px) {
+  .site-container { width: calc(100% - 40px); }
+  .identity-link { gap: 8px; font-size: 14px; }
+  .identity-link img { width: 30px; height: 30px; }
+  main { padding-top: 48px; }
+  .intro { margin-bottom: 36px; }
+  h1 { font-size: 40px; margin-bottom: 20px; }
+  .intro p { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .talk { transition: none; }
+  .talk:hover { transform: none; }
+}
 </style>
 </head>
 <body>
-<header><a class="brand" href="/"><span class="braces">{ }</span>Nicolas Grenié</a><a href="https://nicolasgrenie.com">About me ↗</a></header>
-<main>
-<section class="intro"><div class="eyebrow">On stage & hands on</div><h1>Ideas worth<br><span>sharing.</span></h1><p>Talks and workshops on building with AI, finding your community, and learning by doing.</p></section>
-<div class="toolbar"><span class="eyebrow" id="count" aria-live="polite">{{COUNT}} talks & workshops</span><label class="search-label" for="search">Find a talk <input id="search" type="search" placeholder="Topic, event, language…"></label></div>
-<section class="grid" aria-label="Available talks"><!-- TALKS --></section>
-<p id="empty" hidden>No talks match your search. Try another topic, event, or language.</p>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="portfolio-header">
+  <div class="site-container">
+    <nav class="header-bar" aria-label="Main navigation">
+      <a href="https://nicolasgrenie.com/#about" class="identity-link" aria-label="Nicolas Grenié, introduction">
+        <img src="/assets/nico-memoji.png" alt="" width="36" height="36">
+        <span>Nicolas Grenié</span>
+      </a>
+      <div class="desktop-nav">
+        <a href="https://nicolasgrenie.com/#projects">Projects</a>
+        <a href="https://nicolasgrenie.com/#community">Community</a>
+        <a href="/" aria-current="page">Speaking</a>
+        <a href="https://nicolasgrenie.com/#writing">Writing</a>
+        <a href="https://nicolasgrenie.com/resume">Résumé</a>
+        <a href="https://nicolasgrenie.com/#contact" class="nav-contact">Say hello</a>
+      </div>
+      <button type="button" class="mobile-menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-navigation">
+        <svg class="menu-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg class="close-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" hidden><path d="m18 6-12 12M6 6l12 12"/></svg>
+      </button>
+    </nav>
+    <nav hidden id="mobile-navigation" class="mobile-navigation" aria-label="Mobile navigation">
+      <a href="https://nicolasgrenie.com/#projects">Projects</a>
+      <a href="https://nicolasgrenie.com/#community">Community</a>
+      <a href="/" aria-current="page">Speaking</a>
+      <a href="https://nicolasgrenie.com/#writing">Writing</a>
+      <a href="https://nicolasgrenie.com/resume">Résumé</a>
+      <a href="https://nicolasgrenie.com/#contact">Say hello</a>
+    </nav>
+  </div>
+</header>
+<main id="main-content" class="site-container" tabindex="-1">
+  <section class="intro">
+    <h1>Ideas worth sharing.</h1>
+    <p>Talks and workshops on building with AI, finding your community, and learning by doing.</p>
+  </section>
+  <div class="toolbar">
+    <span class="talk-count" id="count" aria-live="polite">{{COUNT}} talks & workshops</span>
+    <label class="search-label" for="search">Find a talk <input id="search" type="search" placeholder="Topic, event, language…"></label>
+  </div>
+  <section class="grid" aria-label="Available talks"><!-- TALKS --></section>
+  <p id="empty" hidden>No talks match your search. Try another topic, event, or language.</p>
 </main>
-<footer><span>Nicolas Grenié · @picsoung</span><span>Slides, stories & things learned along the way.</span></footer>
+<footer class="site-container"><span>Nicolas Grenié · @picsoung</span><span>Slides, stories & things learned along the way.</span></footer>
 <script>
+const menuButton = document.querySelector('.mobile-menu-toggle');
+const mobileNavigation = document.querySelector('#mobile-navigation');
+function setMenuOpen(open) {
+  menuButton.setAttribute('aria-expanded', String(open));
+  menuButton.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+  mobileNavigation.hidden = !open;
+  menuButton.querySelector('.menu-icon').toggleAttribute('hidden', open);
+  menuButton.querySelector('.close-icon').toggleAttribute('hidden', !open);
+}
+menuButton.addEventListener('click', () => setMenuOpen(menuButton.getAttribute('aria-expanded') !== 'true'));
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') {
+    setMenuOpen(false);
+    menuButton.focus();
+  }
+});
+mobileNavigation.addEventListener('click', event => {
+  if (event.target.closest('a')) setMenuOpen(false);
+});
+window.matchMedia('(min-width: 901px)').addEventListener('change', event => {
+  if (event.matches) setMenuOpen(false);
+});
 const search = document.querySelector('#search');
 const talks = [...document.querySelectorAll('.talk')];
 search.addEventListener('input', () => {
@@ -28,4 +192,5 @@ search.addEventListener('input', () => {
   document.querySelector('#empty').hidden = count !== 0;
 });
 </script>
-</body></html>
+</body>
+</html>

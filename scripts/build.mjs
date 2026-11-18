@@ -73,6 +73,7 @@ if (!homeOnly) {
   run(['run', 'previews'], root);
 }
 await cp(resolve(root, 'site/previews'), resolve(output, 'previews'), { recursive: true });
+await cp(resolve(root, 'site/assets'), resolve(output, 'assets'), { recursive: true });
 const escape = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const cards = talks.map(talk => `<a class="talk" href="/${talk.slug}/" data-search="${escape([talk.title, talk.event, talk.date, talk.language, talk.kind].join(' ').toLowerCase())}"><img class="talk-preview" src="/previews/${talk.slug}.png" alt="Title slide: ${escape(talk.title)}" width="1440" height="810" loading="lazy" decoding="async"><div class="talk-details"><h2>${escape(talk.title)}</h2><p class="talk-meta"><span>${escape(talk.event)}</span><span>${escape(talk.date || "Date not listed")} · ${escape(talk.language)}</span></p></div></a>`).join('\n');
 const template = await readFile(resolve(root, 'site/index.html'), 'utf8');

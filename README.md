@@ -34,6 +34,11 @@ built decks. `npm run previews -- TALK-SLUG` refreshes one title-slide thumbnail
 `npm run previews` refreshes all. Set `SLIDEV_BROWSER_PATH` if using a custom
 Chrome/Chromium executable. The full build generates every preview automatically.
 
+The homepage header follows the [portfolio](https://nicolasgrenie.com) header:
+Memoji identity, Manrope headings, shared navigation, and a mobile menu. Its
+locally served identity image and font live in `site/assets` (including the
+Manrope license); both full and homepage-only builds copy these assets.
+
 ## Register a talk
 
 Add an entry to `talks.json` with:
