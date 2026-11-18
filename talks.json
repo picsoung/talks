@@ -1,5 +1,15 @@
 [
   {
+    "slug": "buildjam-barcelona-2026",
+    "directory": "buildjam-barcelona-2026",
+    "title": "Things I built with Lovable",
+    "event": "BuildJam · AI Campus Barcelona",
+    "language": "English",
+    "kind": "Talk",
+    "description": "Six Lovable projects, one success story, and a few things to try tonight.",
+    "date": "18 November 2026"
+  },
+  {
     "slug": "from-workflow-to-skills",
     "directory": "from-workflow-to-skills",
     "title": "From workflows to skills",
