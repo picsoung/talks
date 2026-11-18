@@ -20,6 +20,8 @@ The story covers ContractionTrack, the HackBarna attendee badge, Sweep SF, HackB
 
 Created from `slides-template` v1.1.1. The shared stylesheet, chrome and layouts remain identical to the template. Reuses project screenshots, Bnbicons results and the domain-name joke from the earlier talks. Newer screenshots come from the Sweep SF, BarnaKids and personal portfolio repositories.
 
+The cover uses a custom AI-generated Barcelona maker’s workbench illustrating the six projects. The art direction and full prompt are recorded in `public/images/cover-art.json`.
+
 ## Links
 
 `links.json` records the Dub short links and QR assets. They were created through the Dub Links MCP server on `go.nicolas.dev`, with a BuildJam campaign. QR SVGs are stored locally for projection without a network connection. Visible project domains remain readable, and their clickable links use Dub.

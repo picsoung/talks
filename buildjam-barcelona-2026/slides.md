@@ -31,7 +31,7 @@ hideInToc: true
     <div class="mt-3 mono text-lg opacity-60">BuildJam Barcelona · 18 November 2026</div>
   </div>
   <div class="title-illustration">
-    <img src="/images/nicolas-vibing.png" alt="Illustration of an evening spent building at a laptop" />
+    <img src="/images/buildjam-workbench.png" alt="Barcelona maker’s workbench with a contraction timer, attendee badge, street sweeper, event calendar, miniature icons and playground slide" />
   </div>
 </div>
 
@@ -41,7 +41,9 @@ Tonight you are going to build something. First, a few things I have built with
 Lovable, why I built them, and what happened after I published them.
 Six projects. Only one that I would call a success as a business.
 Event context: https://www.aicampus.barcelona/es/program/buildjam-barcelona-build-the-app-your-business-needs-in-one-night-with-lovable-2026-11-18
-Cover artwork reused from Confessions of a Vibecoding Engineer, GenAI Valencia.
+Cover artwork: an AI-generated Barcelona maker’s workbench representing the six
+projects. Created with the built-in image generation tool on 18 November 2026.
+Art direction and full prompt: public/images/cover-art.json.
 -->
 
 ---
