@@ -1,0 +1,13 @@
+{
+  "origin": "https://nicotalks.netlify.app",
+  "name": "Nicolas Grenié — talks & workshops",
+  "title": "Talks & workshops — Nicolas Grenié",
+  "description": "Talks and workshops by Nicolas Grenié on AI, software development, voice agents, and tech communities.",
+  "person": {
+    "id": "https://nicolasgrenie.com/#person",
+    "name": "Nicolas Grenié",
+    "url": "https://nicolasgrenie.com/",
+    "description": "Developer advocate, hands-on builder and Lovable Ambassador.",
+    "sameAs": ["https://github.com/picsoung", "https://linkedin.com/in/nicolasgrenie", "https://x.com/picsoung"]
+  }
+}

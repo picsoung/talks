@@ -20,6 +20,9 @@ venue: "BuildJam · Barcelona · 18 November 2026"
 handle: "@picsoung"
 class: ng-dark
 hideInToc: true
+titleTemplate: '%s — Nicolas Grenié'
+htmlAttrs:
+  lang: en
 ---
 
 <img src="/memoji.png" class="title-memoji" alt="Nicolas Grenié" />

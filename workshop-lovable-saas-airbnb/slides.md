@@ -27,6 +27,9 @@ handle: "@picsoung"
 class: ng-dark
 hideInToc: true
 hideChrome: true
+titleTemplate: '%s — Nicolas Grenié'
+htmlAttrs:
+  lang: es
 ---
 
 <!-- ============================================================

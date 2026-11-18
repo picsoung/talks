@@ -24,6 +24,7 @@ htmlAttrs:
 defaults:
   layout: default
   transition: fade
+titleTemplate: '%s — Nicolas Grenié'
 ---
 
 <div class="deck-slide cover-slide">
