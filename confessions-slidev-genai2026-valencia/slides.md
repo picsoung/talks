@@ -28,6 +28,9 @@ venue: "GenAI Summit · Valencia · April 2026"
 handle: "@picsoung"
 class: ng-dark
 hideInToc: true
+titleTemplate: '%s — Nicolas Grenié'
+htmlAttrs:
+  lang: en
 ---
 
 <!--

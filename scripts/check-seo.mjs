@@ -1,0 +1,74 @@
+import { readFile, stat } from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import { escape, summaryPath, isPreview } from './seo.mjs';
+const root = new URL('../', import.meta.url);
+const talks = JSON.parse(await readFile(new URL('talks.json', root)));
+const site = JSON.parse(await readFile(new URL('site/config.json', root)));
+const read = path => readFile(new URL(`dist${path}`, root), 'utf8');
+const preview = isPreview(process.env.CONTEXT);
+const meta = (html, key) => html.match(new RegExp(`<meta (?:name|property)="${key}" content="([^"]*)">`))?.[1];
+function checkPage(html, path, language, description) {
+  assert(html.includes(`<html lang="${language}">`), `${path}: language`);
+  assert.equal((html.match(/<title>/g) || []).length, 1, `${path}: one title`);
+  assert.equal((html.match(/rel="canonical"/g) || []).length, 1, `${path}: one canonical`);
+  assert(html.includes(`rel="canonical" href="${site.origin}${path}"`), `${path}: production canonical`);
+  assert.equal(meta(html, 'description'), escape(description), `${path}: description`);
+  assert.equal(meta(html, 'og:url'), site.origin + path, `${path}: sharing URL`);
+  assert.equal(meta(html, 'og:description'), escape(description));
+  assert.equal(meta(html, 'twitter:card'), 'summary_large_image');
+  assert.equal(meta(html, 'robots'), preview ? 'noindex, follow' : 'index, follow, max-image-preview:large');
+  const scripts = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+  assert.equal(scripts.length, 1, `${path}: one structured data graph`);
+  const data = JSON.parse(scripts[0][1]);
+  assert.equal(data['@context'], 'https://schema.org');
+  assert(data['@graph'].some(item => item['@id'] === site.person.id));
+  return data['@graph'];
+}
+const home = await read('/index.html');
+const graph = checkPage(home, '/', 'en', site.description);
+assert.equal(graph.find(item => item['@type'] === 'CollectionPage').mainEntity.numberOfItems, talks.length);
+const paths = ['/'];
+for (const talk of talks) {
+  const path = summaryPath(talk);
+  const html = await read(path + 'index.html');
+  const graph = checkPage(html, path, talk.languageCode, talk.description);
+  assert.equal((html.match(/<h1>/g) || []).length, 1, `${talk.slug}: one visible primary heading`);
+  assert(html.includes(escape(talk.summary)), `${talk.slug}: static summary`);
+  for (const topic of talk.topics) assert(html.includes(escape(topic)), `${talk.slug}: static topic`);
+  assert(html.includes(`href="/${talk.slug}/"`), `${talk.slug}: slide link`);
+  assert(home.includes(`href="${path}"`), `${talk.slug}: discoverable summary`);
+  assert(!html.includes('{{COUNT}}') && !html.includes('<!-- TALKS -->'), `${talk.slug}: no unrendered homepage placeholders`);
+  const doc = graph.find(item => item['@type'] === 'PresentationDigitalDocument');
+  assert.equal(doc.temporalCoverage, talk.dateISO);
+  assert.equal(doc.inLanguage, talk.languageCode);
+  const deck = await read(`/${talk.slug}/index.html`);
+  checkPage(deck, `/${talk.slug}/`, talk.languageCode, talk.description);
+  assert(deck.includes(`href="${path}"`), `${talk.slug}: non-JavaScript fallback`);
+  assert(deck.includes('<div id="app"></div>'), `${talk.slug}: Slidev mount retained`);
+  const imageUrl = new URL(meta(html, 'og:image'));
+  assert.equal(imageUrl.origin, site.origin);
+  const image = await readFile(new URL(`dist${imageUrl.pathname}`, root));
+  assert.equal(Number(meta(html, 'og:image:width')), image.readUInt32BE(16), `${talk.slug}: actual image width`);
+  assert.equal(Number(meta(html, 'og:image:height')), image.readUInt32BE(20), `${talk.slug}: actual image height`);
+  paths.push(path, `/${talk.slug}/`);
+  console.log(`PASS SEO ${talk.slug}: static summary, language, metadata, schema, image and slides`);
+}
+const sitemap = await read('/sitemap.xml');
+const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
+assert.deepEqual(locations.sort(), paths.map(path => site.origin + path).sort());
+for (const path of paths) await stat(new URL(`dist${path}index.html`, root));
+assert(!sitemap.includes('lastmod'), 'Do not fabricate modification dates');
+const robots = await read('/robots.txt');
+assert(robots.includes('User-agent: *\nAllow: /'));
+assert(robots.includes('User-agent: OAI-SearchBot\nAllow: /'));
+assert(robots.includes(`Sitemap: ${site.origin}/sitemap.xml`));
+const llms = await read('/llms.txt');
+for (const talk of talks) assert(llms.includes(site.origin + summaryPath(talk)));
+assert((await read('/404.html')).includes('noindex, follow'));
+const headers = await read('/_headers');
+assert.equal(headers.startsWith('/*\n  X-Robots-Tag: noindex'), preview, 'Preview-only indexing header');
+for (const talk of talks) for (const route of ['presenter', 'notes']) {
+  assert(headers.includes(`/${talk.slug}/${route}\n  X-Robots-Tag: noindex, follow`));
+  assert(headers.includes(`/${talk.slug}/${route}/*\n  X-Robots-Tag: noindex, follow`));
+}
+console.log(`Verified SEO/AEO output: ${paths.length} canonical pages, sitemap, crawlers, sharing, schemas and preview indexing.`);

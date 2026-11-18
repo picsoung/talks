@@ -7,7 +7,17 @@
     "language": "English",
     "kind": "Talk",
     "description": "Six Lovable projects, one success story, and a few things to try tonight.",
-    "date": "18 November 2026"
+    "date": "18 November 2026",
+    "languageCode": "en",
+    "dateISO": "2026-11-18",
+    "durationMinutes": 15,
+    "summary": "A showcase of six apps built with Lovable, starting with small problems from everyday life. Nicolas shares ContractionTrack, the HackBarna attendee badge, Sweep SF, HackBarna Digest, Bnbicons and BarnaKids, with Bnbicons as the business success story. The talk also shows how to discuss a project in chat, use screenshots for feedback and add AI features.",
+    "topics": [
+      "Finding app ideas in everyday problems",
+      "ContractionTrack, HackBarna badge, Sweep SF and HackBarna Digest",
+      "Bnbicons and BarnaKids",
+      "Lovable chat, screenshot feedback and AI Gateway"
+    ]
   },
   {
     "slug": "from-workflow-to-skills",
@@ -17,7 +27,20 @@
     "language": "English",
     "kind": "Talk",
     "description": "A practical method for making your expertise reusable by agents.",
-    "date": ""
+    "date": "",
+    "languageCode": "en",
+    "durationMinutes": 60,
+    "speakers": [
+      "Manar Benkraouda",
+      "Nicolas Grenié"
+    ],
+    "summary": "Manar Benkraouda and Nicolas Grenié explain how to turn a recurring workflow into a reusable agent skill. The session follows the work with an agent, identifies the rules behind mistakes, separates instructions from supporting material and checks whether the result can be repeated. Examples include writing, documentation and interface design skills.",
+    "topics": [
+      "The difference between a workflow and a skill",
+      "Observing a workflow and identifying repeatable rules",
+      "Skill structure, supporting resources and repeatability",
+      "Discovering skills, inspecting access and managing context"
+    ]
   },
   {
     "slug": "fem-comunitat",
@@ -27,7 +50,17 @@
     "language": "Español",
     "kind": "Talk",
     "description": "Las comunidades tech de Barcelona y cómo cambian con la IA.",
-    "date": "17 October 2026"
+    "date": "17 October 2026",
+    "languageCode": "es",
+    "dateISO": "2026-10-17",
+    "durationMinutes": 10,
+    "summary": "Una charla sobre encontrar con quién construir en las comunidades tecnológicas de Barcelona. A partir de HackBarna y su Digest, Nicolas explora cómo la IA cambia el trabajo en solitario, los encuentros y la participación. Propone hacer de puente entre personas y comunidades, compartir espacios y crear lo que todavía falta.",
+    "topics": [
+      "Comunidades tech de Barcelona y HackBarna Digest",
+      "Trabajo con agentes de IA y conexión entre personas",
+      "Formatos de encuentro y espacios de comunidad",
+      "Participar, hacer de puente y crear lo que falta"
+    ]
   },
   {
     "slug": "confessions-devoxx-2026",
@@ -37,7 +70,17 @@
     "language": "Français",
     "kind": "Talk",
     "description": "Du prototypage rapide à la fin des intermédiaires : le rôle du développeur face à l’IA.",
-    "date": "2026"
+    "date": "2026",
+    "languageCode": "fr",
+    "dateISO": "2026",
+    "durationMinutes": 25,
+    "summary": "Du prototype personnel à la démonstration interne, Nicolas Grenié explore ce que le développement assisté par IA change dans le rôle du développeur. La conférence relie les expériences en solo au travail des équipes produit, avec une réflexion sur le prototypage rapide, le vibecoding et les intermédiaires entre une idée et son exécution.",
+    "topics": [
+      "Projets personnels et apprentissage par le prototypage",
+      "Vibecoding et développement assisté par IA",
+      "Passer du travail en solo au travail en équipe",
+      "Évolution du rôle du développeur et des équipes produit"
+    ]
   },
   {
     "slug": "confessions-genai-valencia",
@@ -47,7 +90,17 @@
     "language": "English",
     "kind": "Keynote",
     "description": "Vibecoding as muscle-building, and what happens when you bring that muscle back into your team.",
-    "date": "April 2026"
+    "date": "April 2026",
+    "languageCode": "en",
+    "dateISO": "2026-04",
+    "durationMinutes": 35,
+    "summary": "A keynote about treating personal projects as practice for building with AI. Nicolas Grenié connects experiments made alone with the realities of working in a product team, exploring how vibecoding changes prototyping, developer work and collaboration. The central question is what happens when those new habits return to the workplace.",
+    "topics": [
+      "Personal projects as practice for building with AI",
+      "Vibecoding and rapid prototyping",
+      "Bringing individual experiments into a product team",
+      "Changing developer roles and team collaboration"
+    ]
   },
   {
     "slug": "voice-agents-workshop",
@@ -57,7 +110,17 @@
     "language": "Español",
     "kind": "Workshop",
     "description": "Construye y despliega tu propio agente de voz con slng.ai en tres horas.",
-    "date": "2026"
+    "date": "2026",
+    "languageCode": "es",
+    "dateISO": "2026",
+    "durationMinutes": 180,
+    "summary": "Un taller para construir un agente de voz con IA usando slng.ai. El proyecto guía es BCN Concierge, un conserje telefónico de Barcelona. Las diapositivas recorren la arquitectura STT, LLM y TTS, el uso de herramientas y datos, la lógica de las llamadas y la publicación del agente.",
+    "topics": [
+      "Arquitectura de voz: STT, LLM, TTS y turnos",
+      "BCN Concierge: un conserje telefónico para Barcelona",
+      "Herramientas, datos del llamante y consultas a una base de datos",
+      "Registro de llamadas y publicación del agente"
+    ]
   },
   {
     "slug": "lovable-saas-workshop",
@@ -67,6 +130,16 @@
     "language": "Español",
     "kind": "Workshop",
     "description": "De una idea a un SaaS desplegado en producción con Lovable.",
-    "date": "2026"
+    "date": "2026",
+    "languageCode": "es",
+    "dateISO": "2026",
+    "durationMinutes": 300,
+    "summary": "Un taller práctico para pasar de una idea a un SaaS desplegado con Lovable. El recorrido parte de un producto pequeño que funcione y añade datos persistentes, autenticación, formularios y una función de IA para los usuarios. También cubre integraciones, publicación, conexión con GitHub y dominio propio.",
+    "topics": [
+      "Definir un producto pequeño y construir por etapas",
+      "Lovable Cloud: datos, autenticación y formularios",
+      "Funciones de IA e integraciones con otras aplicaciones",
+      "Publicar, conectar GitHub y usar un dominio propio"
+    ]
   }
 ]

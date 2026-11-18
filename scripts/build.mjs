@@ -3,10 +3,14 @@ import { existsSync } from 'node:fs';
 import { resolve, relative, sep, basename, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
+import { escape, applySeo, homeGraph, summaryPath, writeSearchPages, isPreview, validateMetadata, previewImage } from './seo.mjs';
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
 const output = resolve(root, 'dist');
 const talks = JSON.parse(await readFile(resolve(root, 'talks.json'), 'utf8'));
+const site = JSON.parse(await readFile(resolve(root, 'site/config.json'), 'utf8'));
+const preview = isPreview(process.env.CONTEXT);
+validateMetadata(site, talks);
 const homeOnly = process.argv.includes('--home-only');
 const slugs = new Set();
 for (const talk of talks) {
@@ -74,10 +78,11 @@ if (!homeOnly) {
 }
 await cp(resolve(root, 'site/previews'), resolve(output, 'previews'), { recursive: true });
 await cp(resolve(root, 'site/assets'), resolve(output, 'assets'), { recursive: true });
-const escape = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
-const cards = talks.map(talk => `<a class="talk" href="/${talk.slug}/" data-search="${escape([talk.title, talk.event, talk.date, talk.language, talk.kind].join(' ').toLowerCase())}"><img class="talk-preview" src="/previews/${talk.slug}.png" alt="Title slide: ${escape(talk.title)}" width="1440" height="810" loading="lazy" decoding="async"><div class="talk-details"><h2>${escape(talk.title)}</h2><p class="talk-meta"><span>${escape(talk.event)}</span><span>${escape(talk.date || "Date not listed")} · ${escape(talk.language)}</span></p></div></a>`).join('\n');
+const cards = talks.map(talk => `<article class="talk-entry" data-search="${escape([talk.title, talk.description, talk.event, talk.date, talk.language, talk.kind, ...talk.topics].join(' ').toLowerCase())}"><a class="talk" href="/${talk.slug}/" lang="${talk.languageCode}"><img class="talk-preview" src="/previews/${talk.slug}.png" alt="Title slide: ${escape(talk.title)}" width="1440" height="810" loading="lazy" decoding="async"><div class="talk-details"><h2>${escape(talk.title)}</h2><p class="talk-description">${escape(talk.description)}</p><p class="talk-meta"><span>${escape(talk.event)}</span><span>${escape(talk.date || "Date not listed")} · ${escape(talk.language)}</span></p></div></a><a class="talk-summary-link" href="${summaryPath(talk)}">Read talk summary<span class="sr-only">: ${escape(talk.title)}</span></a></article>`).join('\n');
 const template = await readFile(resolve(root, 'site/index.html'), 'utf8');
-await writeFile(resolve(output, 'index.html'), template.replace('<!-- TALKS -->', cards).replaceAll('{{COUNT}}', String(talks.length)));
-await writeFile(resolve(output, '_redirects'), talks.map(talk => `/${talk.slug} /${talk.slug}/ 301\n/${talk.slug}/* /${talk.slug}/index.html 200`).join('\n') + '\n');
-await writeFile(resolve(output, '404.html'), '<!doctype html><html lang="en"><meta charset="utf-8"><title>Talk not found</title><h1>Talk not found</h1><a href="/">Browse all talks</a></html>');
+const home = template.replace('<!-- TALKS -->', cards).replaceAll('{{COUNT}}', String(talks.length));
+await writeFile(resolve(output, 'index.html'), applySeo(home, { site, title: site.title, description: site.description, path: '/', ...await previewImage(output, talks[0]), imageAlt: `Title slide: ${talks[0].title}`, graph: homeGraph(site, talks), preview }));
+await writeSearchPages({ output, site, talks, template, preview });
+await writeFile(resolve(output, '_redirects'), talks.map(talk => `/${talk.slug} /${talk.slug}/ 301\n/${talk.slug}/* /${talk.slug}/index.html 200\n/talks/${talk.slug} /talks/${talk.slug}/ 301`).join('\n') + '\n');
+await writeFile(resolve(output, '404.html'), '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, follow"><title>Talk not found — Nicolas Grenié</title></head><body><h1>Talk not found</h1><a href="/">Browse all talks</a></body></html>');
 console.log(`\n${homeOnly ? 'Homepage only' : 'All talks'} ready in ${output}`);

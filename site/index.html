@@ -72,6 +72,27 @@ h1 { font-size: clamp(40px, 5vw, 64px); margin: 0 0 24px; }
 input { background: transparent; border: 1px solid hsl(230 16% 66%); padding: 12px 14px; border-radius: 7px; width: 250px; }
 input::placeholder { color: var(--muted); opacity: 1; }
 .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.talk-entry { display: flex; flex-direction: column; min-width: 0; }
+.talk-entry .talk { flex: 1; }
+.talk-description { margin: 12px 0 0; font-size: 15px; color: var(--muted); }
+.talk-summary-link { align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; font-size: 14px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.intro .speaker-intro { margin-top: 16px; font-size: 15px; }
+.breadcrumbs { margin-bottom: 28px; font-size: 14px; }
+.breadcrumbs a { display: inline-flex; align-items: center; min-height: 44px; }
+.talk-overview { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 48px; align-items: start; }
+.talk-facts { display: grid; gap: 16px; margin: 0 0 28px; }
+.talk-facts div { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 16px; }
+.talk-facts dt { color: var(--muted); font-size: 14px; }
+.talk-facts dd { margin: 0; }
+.slides-action { display: inline-flex; align-items: center; justify-content: center; padding: 14px 21px; min-height: 52px; border-radius: 7px; background: var(--gold); text-decoration: none; font-size: 15px; font-weight: 600; }
+.slides-action:hover { background: var(--gold-hover); }
+.summary-preview { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: var(--ink); border-radius: 12px; }
+.talk-copy { margin-top: 48px; max-width: 72ch; }
+.talk-copy h2 { margin-bottom: 20px; }
+.talk-copy p, .talk-copy ul { color: var(--muted); margin: 0; }
+.talk-copy ul { padding-left: 22px; }
+.talk-copy li + li { margin-top: 10px; }
 .talk { display: flex; flex-direction: column; padding: 0; border: 1px solid var(--border); text-decoration: none; transition: background .15s, transform .15s; min-height: 0; }
 .talk-preview { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: var(--ink); margin: 0; flex: none; border-bottom: 1px solid var(--border); }
 .talk:hover { background: hsl(230 25% 94%); transform: translateY(-3px); }
@@ -89,6 +110,7 @@ footer { margin-top: 55px; padding-block: 28px; border-top: 1px solid var(--bord
   .header-bar { min-height: 76px; }
   .mobile-menu-toggle { display: grid; place-items: center; width: 44px; height: 44px; }
   .mobile-navigation:not([hidden]) { display: block; }
+  .talk-overview { grid-template-columns: 1fr; gap: 32px; }
 }
 @media (max-width: 650px) {
   .grid { grid-template-columns: 1fr; }
@@ -113,6 +135,13 @@ footer { margin-top: 55px; padding-block: 28px; border-top: 1px solid var(--bord
   .talk:hover { transform: none; }
 }
 </style>
+<noscript><style>
+.search-label { display: none; }
+@media (max-width: 900px) {
+  .mobile-menu-toggle { display: none; }
+  .mobile-navigation[hidden] { display: block !important; }
+}
+</style></noscript>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to content</a>
@@ -150,6 +179,7 @@ footer { margin-top: 55px; padding-block: 28px; border-top: 1px solid var(--bord
   <section class="intro">
     <h1>Ideas worth sharing.</h1>
     <p>Talks and workshops on building with AI, finding your community, and learning by doing.</p>
+    <p class="speaker-intro">By <a href="https://nicolasgrenie.com/">Nicolas Grenié</a>, developer advocate and Lovable Ambassador.</p>
   </section>
   <div class="toolbar">
     <span class="talk-count" id="count" aria-live="polite">{{COUNT}} talks & workshops</span>
@@ -183,8 +213,8 @@ window.matchMedia('(min-width: 901px)').addEventListener('change', event => {
   if (event.matches) setMenuOpen(false);
 });
 const search = document.querySelector('#search');
-const talks = [...document.querySelectorAll('.talk')];
-search.addEventListener('input', () => {
+const talks = [...document.querySelectorAll('.talk-entry')];
+search?.addEventListener('input', () => {
   const query = search.value.trim().toLowerCase();
   let count = 0;
   for (const talk of talks) { talk.hidden = !talk.dataset.search.includes(query); if (!talk.hidden) count++; }

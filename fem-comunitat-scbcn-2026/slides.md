@@ -28,6 +28,9 @@ venue: "Software Crafters BCN · 2026"
 handle: "@picsoung"
 class: sponsor-slide
 hideVenue: true
+titleTemplate: '%s — Nicolas Grenié'
+htmlAttrs:
+  lang: es
 ---
 
 <!-- Official Software Crafters Barcelona 2026 sponsor slide; source: slide 5 of

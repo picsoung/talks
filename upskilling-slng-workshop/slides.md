@@ -30,6 +30,9 @@ layout: cover
 date: "2026"
 class: slng-dark
 hideInToc: true
+titleTemplate: '%s — Nicolas Grenié'
+htmlAttrs:
+  lang: es
 ---
 
 <!-- ============================================================
