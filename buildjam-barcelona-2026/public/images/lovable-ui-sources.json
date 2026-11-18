@@ -1,0 +1,18 @@
+{
+  "lovable-chat-free.png": {
+    "alt": "The dashboard mode picker open on Chat with a Free badge, and a tooltip reading 95% of free chat left (resets 2:00 AM). The send button reads Chat for free.",
+    "sourceImage": "https://mintcdn.com/lovable-f9060f1e/d7nFmH8-W9saY6mz/images/chats-mode-picker-free-badge.png?fit=max&auto=format&n=d7nFmH8-W9saY6mz&q=85&s=96aaf3c0635a974d6329e3b273dea769",
+    "sourcePage": "https://docs.lovable.dev/features/chats"
+  },
+  "lovable-screenshot-capture.png": {
+    "alt": "Screenshot capture feature in chat showing the ability to capture and share screenshots with the agent",
+    "sourceImage": "https://mintcdn.com/lovable-f9060f1e/tuanFug-s_mqtbi3/images/changelog-images/2025-nov-5-screenshot_capture.png?fit=max&auto=format&n=tuanFug-s_mqtbi3&q=85&s=8d6a0a9db5ab7f3cc5f47b1181f107b0",
+    "sourcePage": "https://docs.lovable.dev/changelog#nov-5-2025"
+  },
+  "lovable-ai-feature.png": {
+    "sourcePage": "https://lovable.dev/blog/lovable-cloud",
+    "sourceMedia": "https://assets.lovable.dev/content/news/mp4-to-gif-design.gif",
+    "description": "Still from the official Lovable AI demo, showing the generated AI tutor hint.",
+    "extraction": "Representative final frame from the official animation, without retouching."
+  }
+}

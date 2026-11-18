@@ -1,0 +1,44 @@
+{
+  "contractiontrack": {
+    "id": "link_1M7Q5299RPW2N7ZX3DMRBVQRK",
+    "url": "https://contractiontrack.com/?utm_source=buildjam&utm_medium=talk&utm_campaign=barcelona-2026-11-18",
+    "shortLink": "https://go.nicolas.dev/buildjam-contractions",
+    "qr": "public/images/qr/contractiontrack.svg"
+  },
+  "sweepsf": {
+    "id": "link_1M7Q52A7ZQA3GQH29H0BB9AX2",
+    "url": "https://sweepsf.nicolas.dev/?utm_source=buildjam&utm_medium=talk&utm_campaign=barcelona-2026-11-18",
+    "shortLink": "https://go.nicolas.dev/buildjam-sweepsf",
+    "qr": "public/images/qr/sweepsf.svg"
+  },
+  "digest": {
+    "id": "link_1M7Q52B40Y6K2C25FD3ZT3KTC",
+    "url": "https://digest.hackbarna.com/en?utm_source=buildjam&utm_medium=talk&utm_campaign=barcelona-2026-11-18",
+    "shortLink": "https://go.nicolas.dev/buildjam-digest",
+    "qr": "public/images/qr/digest.svg"
+  },
+  "bnbicons": {
+    "id": "link_1M7Q52BZEW02WQY4BKW9Y8PM5",
+    "url": "https://bnbicons.com/?utm_source=buildjam&utm_medium=talk&utm_campaign=barcelona-2026-11-18",
+    "shortLink": "https://go.nicolas.dev/buildjam-bnbicons",
+    "qr": "public/images/qr/bnbicons.svg"
+  },
+  "barnakids": {
+    "id": "link_1M7Q52CT05Q98TA1Q5GRXFY84",
+    "url": "https://barnakids.com/?utm_source=buildjam&utm_medium=talk&utm_campaign=barcelona-2026-11-18",
+    "shortLink": "https://go.nicolas.dev/buildjam-barnakids",
+    "qr": "public/images/qr/barnakids.svg"
+  },
+  "projects": {
+    "id": "link_1M7Q52DZ5Z48M19KQ9R5RHXD2",
+    "url": "https://nicolasgrenie.com/projects?utm_source=buildjam&utm_medium=talk&utm_campaign=barcelona-2026-11-18",
+    "shortLink": "https://go.nicolas.dev/buildjam-projects",
+    "qr": "public/images/qr/projects.svg"
+  },
+  "badge": {
+    "id": "link_1M7Q6V8HMCFXPXKNPK17995HG",
+    "url": "https://hackbarna-badge.lovable.app/?utm_source=buildjam&utm_medium=talk&utm_campaign=barcelona-2026-11-18",
+    "shortLink": "https://go.nicolas.dev/buildjam-badge",
+    "qr": "public/images/qr/badge.svg"
+  }
+}
